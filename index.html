@@ -65,6 +65,70 @@
             display: flex;
             gap: 0.5rem;
         }
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            cursor: pointer;
+        }
+        .cart-bubble {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+            padding: 1rem;
+            background: #f97316;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+        .cart-bubble:hover {
+            background-color: #ea580c;
+        }
+        .cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            transform: translate(50%, -50%);
+        }
+        .menu-item-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -77,8 +141,7 @@
                 Explorez le meilleur de la cuisine Malgache, Indienne et Créole.
             </p>
             <div class="mt-8 flex justify-center">
-                <!-- Image d'illustration des plats -->
-                <img src="https://placehold.co/600x400/ffe4b5/8b4513?text=Oh+Brochetti" alt="Image de plats Malgaches, Indiens et Créoles" class="rounded-2xl shadow-lg">
+                
             </div>
         </header>
 
@@ -88,6 +151,9 @@
             <p class="text-center text-slate-500 mb-8">
                 Cliquez sur un plat pour voir les détails.
             </p>
+             <div class="flex justify-center my-8">
+                
+            </div>
             <div id="brochettes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Les plats seront insérés ici par JavaScript -->
             </div>
@@ -96,6 +162,12 @@
         <!-- Section des plats traditionnels -->
         <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Plats Traditionnels</h2>
+            <p class="text-center text-slate-500 mb-8">
+                Cliquez sur un plat pour voir les détails.
+            </p>
+            <div class="flex justify-center my-8">
+                
+            </div>
             <div id="traditional-dishes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Les plats seront insérés ici par JavaScript -->
             </div>
@@ -104,6 +176,12 @@
         <!-- Section des rôtis au four -->
         <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Rôtis au Four</h2>
+            <p class="text-center text-slate-500 mb-8">
+                Cliquez sur un plat pour voir les détails.
+            </p>
+            <div class="flex justify-center my-8">
+                
+            </div>
             <div id="roti-au-four-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Les plats seront insérés ici par JavaScript -->
             </div>
@@ -112,6 +190,12 @@
         <!-- Section des accompagnements -->
         <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Accompagnements Maison</h2>
+            <p class="text-center text-slate-500 mb-8">
+                Cliquez sur un plat pour voir les détails.
+            </p>
+            <div class="flex justify-center my-8">
+                
+            </div>
             <div id="side-dishes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Les accompagnements seront insérés ici par JavaScript -->
             </div>
@@ -132,9 +216,9 @@
 
         <!-- Section du formulaire de commande -->
         <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
-            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Passer une commande</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Vos informations</h2>
             <p class="text-center text-lg text-slate-600 mb-6">
-                Sélectionnez vos plats et accompagnements ci-dessous.
+                Veuillez remplir vos informations de contact pour la livraison.
             </p>
             <form id="order-form" class="max-w-xl mx-auto space-y-4">
                 <div>
@@ -149,19 +233,34 @@
                     <label for="address" class="block text-sm font-medium text-slate-700">Votre Adresse de Livraison</label>
                     <textarea id="address" name="address" rows="3" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required></textarea>
                 </div>
+
+                <div class="mt-4">
+                    <label for="delivery-zone" class="block text-sm font-medium text-slate-700">Zone de Livraison</label>
+                    <select id="delivery-zone" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border">
+                        <!-- Options générées par JS -->
+                    </select>
+                </div>
                 
-                <!-- Section dynamique pour la sélection des plats -->
-                <div id="menu-order-form" class="space-y-6">
-                    <!-- Le formulaire sera généré ici par JavaScript -->
+                <div>
+                    <label for="delivery-date" class="block text-sm font-medium text-slate-700">Date de livraison souhaitée</label>
+                    <input type="date" id="delivery-date" name="delivery-date" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required>
+                    <p class="mt-2 text-xs text-amber-600">
+                        * Les commandes doivent être passées 48h à l'avance pour assurer au moins 24h de marinade pour les viandes (du lundi au vendredi). Pour une livraison le samedi, contactez-nous au préalable pour vérifier la disponibilité.
+                    </p>
+                </div>
+
+                <div>
+                    <label for="custom-note" class="block text-sm font-medium text-slate-700">Note de personnalisation (facultatif)</label>
+                    <textarea id="custom-note" name="custom-note" rows="3" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" placeholder="Ex: 'sans oignons', 'sans épices', etc."></textarea>
                 </div>
                 
                 <div class="flex justify-center">
-                    <button type="button" onclick="generateOrderEmail()" class="w-full md:w-auto px-6 py-3 bg-amber-600 text-white rounded-full font-bold shadow-lg hover:bg-amber-700 transition-colors">
-                        Envoyer la commande par e-mail
+                    <button type="button" onclick="showCartModal()" class="w-full md:w-auto px-6 py-3 bg-amber-600 text-white rounded-full font-bold shadow-lg hover:bg-amber-700 transition-colors">
+                        Voir le panier et commander
                     </button>
                 </div>
                 <p class="text-center text-sm text-slate-500 mt-4">
-                    Un e-mail sera préparé dans votre application de messagerie.
+                    Votre commande sera préparée pour être envoyée via WhatsApp.
                 </p>
             </form>
         </section>
@@ -179,11 +278,21 @@
         </footer>
     </main>
 
-    <!-- Chat AI Assistant -->
+    <!-- Bulle de chat AI -->
     <div id="chat-bubble" class="chat-bubble cursor-pointer p-4 bg-amber-600 rounded-full shadow-lg hover:bg-amber-700 transition-colors">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
         </svg>
+    </div>
+
+    <!-- Bulle du panier d'achat -->
+    <div id="cart-bubble" class="cart-bubble" onclick="showCartModal()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span id="cart-count" class="cart-count">0</span>
     </div>
 
     <div id="chat-container" class="chat-container hidden">
@@ -210,183 +319,490 @@
         </div>
     </div>
 
+    <!-- Modal pour ajouter un plat au panier avec quantité -->
+    <div id="add-to-cart-modal" class="modal hidden">
+        <div class="modal-content">
+            <h3 id="modal-title" class="text-2xl font-bold mb-4">Ajouter au panier</h3>
+            <div id="modal-body" class="mb-4">
+                <img id="modal-image" class="mx-auto rounded-lg mb-4" src="" alt="plat">
+                <p id="modal-description" class="text-slate-600 mb-4"></p>
+                <div class="flex items-center justify-center gap-4">
+                    <button id="modal-minus" class="p-2 bg-slate-200 rounded-full text-slate-600 hover:bg-slate-300 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"></path></svg>
+                    </button>
+                    <span id="modal-quantity" class="text-2xl font-bold">1</span>
+                    <button id="modal-plus" class="p-2 bg-amber-600 rounded-full text-white hover:bg-amber-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <button id="modal-add-button" class="w-full px-6 py-3 bg-amber-600 text-white rounded-full font-bold shadow-lg hover:bg-amber-700 transition-colors mt-4">
+                Ajouter <span id="modal-add-price"></span>
+            </button>
+        </div>
+    </div>
     <script>
         //
         // --- INSTRUCTIONS POUR LA MISE À JOUR DU MENU ---
         //
         // 1. Pour modifier votre menu, il vous suffit de modifier les objets ci-dessous.
-        // 2. Ajoutez ou supprimez des éléments dans les tableaux des différentes catégories.
-        // 3. Modifiez 'deliveryData' pour mettre à jour les prix de livraison par zone.
-        // 4. Les changements seront automatiquement affichés sur la page.
+        // 2. Les allergènes ont été identifiés automatiquement par une IA.
+        // 3. Ajoutez ou supprimez des éléments dans les tableaux des différentes catégories.
+        // 4. Modifiez 'deliveryData' pour mettre à jour les prix de livraison par zone.
+        // 5. Les changements seront automatiquement affichés sur la page.
+        // 6. NOTE : Pour les calculs, les prix ont été convertis en nombres.
         //
 
         const menuData = {
             brochettes: [
                 {
+                    id: "brochette-boeuf",
                     name: "Brochette de boeuf",
                     cuisine: "Malgache",
-                    price: "€00.00",
-                    description: "Minimum 250 g, environ 12 tiges (viande Halal).",
+                    price: 10.00,
+                    description: "Une portion de 250 g, environ 12 tiges. Les brochettes sont préparées, marinées et piquées, prêtes à être cuites chez vous au barbecue ou à la plancha (viande Halal).",
                     ingredients: ["Viande de boeuf", "Épices malgaches"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/e9d5ff/6b21a8?text=Brochette+de+boeuf"
                 },
                 {
+                    id: "brochette-poulet",
                     name: "Brochette de poulet",
                     cuisine: "Malgache",
-                    price: "€00.00",
-                    description: "Minimum 250 g, environ 10 tiges (viande Halal).",
+                    price: 8.50,
+                    description: "Une portion de 250 g, environ 10 tiges. Les brochettes sont préparées, marinées et piquées, prêtes à être cuites chez vous au barbecue ou à la plancha (viande Halal).",
                     ingredients: ["Poulet", "Épices malgaches"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/dbeafe/1e40af?text=Brochette+de+poulet"
                 },
                 {
+                    id: "brochette-agneau",
                     name: "Brochette d'agneau",
                     cuisine: "Malgache",
-                    price: "€00.00",
-                    description: "Brochette d'agneau tendre et juteux cuisiné selon la tradition malgache (viande Halal).",
+                    price: 12.00,
+                    description: "Brochette d'agneau tendre et juteux.",
                     ingredients: ["Agneau", "Épices malgaches"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fecaca/991b1b?text=Brochette+d'agneau"
                 },
                 {
+                    id: "brochette-magret",
                     name: "Brochette de Magret",
                     cuisine: "Malgache",
-                    price: "€00.00",
-                    description: "Délicieuse brochette de Magret de canard cuisiné selon la tradition malgache (viande Halal).",
+                    price: 11.00,
+                    description: "Délicieuse brochette de Magret de canard.",
                     ingredients: ["Magret de canard", "Épices malgaches"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fed7aa/ea580c?text=Brochette+de+Magret"
                 },
             ],
             traditionalDishes: [
                  {
+                    id: "sabeda",
                     name: "Sabeda (Sousoua)",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 14.50,
                     description: "Soupe traditionnelle à la malgache.",
                     ingredients: ["Viande au choix", "Légumes", "Épices"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/d1fae5/065f46?text=Sabeda"
                 },
                 {
+                    id: "vary-anana",
                     name: "Vary @anana (brèdes)",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 9.00,
                     description: "Un plat à base de brèdes. Nature ou avec Kimo (viande).",
                     ingredients: ["Riz", "Brèdes", "Ail", "Gingembre"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/e0f2f1/0f766e?text=Vary+anana"
                 },
                 {
+                    id: "soupes",
                     name: "Soupes",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 8.00,
                     description: "Légumes, chinoise, Paya (pieds de boeuf) ou Orientale (semoule et légumes).",
                     ingredients: ["Ingrédients variés selon le type de soupe"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/ffedd5/9a3412?text=Soupes"
                 },
                 {
+                    id: "romazave-boeuf",
                     name: "Romazave boeuf",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 15.00,
                     description: "Plat national malgache. Un bouillon parfumé aux brèdes et au bœuf, servi avec du riz (viande Halal).",
                     ingredients: ["Boeuf", "Brèdes", "Gingembre", "Ail", "Riz"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/f5d0fe/7e22ce?text=Romazave+boeuf"
                 },
                 {
-                    name: "Romazave crevette",
-                    cuisine: "Malgache",
-                    price: "€00.00",
-                    description: "Un savoureux romazave préparé avec des crevettes. Servi avec du riz.",
-                    ingredients: ["Crevettes", "Brèdes", "Gingembre", "Ail", "Riz"],
-                    allergens: ["Crustacés"]
-                },
-                {
+                    id: "romazave-poulet",
                     name: "Romazave Poulet",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 13.00,
                     description: "Un bouillon de brèdes et poulet, typique de la cuisine malgache, servi avec du riz (viande Halal).",
                     ingredients: ["Poulet", "Brèdes", "Gingembre", "Ail", "Riz"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fef08a/b45309?text=Romazave+poulet"
+                },
+                {
+                    id: "hena-ritra",
+                    name: "Hena Ritra",
+                    cuisine: "Malgache",
+                    price: 16.00,
+                    description: "Un mijoté de bœuf braisé malgache, cuit lentement avec du gingembre, de l'ail et des épices. La viande est très tendre et fondante.",
+                    ingredients: ["Boeuf", "Oignon", "Ail", "Gingembre", "Épices"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fce7f3/9d174d?text=Hena+Ritra"
                 },
             ],
             rotiAuFour: [
                 {
+                    id: "poulet-entier",
                     name: "Poulet entier",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 25.00,
                     description: "Nature ou farci aux oignons, pommes de terre et champignons (viande Halal).",
                     ingredients: ["Poulet", "Oignons", "Pommes de terre", "Champignons"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fff7ed/9a3412?text=Poulet+entier"
                 },
                 {
+                    id: "gigot-agneau-roti",
                     name: "Gigot d'agneau rôti",
                     cuisine: "Malgache",
-                    price: "€00.00",
+                    price: 35.00,
                     description: "Un gigot d'agneau rôti au four (viande Halal).",
                     ingredients: ["Agneau"],
-                    allergens: []
+                    allergens: [],
+                    image: "https://placehold.co/400x300/f0f9ff/0c4a6e?text=Gigot+d'agneau"
                 },
             ],
             sideDishes: [
                 {
+                    id: "rougail",
                     name: "Rougail",
                     cuisine: "Créole",
-                    price: "€00.00",
-                    description: "Un plat traditionnel de la Réunion.",
-                    ingredients: ["Saucisses fumées", "Tomates", "Oignons"],
-                    allergens: ["Sulfites (dans les saucisses)"]
+                    price: 4.50,
+                    description: "Un rougail de la Réunion, un condiment qui change selon la saison (ex: tomate, concombre, papaye, mangue).",
+                    ingredients: ["Selon la saison", "tomates", "concombre", "papaye", "mangue", "piment"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/dcfce7/166534?text=Rougail"
                 },
                 {
+                    id: "piment",
+                    name: "Piment",
+                    cuisine: "Créole",
+                    price: 1.00,
+                    description: "Pâte de piment frais pour relever vos plats. Attention, c'est fort !",
+                    ingredients: ["Piments frais", "Huile"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fee2e2/991b1b?text=Piment"
+                },
+                {
+                    id: "manioc",
                     name: "Manioc",
-                    price: "€00.00",
-                    description: "Manioc bouilli ou frit, au choix."
+                    price: 3.50,
+                    description: "Manioc bouilli ou frit, au choix.",
+                    ingredients: ["Manioc"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/e9d5ff/6b21a8?text=Manioc"
                 },
                 {
+                    id: "gratin-legume",
                     name: "Gratin de légume",
-                    price: "€00.00",
-                    description: "Un gratin de légumes du jour."
+                    price: 4.00,
+                    description: "Un gratin de légumes du jour.",
+                    ingredients: ["Légumes", "Lait", "Fromage"],
+                    allergens: ["Lait"],
+                    image: "https://placehold.co/400x300/f3e8ff/5b21b6?text=Gratin+de+legume"
                 },
                 {
+                    id: "legumes-sautes",
                     name: "Assortiment de légumes sautés",
-                    price: "€00.00",
-                    description: "Un mélange de légumes frais légèrement sautés."
+                    price: 4.00,
+                    description: "Un mélange de légumes frais légèrement sautés.",
+                    ingredients: ["Légumes variés"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/ccfbf1/0f766e?text=Legumes+sautes"
                 },
                 {
+                    id: "taboule",
                     name: "Taboulé",
-                    price: "€00.00",
-                    description: "Taboulé frais aux herbes et à la tomate."
+                    price: 3.00,
+                    description: "Taboulé frais aux herbes et à la tomate.",
+                    ingredients: ["Semoule", "Tomate", "Concombre", "Menthe", "Persil", "Citron"],
+                    allergens: ["Céréales contenant du gluten"],
+                    image: "https://placehold.co/400x300/dcfce7/166534?text=Taboule"
                 },
                 {
+                    id: "salade-composee",
                     name: "Salade composée",
-                    price: "€00.00",
-                    description: "Une salade fraîche avec des légumes de saison."
+                    price: 3.50,
+                    description: "Une salade fraîche avec des légumes de saison.",
+                    ingredients: ["Légumes de saison"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/eff6ff/1e40af?text=Salade+composee"
                 },
                 {
+                    id: "salade-russe",
                     name: "Salade russe",
-                    price: "€00.00",
-                    description: "Salade classique avec pommes de terre, carottes, petits pois, et mayonnaise."
+                    price: 3.50,
+                    description: "Salade classique avec pommes de terre, carottes, petits pois, et mayonnaise.",
+                    ingredients: ["Pommes de terre", "Carottes", "Petits pois", "Mayonnaise"],
+                    allergens: ["Œufs", "Moutarde"],
+                    image: "https://placehold.co/400x300/fef08a/92400e?text=Salade+russe"
                 },
                  {
+                    id: "achard-legumes",
                     name: "Achard de légumes",
-                    price: "€00.00",
-                    description: "Légumes marinés et épicés, parfaits pour accompagner vos plats."
+                    price: 4.00,
+                    description: "Légumes marinés et épicés, parfaits pour accompagner vos plats.",
+                    ingredients: ["Légumes", "Épices", "Vinaigre"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fce7f3/9d174d?text=Achard+de+legumes"
                 },
                 {
+                    id: "pommes-de-terre-roties",
                     name: "Pommes de terre rôties",
-                    price: "€00.00",
-                    description: "Délicieuses pommes de terre rôties au four."
+                    price: 3.50,
+                    description: "Délicieuses pommes de terre rôties au four.",
+                    ingredients: ["Pommes de terre", "Herbes"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/fed7aa/ea580c?text=Pommes+de+terre+roties"
                 },
                 {
+                    id: "legumes-marines-farcis",
                     name: "Légumes marinés farcis",
-                    price: "€00.00",
-                    description: "Courgettes ou aubergines farcies et marinées."
+                    price: 4.50,
+                    description: "Courgettes ou aubergines farcies et marinées.",
+                    ingredients: ["Courgettes", "Aubergines", "Viande hachée"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/e9d5ff/6b21a8?text=Légumes+marines+farcis"
                 },
             ]
         };
 
         const deliveryData = {
-            "Zone 1 (Saint-Denis)": "€5.00",
-            "Zone 2 (Sainte-Clotilde, Le Chaudron)": "€7.00",
-            "Zone 3 (Le Port, Saint-Paul)": "€10.00",
-            "Hors zones": "Contactez-nous pour un devis personnalisé"
+            "Zone 1 (Saint-Denis)": 5.00,
+            "Zone 2 (Sainte-Clotilde, Le Chaudron)": 7.00,
+            "Zone 3 (Le Port, Saint-Paul)": 10.00,
+            "Hors zones": null
         };
         
+        const allMenuItems = [
+            ...menuData.brochettes,
+            ...menuData.traditionalDishes,
+            ...menuData.rotiAuFour,
+            ...menuData.sideDishes
+        ];
+
+        let cart = {};
+
+        // Fonctions pour gérer le panier
+        function addToCart(itemId, quantity = 1) {
+            if (cart[itemId]) {
+                cart[itemId].quantity += quantity;
+            } else {
+                const item = allMenuItems.find(i => i.id === itemId);
+                if (item) {
+                    cart[itemId] = { ...item, quantity: quantity };
+                }
+            }
+            updateCartUI();
+        }
+        
+        function updateCartItemQuantity(itemId, newQuantity) {
+            if (cart[itemId]) {
+                if (newQuantity <= 0) {
+                    removeCartItem(itemId);
+                } else {
+                    cart[itemId].quantity = newQuantity;
+                }
+                updateCartUI();
+            }
+        }
+        
+        function removeCartItem(itemId) {
+            delete cart[itemId];
+            updateCartUI();
+        }
+        
+        function clearCart() {
+            if (Object.keys(cart).length === 0) return;
+            const modal = document.createElement('div');
+            modal.className = "fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center";
+            modal.innerHTML = `
+                <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto text-center">
+                    <h4 class="text-lg font-bold mb-2">Vider le panier</h4>
+                    <p class="text-sm text-slate-600">Êtes-vous sûr de vouloir vider votre panier ?</p>
+                    <div class="mt-4 flex justify-around">
+                        <button onclick="document.body.removeChild(this.parentNode.parentNode.parentNode)" class="px-4 py-2 bg-slate-200 rounded-md text-slate-700">Annuler</button>
+                        <button onclick="performClearCart()" class="px-4 py-2 bg-red-600 text-white rounded-md">Vider</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function performClearCart() {
+            cart = {};
+            updateCartUI();
+            const cartModal = document.getElementById('cart-modal');
+            if (cartModal) {
+                cartModal.remove();
+            }
+            const confirmModal = document.querySelector('.fixed.inset-0.bg-gray-600.bg-opacity-50');
+            if(confirmModal) confirmModal.remove();
+        }
+
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            let totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Mettre à jour le contenu de la modale si elle est ouverte
+            const modal = document.querySelector('.modal');
+            if (modal && modal.id === 'cart-modal') {
+                renderCartContent();
+            }
+        }
+
+        function calculateTotalCost() {
+            let total = Object.values(cart).reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryZone = document.getElementById('delivery-zone').value;
+            const deliveryCost = deliveryData[deliveryZone];
+            
+            if (deliveryCost !== null && !isNaN(deliveryCost)) {
+                total += deliveryCost;
+            }
+
+            return total;
+        }
+
+        function showCartModal() {
+            const existingModal = document.getElementById('cart-modal');
+            if (existingModal) existingModal.remove();
+
+            const modal = document.createElement('div');
+            modal.id = "cart-modal";
+            modal.className = "modal";
+            modal.innerHTML = `
+                <div class="modal-content relative bg-white rounded-xl shadow-lg p-8">
+                    <button class="modal-close text-slate-500 hover:text-slate-800" onclick="document.body.removeChild(this.parentNode.parentNode)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h2 class="text-2xl font-bold text-center text-slate-900 mb-6">Votre Panier</h2>
+                    <div id="cart-content" class="text-left space-y-4 mb-6"></div>
+                    <div id="cart-total" class="flex justify-between items-center font-bold text-lg p-4 border-t border-slate-200 mt-4"></div>
+                    <div class="flex flex-col md:flex-row justify-between gap-4 mt-4">
+                        <button onclick="clearCart()" class="w-full md:w-auto px-6 py-3 bg-red-600 text-white rounded-full font-bold shadow-lg hover:bg-red-700 transition-colors">
+                            Vider le panier
+                        </button>
+                        <button onclick="sendWhatsAppOrder()" class="w-full md:w-auto px-6 py-3 bg-green-600 text-white rounded-full font-bold shadow-lg hover:bg-green-700 transition-colors flex items-center justify-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8L22 22l-6.5-1.5a9.61 9.61 0 0 1-5.65 1.5 9.61 9.61 0 0 1-9.61-9.61c0-5.3 4.31-9.61 9.61-9.61s9.61 4.31 9.61 9.61z"></path>
+                            </svg>
+                            Envoyer la commande sur WhatsApp
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-2">Vous devrez d'abord remplir vos informations de contact.</p>
+                </div>
+            `;
+            document.body.appendChild(modal);
+            renderCartContent();
+        }
+
+        function renderCartContent() {
+            const container = document.getElementById('cart-content');
+            const totalContainer = document.getElementById('cart-total');
+            container.innerHTML = '';
+            
+            if (Object.keys(cart).length === 0) {
+                container.innerHTML = `<p class="text-center text-slate-500">Votre panier est vide.</p>`;
+                totalContainer.innerHTML = `<span>Total :</span><span class="text-amber-600">€0.00</span>`;
+                return;
+            }
+
+            Object.values(cart).forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex items-center justify-between gap-4 py-2 border-b last:border-b-0 border-slate-200';
+                itemDiv.innerHTML = `
+                    <div class="flex-1">
+                        <h4 class="font-medium text-slate-800">${item.name}</h4>
+                        <span class="text-sm text-slate-500">€${item.price.toFixed(2)} l'unité</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="updateCartItemQuantity('${item.id}', ${item.quantity - 1})" class="p-1 bg-slate-200 rounded-full text-slate-600 hover:bg-slate-300 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"></path></svg>
+                        </button>
+                        <span class="font-bold w-6 text-center">${item.quantity}</span>
+                        <button onclick="updateCartItemQuantity('${item.id}', ${item.quantity + 1})" class="p-1 bg-amber-600 rounded-full text-white hover:bg-amber-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+                        </button>
+                        <button onclick="removeCartItem('${item.id}')" class="p-1 text-red-500 hover:text-red-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="font-bold text-amber-600">€${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                container.appendChild(itemDiv);
+            });
+
+            totalContainer.innerHTML = `<span>Total :</span><span class="text-amber-600">€${calculateTotalCost().toFixed(2)}</span>`;
+        }
+
+        function sendWhatsAppOrder() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const deliveryZone = document.getElementById('delivery-zone').value;
+            const customNote = document.getElementById('custom-note').value;
+            const deliveryDate = document.getElementById('delivery-date').value;
+
+
+            if (!name || !phone || !address || !deliveryDate || Object.keys(cart).length === 0) {
+                const modal = document.createElement('div');
+                modal.className = "fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center";
+                modal.innerHTML = `
+                    <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto">
+                        <h4 class="text-lg font-bold mb-2">Champs manquants ou panier vide</h4>
+                        <p class="text-sm text-slate-600">Veuillez remplir toutes les informations requises et avoir au moins un plat dans votre panier pour passer la commande.</p>
+                        <button onclick="this.parentNode.parentNode.remove()" class="mt-4 w-full px-4 py-2 bg-amber-600 text-white rounded-md">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                return;
+            }
+
+            const phoneNumber = "262693805535";
+            const totalCostText = calculateTotalCost().toFixed(2);
+            
+            let orderText = "";
+            Object.values(cart).forEach(item => {
+                orderText += `- ${item.quantity}x ${item.name} (€${(item.quantity * item.price).toFixed(2)})\n`;
+            });
+
+            if (customNote) {
+                orderText += `\nNote de personnalisation : ${customNote}\n`;
+            }
+
+            const deliveryCost = deliveryData[deliveryZone] !== null ? deliveryData[deliveryZone].toFixed(2) : 'N/A';
+            const message = encodeURIComponent(`Nouvelle commande :\n- Nom : ${name}\n- Téléphone : ${phone}\n- Adresse : ${address}\n- Zone de livraison : ${deliveryZone} (Frais de livraison: €${deliveryCost})\n- Date de livraison souhaitée : ${deliveryDate}\n\n- Commande :\n${orderText}\n- Coût total : €${totalCostText}\n\n- Heure de commande : ${new Date().toLocaleString('fr-FR')}`);
+            
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
         // Fonction pour générer le HTML des plats principaux (brochettes)
         function renderBrochettes() {
             const container = document.getElementById('brochettes-menu');
@@ -429,11 +845,11 @@
 
         function createMenuItemCard(dish, ingredientId) {
             const card = document.createElement('div');
-            card.className = "bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 transform hover:scale-105 cursor-pointer border border-slate-200";
+            card.className = "menu-item-card bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 transform hover:scale-105 cursor-pointer border border-slate-200";
             
             let allergensHtml = '';
             if (dish.allergens && dish.allergens.length > 0) {
-                allergensHtml = `<p class="text-red-500 font-bold text-sm mt-2">Allergènes : ${dish.allergens.join(', ')}</p>`;
+                allergensHtml = `<p class="text-red-500 font-bold text-sm mt-2">Allergènes* : ${dish.allergens.join(', ')}</p>`;
             }
 
             let cuisineHtml = '';
@@ -446,23 +862,31 @@
                     <h3 class="text-xl md:text-2xl font-semibold text-slate-900">${dish.name}</h3>
                     <button class="text-slate-500 hover:text-amber-600 transition-colors" onclick="event.stopPropagation(); speakMenuText('${dish.name}. ${dish.description.replace(/'/g, "\\'")}.');">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></path>
                             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
                         </svg>
                     </button>
                 </div>
                 ${cuisineHtml}
-                <p class="text-2xl font-bold text-amber-600 mt-2">${dish.price}</p>
-                <p class="text-sm text-slate-600 mt-4">${dish.description}</p>
-                
-                <div id="${ingredientId}" class="mt-4 hidden border-t pt-4 border-slate-200">
-                    <p class="font-semibold text-slate-800">Ingrédients :</p>
-                    <p class="text-sm text-slate-600">${dish.ingredients ? dish.ingredients.join(', ') : 'Non spécifié'}</p>
-                    ${allergensHtml}
+                <p class="text-2xl font-bold text-amber-600 mt-2">€${dish.price.toFixed(2)}</p>
+                <div>
+                    <p class="text-sm text-slate-600 mt-4">${dish.description}</p>
+                    <div class="mt-2 text-center text-sm text-amber-600 font-bold">
+                        Cliquez pour voir les ingrédients
+                    </div>
+                    <div id="${ingredientId}" class="mt-4 hidden border-t pt-4 border-slate-200">
+                        <p class="font-semibold text-slate-800">Ingrédients :</p>
+                        <p class="text-sm text-slate-600">${dish.ingredients ? dish.ingredients.join(', ') : 'Non spécifié'}</p>
+                        ${allergensHtml}
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-center">
+                    <button onclick="event.stopPropagation(); showAddModal('${dish.id}')" class="w-full md:w-auto px-6 py-3 bg-amber-600 text-white rounded-full font-bold shadow-lg hover:bg-amber-700 transition-colors">
+                        + Ajouter au panier
+                    </button>
                 </div>
             `;
 
-            // Ajoutez l'événement pour basculer la visibilité des ingrédients
             card.addEventListener('click', () => {
                 const ingredientsDiv = document.getElementById(ingredientId);
                 ingredientsDiv.classList.toggle('hidden');
@@ -478,136 +902,82 @@
             for (const zone in deliveryData) {
                 const listItem = document.createElement('li');
                 listItem.className = "flex justify-between items-center bg-slate-100 p-4 rounded-xl shadow-inner border border-slate-200";
+                const priceText = deliveryData[zone] !== null ? `€${deliveryData[zone].toFixed(2)}` : "Contactez-nous pour un devis personnalisé";
                 listItem.innerHTML = `
                     <span class="text-slate-700 font-medium">${zone}</span>
-                    <span class="text-amber-600 font-bold">${deliveryData[zone]}</span>
+                    <span class="text-amber-600 font-bold">${priceText}</span>
                 `;
                 container.appendChild(listItem);
             }
         }
 
-        // Fonction pour générer le formulaire de commande dynamique
-        function renderOrderForm() {
-            const container = document.getElementById('menu-order-form');
-            container.innerHTML = '';
+        // Fonction pour générer le menu déroulant des zones de livraison
+        function renderDeliverySelect() {
+            const select = document.getElementById('delivery-zone');
+            select.innerHTML = '';
+            for (const zone in deliveryData) {
+                const option = document.createElement('option');
+                option.value = zone;
+                option.textContent = `${zone}${deliveryData[zone] !== null ? ` (€${deliveryData[zone].toFixed(2)})` : ''}`;
+                select.appendChild(option);
+            }
+        }
+
+        function showAddModal(itemId) {
+            const modal = document.getElementById('add-to-cart-modal');
+            const item = allMenuItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            document.getElementById('modal-title').textContent = item.name;
+            document.getElementById('modal-description').textContent = item.description;
+            document.getElementById('modal-image').src = item.image;
+            document.getElementById('modal-quantity').textContent = "1";
+            document.getElementById('modal-add-price').textContent = `(€${item.price.toFixed(2)})`;
+
+            const quantitySpan = document.getElementById('modal-quantity');
+            const plusButton = document.getElementById('modal-plus');
+            const minusButton = document.getElementById('modal-minus');
+            const addButton = document.getElementById('modal-add-button');
+
+            plusButton.onclick = null;
+            minusButton.onclick = null;
+            addButton.onclick = null;
             
-            const categories = {
-                'Brochettes': menuData.brochettes,
-                'Plats Traditionnels': menuData.traditionalDishes,
-                'Rôtis au Four': menuData.rotiAuFour,
-                'Accompagnements Maison': menuData.sideDishes
+            const handlePlus = () => {
+                let currentQuantity = parseInt(quantitySpan.textContent);
+                currentQuantity++;
+                quantitySpan.textContent = currentQuantity;
+                document.getElementById('modal-add-price').textContent = `(€${(item.price * currentQuantity).toFixed(2)})`;
             };
 
-            for (const title in categories) {
-                const categoryItems = categories[title];
-                const categoryDiv = document.createElement('div');
-                categoryDiv.className = 'bg-slate-100 p-4 rounded-xl shadow-inner';
-                
-                categoryDiv.innerHTML = `<h3 class="text-lg font-bold text-slate-800 mb-2">${title}</h3>`;
-                
-                const listDiv = document.createElement('div');
-                listDiv.className = 'space-y-2';
-
-                const safeTitle = title.replace(/\s/g, '-');
-
-                categoryItems.forEach((item, index) => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'flex items-center justify-between gap-4 py-2 border-b last:border-b-0 border-slate-200';
-                    itemDiv.innerHTML = `
-                        <div class="flex items-center gap-2">
-                            <input type="checkbox" id="order-item-${safeTitle}-${index}" data-name="${item.name}" class="rounded text-amber-600 focus:ring-amber-500">
-                            <label for="order-item-${safeTitle}-${index}" class="text-sm md:text-base text-slate-700 font-medium cursor-pointer">${item.name}</label>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <label for="quantity-item-${safeTitle}-${index}" class="text-sm text-slate-500">Qté:</label>
-                            <input type="number" id="quantity-item-${safeTitle}-${index}" min="0" value="0" class="w-16 text-center text-sm rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-1 border">
-                        </div>
-                    `;
-                    listDiv.appendChild(itemDiv);
-
-                    // Add logic to enable/disable quantity input based on checkbox
-                    const checkbox = itemDiv.querySelector(`#order-item-${safeTitle}-${index}`);
-                    const quantityInput = itemDiv.querySelector(`#quantity-item-${safeTitle}-${index}`);
-                    
-                    if (checkbox && quantityInput) {
-                        checkbox.addEventListener('change', (e) => {
-                            if (e.target.checked) {
-                                quantityInput.value = 1;
-                            } else {
-                                quantityInput.value = 0;
-                            }
-                        });
-
-                        quantityInput.addEventListener('change', (e) => {
-                            if (e.target.value > 0) {
-                                checkbox.checked = true;
-                            } else {
-                                checkbox.checked = false;
-                            }
-                        });
-                    }
-                });
-
-                categoryDiv.appendChild(listDiv);
-                container.appendChild(categoryDiv);
-            }
-        }
-
-        // Fonction pour générer l'e-mail de commande
-        function generateOrderEmail() {
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-
-            // Collecter les détails de la commande à partir des checkboxes et des quantités
-            const orderItems = document.querySelectorAll('#menu-order-form input[type="checkbox"]:checked');
-            
-            let orderDetails = "";
-            orderItems.forEach(item => {
-                const quantityId = item.id.replace('order-item-', 'quantity-item-');
-                const quantityInput = document.getElementById(quantityId);
-                const quantity = quantityInput.value;
-                const itemName = item.dataset.name;
-                
-                if (quantity > 0) {
-                    orderDetails += `${quantity}x ${itemName}\n`;
+            const handleMinus = () => {
+                let currentQuantity = parseInt(quantitySpan.textContent);
+                if (currentQuantity > 1) {
+                    currentQuantity--;
+                    quantitySpan.textContent = currentQuantity;
+                    document.getElementById('modal-add-price').textContent = `(€${(item.price * currentQuantity).toFixed(2)})`;
                 }
-            });
-
-            // Vérifiez que les champs obligatoires sont remplis et qu'il y a des plats sélectionnés
-            if (!name || !phone || !address || orderDetails === "") {
-                const modal = document.createElement('div');
-                modal.className = "fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center";
-                modal.innerHTML = `
-                    <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto">
-                        <h4 class="text-lg font-bold mb-2">Champs manquants ou commande vide</h4>
-                        <p class="text-sm text-slate-600">Veuillez remplir vos informations et sélectionner au moins un plat pour passer la commande.</p>
-                        <button onclick="this.parentNode.parentNode.remove()" class="mt-4 w-full px-4 py-2 bg-amber-600 text-white rounded-md">OK</button>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-                return;
-            }
+            };
             
-            const subject = encodeURIComponent(`Nouvelle commande de ${name}`);
-            const body = encodeURIComponent(`Détails de la commande :
-- Nom : ${name}
-- Téléphone : ${phone}
-- Adresse : ${address}
+            const handleAdd = () => {
+                const quantity = parseInt(quantitySpan.textContent);
+                addToCart(itemId, quantity);
+                modal.classList.add('hidden');
+            };
 
-- Commande :
-${orderDetails}
+            plusButton.onclick = handlePlus;
+            minusButton.onclick = handleMinus;
+            addButton.onclick = handleAdd;
 
-- Heure de commande : ${new Date().toLocaleString()}
-`);
+            modal.classList.remove('hidden');
 
-            const mailtoLink = `mailto:Lily-lll@hotmail.com?subject=${subject}&body=${body}`;
-            window.location.href = mailtoLink;
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            };
         }
-
-        //
-        // --- Intégration de l'API Gemini pour la synthèse vocale (TTS) ---
-        //
+        
         async function speakMenuText(text) {
             const apiKey = "";
             const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
@@ -670,26 +1040,22 @@ ${orderDetails}
             const buffer = new ArrayBuffer(44 + pcmData.length * 2);
             const view = new DataView(buffer);
 
-            // RIFF chunk descriptor
             writeString(view, 0, 'RIFF');
             view.setUint32(4, 36 + pcmData.length * 2, true);
             writeString(view, 8, 'WAVE');
 
-            // fmt chunk
             writeString(view, 12, 'fmt ');
             view.setUint32(16, 16, true);
-            view.setUint16(20, 1, true); // PCM format
-            view.setUint16(22, 1, true); // 1 channel
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
             view.setUint32(24, sampleRate, true);
-            view.setUint32(28, sampleRate * 2, true); // byte rate
-            view.setUint16(32, 2, true); // block align
-            view.setUint16(34, 16, true); // bits per sample
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
 
-            // data chunk
             writeString(view, 36, 'data');
             view.setUint32(40, pcmData.length * 2, true);
             
-            // PCM data
             let offset = 44;
             for (let i = 0; i < pcmData.length; i++) {
                 view.setInt16(offset, pcmData[i], true);
@@ -705,9 +1071,6 @@ ${orderDetails}
             }
         }
 
-        //
-        // --- Intégration de l'API Gemini pour l'assistant de menu ---
-        //
         const chatBubble = document.getElementById('chat-bubble');
         const chatContainer = document.getElementById('chat-container');
         const closeChatButton = document.getElementById('close-chat');
@@ -741,11 +1104,9 @@ ${orderDetails}
             const userMessage = chatInput.value.trim();
             if (userMessage === '') return;
 
-            // Afficher le message de l'utilisateur
             appendMessage(userMessage, 'user');
             chatInput.value = '';
 
-            // Afficher le message de chargement
             const loadingMessage = appendMessage('...', 'bot');
             const apiKey = "";
             const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
@@ -773,7 +1134,6 @@ ${orderDetails}
                 const result = await response.json();
                 const geminiText = result?.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu générer de réponse pour le moment.";
                 
-                // Mettre à jour le message de chargement avec la réponse
                 loadingMessage.textContent = geminiText;
                 chatHistory.push({ role: "model", parts: [{ text: geminiText }] });
 
@@ -798,26 +1158,25 @@ ${orderDetails}
             for (let i = 0; i < retries; i++) {
                 try {
                     const response = await fetch(url, options);
-                    if (response.status !== 429) { // 429 Too Many Requests
+                    if (response.status !== 429) {
                         return response;
                     }
                 } catch (error) {
                     if (i === retries - 1) throw error;
-                    // Exponential backoff
                     await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
                 }
             }
             throw new Error("Toutes les tentatives de connexion ont échoué.");
         }
 
-        // Exécutez les fonctions lors du chargement de la page
         document.addEventListener('DOMContentLoaded', () => {
             renderBrochettes();
             renderTraditionalDishes();
             renderRotiAuFour();
             renderSideDishes();
             renderDelivery();
-            renderOrderForm();
+            renderDeliverySelect();
+            updateCartUI();
         });
     </script>
 
