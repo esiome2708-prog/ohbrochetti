@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oh Brochetti</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chat-bubble {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 50;
+        }
+        .chat-container {
+            position: fixed;
+            bottom: 7rem;
+            right: 2rem;
+            width: 90vw;
+            max-width: 400px;
+            height: 60vh;
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 50;
+        }
+        .chat-header {
+            background: #f7e9c9;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-body {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .chat-message {
+            max-width: 80%;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+        }
+        .user-message {
+            align-self: flex-end;
+            background: #d1fae5;
+        }
+        .bot-message {
+            align-self: flex-start;
+            background: #e2e8f0;
+        }
+        .chat-input-container {
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <main class="container mx-auto p-4 md:p-8 lg:p-12">
+        <!-- Section d'en-tête -->
+        <header class="text-center my-8 md:my-12">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-amber-600 drop-shadow-md">Oh Brochetti</h1>
+            <p class="mt-4 text-xl md:text-2xl text-slate-600 font-light">
+                Explorez le meilleur de la cuisine Malgache, Indienne et Créole.
+            </p>
+            <div class="mt-8 flex justify-center">
+                <!-- Image d'illustration des plats -->
+                <img src="https://placehold.co/600x400/ffe4b5/8b4513?text=Oh+Brochetti" alt="Image de plats Malgaches, Indiens et Créoles" class="rounded-2xl shadow-lg">
+            </div>
+        </header>
+
+        <!-- Section des brochettes -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Brochettes</h2>
+            <p class="text-center text-slate-500 mb-8">
+                Cliquez sur un plat pour voir les détails.
+            </p>
+            <div id="brochettes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Les plats seront insérés ici par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section des plats traditionnels -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Plats Traditionnels</h2>
+            <div id="traditional-dishes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Les plats seront insérés ici par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section des rôtis au four -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Rôtis au Four</h2>
+            <div id="roti-au-four-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Les plats seront insérés ici par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section des accompagnements -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Accompagnements Maison</h2>
+            <div id="side-dishes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Les accompagnements seront insérés ici par JavaScript -->
+            </div>
+        </section>
+
+        <!-- Section de livraison -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Livraison</h2>
+            <p class="text-center text-lg text-slate-600">
+                Nous livrons dans les zones suivantes.
+            </p>
+            <div id="delivery-info" class="mt-6 max-w-lg mx-auto">
+                <ul class="space-y-4">
+                    <!-- Les zones de livraison seront insérées ici par JavaScript -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section du formulaire de commande -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Passer une commande</h2>
+            <p class="text-center text-lg text-slate-600 mb-6">
+                Sélectionnez vos plats et accompagnements ci-dessous.
+            </p>
+            <form id="order-form" class="max-w-xl mx-auto space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-slate-700">Votre Nom Complet</label>
+                    <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required>
+                </div>
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-slate-700">Votre Numéro de Téléphone</label>
+                    <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required>
+                </div>
+                <div>
+                    <label for="address" class="block text-sm font-medium text-slate-700">Votre Adresse de Livraison</label>
+                    <textarea id="address" name="address" rows="3" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required></textarea>
+                </div>
+                
+                <!-- Section dynamique pour la sélection des plats -->
+                <div id="menu-order-form" class="space-y-6">
+                    <!-- Le formulaire sera généré ici par JavaScript -->
+                </div>
+                
+                <div class="flex justify-center">
+                    <button type="button" onclick="generateOrderEmail()" class="w-full md:w-auto px-6 py-3 bg-amber-600 text-white rounded-full font-bold shadow-lg hover:bg-amber-700 transition-colors">
+                        Envoyer la commande par e-mail
+                    </button>
+                </div>
+                <p class="text-center text-sm text-slate-500 mt-4">
+                    Un e-mail sera préparé dans votre application de messagerie.
+                </p>
+            </form>
+        </section>
+
+        <!-- Section de contact -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-4">Contact</h2>
+            <p class="text-lg text-slate-600 mb-2">Pour toute question ou commande, contactez-nous au :</p>
+            <a href="tel:0693805535" class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-amber-600 hover:underline">0693 80 55 35</a>
+        </section>
+
+        <!-- Pied de page -->
+        <footer class="text-center mt-12 mb-4 text-slate-500 text-sm">
+            <p>&copy; 2024 Oh Brochetti. Tous droits réservés.</p>
+        </footer>
+    </main>
+
+    <!-- Chat AI Assistant -->
+    <div id="chat-bubble" class="chat-bubble cursor-pointer p-4 bg-amber-600 rounded-full shadow-lg hover:bg-amber-700 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+    </div>
+
+    <div id="chat-container" class="chat-container hidden">
+        <div class="chat-header">
+            <h3 class="text-lg font-bold text-slate-900">Assistant Menu ✨</h3>
+            <button id="close-chat" class="text-slate-500 hover:text-slate-800">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="chat-body" class="chat-body">
+            <div class="bot-message chat-message">Bonjour ! Comment puis-je vous aider à choisir votre plat ? Posez-moi une question sur le menu !</div>
+        </div>
+        <div class="chat-input-container">
+            <input id="chat-input" type="text" class="flex-grow rounded-full p-2 border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500" placeholder="Demandez une recommandation..." />
+            <button id="send-chat" class="p-2 bg-amber-600 text-white rounded-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        //
+        // --- INSTRUCTIONS POUR LA MISE À JOUR DU MENU ---
+        //
+        // 1. Pour modifier votre menu, il vous suffit de modifier les objets ci-dessous.
+        // 2. Ajoutez ou supprimez des éléments dans les tableaux des différentes catégories.
+        // 3. Modifiez 'deliveryData' pour mettre à jour les prix de livraison par zone.
+        // 4. Les changements seront automatiquement affichés sur la page.
+        //
+
+        const menuData = {
+            brochettes: [
+                {
+                    name: "Brochette de boeuf",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Minimum 250 g, environ 12 tiges (viande Halal).",
+                    ingredients: ["Viande de boeuf", "Épices malgaches"],
+                    allergens: []
+                },
+                {
+                    name: "Brochette de poulet",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Minimum 250 g, environ 10 tiges (viande Halal).",
+                    ingredients: ["Poulet", "Épices malgaches"],
+                    allergens: []
+                },
+                {
+                    name: "Brochette d'agneau",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Brochette d'agneau tendre et juteux cuisiné selon la tradition malgache (viande Halal).",
+                    ingredients: ["Agneau", "Épices malgaches"],
+                    allergens: []
+                },
+                {
+                    name: "Brochette de Magret",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Délicieuse brochette de Magret de canard cuisiné selon la tradition malgache (viande Halal).",
+                    ingredients: ["Magret de canard", "Épices malgaches"],
+                    allergens: []
+                },
+            ],
+            traditionalDishes: [
+                 {
+                    name: "Sabeda (Sousoua)",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Soupe traditionnelle à la malgache.",
+                    ingredients: ["Viande au choix", "Légumes", "Épices"],
+                    allergens: []
+                },
+                {
+                    name: "Vary @anana (brèdes)",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Un plat à base de brèdes. Nature ou avec Kimo (viande).",
+                    ingredients: ["Riz", "Brèdes", "Ail", "Gingembre"],
+                    allergens: []
+                },
+                {
+                    name: "Soupes",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Légumes, chinoise, Paya (pieds de boeuf) ou Orientale (semoule et légumes).",
+                    ingredients: ["Ingrédients variés selon le type de soupe"],
+                    allergens: []
+                },
+                {
+                    name: "Romazave boeuf",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Plat national malgache. Un bouillon parfumé aux brèdes et au bœuf, servi avec du riz (viande Halal).",
+                    ingredients: ["Boeuf", "Brèdes", "Gingembre", "Ail", "Riz"],
+                    allergens: []
+                },
+                {
+                    name: "Romazave crevette",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Un savoureux romazave préparé avec des crevettes. Servi avec du riz.",
+                    ingredients: ["Crevettes", "Brèdes", "Gingembre", "Ail", "Riz"],
+                    allergens: ["Crustacés"]
+                },
+                {
+                    name: "Romazave Poulet",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Un bouillon de brèdes et poulet, typique de la cuisine malgache, servi avec du riz (viande Halal).",
+                    ingredients: ["Poulet", "Brèdes", "Gingembre", "Ail", "Riz"],
+                    allergens: []
+                },
+            ],
+            rotiAuFour: [
+                {
+                    name: "Poulet entier",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Nature ou farci aux oignons, pommes de terre et champignons (viande Halal).",
+                    ingredients: ["Poulet", "Oignons", "Pommes de terre", "Champignons"],
+                    allergens: []
+                },
+                {
+                    name: "Gigot d'agneau rôti",
+                    cuisine: "Malgache",
+                    price: "€00.00",
+                    description: "Un gigot d'agneau rôti au four (viande Halal).",
+                    ingredients: ["Agneau"],
+                    allergens: []
+                },
+            ],
+            sideDishes: [
+                {
+                    name: "Rougail",
+                    cuisine: "Créole",
+                    price: "€00.00",
+                    description: "Un plat traditionnel de la Réunion.",
+                    ingredients: ["Saucisses fumées", "Tomates", "Oignons"],
+                    allergens: ["Sulfites (dans les saucisses)"]
+                },
+                {
+                    name: "Manioc",
+                    price: "€00.00",
+                    description: "Manioc bouilli ou frit, au choix."
+                },
+                {
+                    name: "Gratin de légume",
+                    price: "€00.00",
+                    description: "Un gratin de légumes du jour."
+                },
+                {
+                    name: "Assortiment de légumes sautés",
+                    price: "€00.00",
+                    description: "Un mélange de légumes frais légèrement sautés."
+                },
+                {
+                    name: "Taboulé",
+                    price: "€00.00",
+                    description: "Taboulé frais aux herbes et à la tomate."
+                },
+                {
+                    name: "Salade composée",
+                    price: "€00.00",
+                    description: "Une salade fraîche avec des légumes de saison."
+                },
+                {
+                    name: "Salade russe",
+                    price: "€00.00",
+                    description: "Salade classique avec pommes de terre, carottes, petits pois, et mayonnaise."
+                },
+                 {
+                    name: "Achard de légumes",
+                    price: "€00.00",
+                    description: "Légumes marinés et épicés, parfaits pour accompagner vos plats."
+                },
+                {
+                    name: "Pommes de terre rôties",
+                    price: "€00.00",
+                    description: "Délicieuses pommes de terre rôties au four."
+                },
+                {
+                    name: "Légumes marinés farcis",
+                    price: "€00.00",
+                    description: "Courgettes ou aubergines farcies et marinées."
+                },
+            ]
+        };
+
+        const deliveryData = {
+            "Zone 1 (Saint-Denis)": "€5.00",
+            "Zone 2 (Sainte-Clotilde, Le Chaudron)": "€7.00",
+            "Zone 3 (Le Port, Saint-Paul)": "€10.00",
+            "Hors zones": "Contactez-nous pour un devis personnalisé"
+        };
+        
+        // Fonction pour générer le HTML des plats principaux (brochettes)
+        function renderBrochettes() {
+            const container = document.getElementById('brochettes-menu');
+            container.innerHTML = '';
+            menuData.brochettes.forEach((dish, index) => {
+                const card = createMenuItemCard(dish, `brochettes-ingredients-${index}`);
+                container.appendChild(card);
+            });
+        }
+
+        // Fonction pour générer le HTML des plats traditionnels
+        function renderTraditionalDishes() {
+            const container = document.getElementById('traditional-dishes-menu');
+            container.innerHTML = '';
+            menuData.traditionalDishes.forEach((dish, index) => {
+                const card = createMenuItemCard(dish, `trad-ingredients-${index}`);
+                container.appendChild(card);
+            });
+        }
+
+        // Fonction pour générer le HTML des rôtis au four
+        function renderRotiAuFour() {
+            const container = document.getElementById('roti-au-four-menu');
+            container.innerHTML = '';
+            menuData.rotiAuFour.forEach((dish, index) => {
+                const card = createMenuItemCard(dish, `roti-ingredients-${index}`);
+                container.appendChild(card);
+            });
+        }
+
+        // Fonction pour générer le HTML des accompagnements
+        function renderSideDishes() {
+            const container = document.getElementById('side-dishes-menu');
+            container.innerHTML = '';
+            menuData.sideDishes.forEach((side, index) => {
+                const card = createMenuItemCard(side, `side-ingredients-${index}`);
+                container.appendChild(card);
+            });
+        }
+
+        function createMenuItemCard(dish, ingredientId) {
+            const card = document.createElement('div');
+            card.className = "bg-slate-50 p-6 rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 transform hover:scale-105 cursor-pointer border border-slate-200";
+            
+            let allergensHtml = '';
+            if (dish.allergens && dish.allergens.length > 0) {
+                allergensHtml = `<p class="text-red-500 font-bold text-sm mt-2">Allergènes : ${dish.allergens.join(', ')}</p>`;
+            }
+
+            let cuisineHtml = '';
+            if (dish.cuisine) {
+                cuisineHtml = `<p class="mt-1 text-slate-500 text-sm font-medium uppercase">${dish.cuisine}</p>`;
+            }
+
+            card.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl md:text-2xl font-semibold text-slate-900">${dish.name}</h3>
+                    <button class="text-slate-500 hover:text-amber-600 transition-colors" onclick="event.stopPropagation(); speakMenuText('${dish.name}. ${dish.description.replace(/'/g, "\\'")}.');">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                        </svg>
+                    </button>
+                </div>
+                ${cuisineHtml}
+                <p class="text-2xl font-bold text-amber-600 mt-2">${dish.price}</p>
+                <p class="text-sm text-slate-600 mt-4">${dish.description}</p>
+                
+                <div id="${ingredientId}" class="mt-4 hidden border-t pt-4 border-slate-200">
+                    <p class="font-semibold text-slate-800">Ingrédients :</p>
+                    <p class="text-sm text-slate-600">${dish.ingredients ? dish.ingredients.join(', ') : 'Non spécifié'}</p>
+                    ${allergensHtml}
+                </div>
+            `;
+
+            // Ajoutez l'événement pour basculer la visibilité des ingrédients
+            card.addEventListener('click', () => {
+                const ingredientsDiv = document.getElementById(ingredientId);
+                ingredientsDiv.classList.toggle('hidden');
+            });
+
+            return card;
+        }
+
+        // Fonction pour générer le HTML de la livraison
+        function renderDelivery() {
+            const container = document.getElementById('delivery-info');
+            container.innerHTML = '';
+            for (const zone in deliveryData) {
+                const listItem = document.createElement('li');
+                listItem.className = "flex justify-between items-center bg-slate-100 p-4 rounded-xl shadow-inner border border-slate-200";
+                listItem.innerHTML = `
+                    <span class="text-slate-700 font-medium">${zone}</span>
+                    <span class="text-amber-600 font-bold">${deliveryData[zone]}</span>
+                `;
+                container.appendChild(listItem);
+            }
+        }
+
+        // Fonction pour générer le formulaire de commande dynamique
+        function renderOrderForm() {
+            const container = document.getElementById('menu-order-form');
+            container.innerHTML = '';
+            
+            const categories = {
+                'Brochettes': menuData.brochettes,
+                'Plats Traditionnels': menuData.traditionalDishes,
+                'Rôtis au Four': menuData.rotiAuFour,
+                'Accompagnements Maison': menuData.sideDishes
+            };
+
+            for (const title in categories) {
+                const categoryItems = categories[title];
+                const categoryDiv = document.createElement('div');
+                categoryDiv.className = 'bg-slate-100 p-4 rounded-xl shadow-inner';
+                
+                categoryDiv.innerHTML = `<h3 class="text-lg font-bold text-slate-800 mb-2">${title}</h3>`;
+                
+                const listDiv = document.createElement('div');
+                listDiv.className = 'space-y-2';
+
+                const safeTitle = title.replace(/\s/g, '-');
+
+                categoryItems.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'flex items-center justify-between gap-4 py-2 border-b last:border-b-0 border-slate-200';
+                    itemDiv.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" id="order-item-${safeTitle}-${index}" data-name="${item.name}" class="rounded text-amber-600 focus:ring-amber-500">
+                            <label for="order-item-${safeTitle}-${index}" class="text-sm md:text-base text-slate-700 font-medium cursor-pointer">${item.name}</label>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <label for="quantity-item-${safeTitle}-${index}" class="text-sm text-slate-500">Qté:</label>
+                            <input type="number" id="quantity-item-${safeTitle}-${index}" min="0" value="0" class="w-16 text-center text-sm rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-1 border">
+                        </div>
+                    `;
+                    listDiv.appendChild(itemDiv);
+
+                    // Add logic to enable/disable quantity input based on checkbox
+                    const checkbox = itemDiv.querySelector(`#order-item-${safeTitle}-${index}`);
+                    const quantityInput = itemDiv.querySelector(`#quantity-item-${safeTitle}-${index}`);
+                    
+                    if (checkbox && quantityInput) {
+                        checkbox.addEventListener('change', (e) => {
+                            if (e.target.checked) {
+                                quantityInput.value = 1;
+                            } else {
+                                quantityInput.value = 0;
+                            }
+                        });
+
+                        quantityInput.addEventListener('change', (e) => {
+                            if (e.target.value > 0) {
+                                checkbox.checked = true;
+                            } else {
+                                checkbox.checked = false;
+                            }
+                        });
+                    }
+                });
+
+                categoryDiv.appendChild(listDiv);
+                container.appendChild(categoryDiv);
+            }
+        }
+
+        // Fonction pour générer l'e-mail de commande
+        function generateOrderEmail() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            // Collecter les détails de la commande à partir des checkboxes et des quantités
+            const orderItems = document.querySelectorAll('#menu-order-form input[type="checkbox"]:checked');
+            
+            let orderDetails = "";
+            orderItems.forEach(item => {
+                const quantityId = item.id.replace('order-item-', 'quantity-item-');
+                const quantityInput = document.getElementById(quantityId);
+                const quantity = quantityInput.value;
+                const itemName = item.dataset.name;
+                
+                if (quantity > 0) {
+                    orderDetails += `${quantity}x ${itemName}\n`;
+                }
+            });
+
+            // Vérifiez que les champs obligatoires sont remplis et qu'il y a des plats sélectionnés
+            if (!name || !phone || !address || orderDetails === "") {
+                const modal = document.createElement('div');
+                modal.className = "fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center";
+                modal.innerHTML = `
+                    <div class="bg-white p-6 rounded-lg shadow-xl max-w-sm mx-auto">
+                        <h4 class="text-lg font-bold mb-2">Champs manquants ou commande vide</h4>
+                        <p class="text-sm text-slate-600">Veuillez remplir vos informations et sélectionner au moins un plat pour passer la commande.</p>
+                        <button onclick="this.parentNode.parentNode.remove()" class="mt-4 w-full px-4 py-2 bg-amber-600 text-white rounded-md">OK</button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                return;
+            }
+            
+            const subject = encodeURIComponent(`Nouvelle commande de ${name}`);
+            const body = encodeURIComponent(`Détails de la commande :
+- Nom : ${name}
+- Téléphone : ${phone}
+- Adresse : ${address}
+
+- Commande :
+${orderDetails}
+
+- Heure de commande : ${new Date().toLocaleString()}
+`);
+
+            const mailtoLink = `mailto:Lily-lll@hotmail.com?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        }
+
+        //
+        // --- Intégration de l'API Gemini pour la synthèse vocale (TTS) ---
+        //
+        async function speakMenuText(text) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: text }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Puck" }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            const response = await fetchWithRetry(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                console.error("Erreur de l'API TTS:", await response.text());
+                return;
+            }
+
+            const result = await response.json();
+            const part = result?.candidates?.[0]?.content?.parts?.[0];
+            const audioData = part?.inlineData?.data;
+            const mimeType = part?.inlineData?.mimeType;
+
+            if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
+                const pcmData = base64ToArrayBuffer(audioData);
+                const pcm16 = new Int16Array(pcmData);
+                const wavBlob = pcmToWav(pcm16, sampleRate);
+                const audioUrl = URL.createObjectURL(wavBlob);
+                const audio = new Audio(audioUrl);
+                audio.play();
+            } else {
+                console.error("Données audio invalides.");
+            }
+        }
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcmData, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcmData.length * 2);
+            const view = new DataView(buffer);
+
+            // RIFF chunk descriptor
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcmData.length * 2, true);
+            writeString(view, 8, 'WAVE');
+
+            // fmt chunk
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true); // PCM format
+            view.setUint16(22, 1, true); // 1 channel
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true); // byte rate
+            view.setUint16(32, 2, true); // block align
+            view.setUint16(34, 16, true); // bits per sample
+
+            // data chunk
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcmData.length * 2, true);
+            
+            // PCM data
+            let offset = 44;
+            for (let i = 0; i < pcmData.length; i++) {
+                view.setInt16(offset, pcmData[i], true);
+                offset += 2;
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        //
+        // --- Intégration de l'API Gemini pour l'assistant de menu ---
+        //
+        const chatBubble = document.getElementById('chat-bubble');
+        const chatContainer = document.getElementById('chat-container');
+        const closeChatButton = document.getElementById('close-chat');
+        const chatInput = document.getElementById('chat-input');
+        const sendChatButton = document.getElementById('send-chat');
+        const chatBody = document.getElementById('chat-body');
+
+        let chatHistory = [];
+        const menuText = JSON.stringify(menuData);
+        const systemPrompt = `Vous êtes un assistant de menu pour le restaurant 'Oh Brochetti'. Vous êtes amical, serviable et conversationnel. 
+        Répondez aux questions des clients sur le menu, faites des recommandations et fournissez des informations. 
+        Utilisez uniquement les informations suivantes sur le menu pour répondre. Ne vous inventez rien.
+        MENU : ${menuText}`;
+
+        chatBubble.addEventListener('click', () => {
+            chatContainer.classList.toggle('hidden');
+        });
+
+        closeChatButton.addEventListener('click', () => {
+            chatContainer.classList.add('hidden');
+        });
+
+        sendChatButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        async function sendMessage() {
+            const userMessage = chatInput.value.trim();
+            if (userMessage === '') return;
+
+            // Afficher le message de l'utilisateur
+            appendMessage(userMessage, 'user');
+            chatInput.value = '';
+
+            // Afficher le message de chargement
+            const loadingMessage = appendMessage('...', 'bot');
+            const apiKey = "";
+            const apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=" + apiKey;
+
+            chatHistory.push({ role: "user", parts: [{ text: userMessage }] });
+
+            const payload = {
+                contents: chatHistory,
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            try {
+                const response = await fetchWithRetry(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const geminiText = result?.candidates?.[0]?.content?.parts?.[0]?.text || "Désolé, je n'ai pas pu générer de réponse pour le moment.";
+                
+                // Mettre à jour le message de chargement avec la réponse
+                loadingMessage.textContent = geminiText;
+                chatHistory.push({ role: "model", parts: [{ text: geminiText }] });
+
+            } catch (error) {
+                console.error("Erreur de l'API Gemini:", error);
+                loadingMessage.textContent = "Désolé, une erreur s'est produite. Veuillez réessayer.";
+            } finally {
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+        }
+
+        function appendMessage(text, role) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${role}-message`;
+            messageDiv.textContent = text;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return messageDiv;
+        }
+
+        async function fetchWithRetry(url, options, retries = 3) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.status !== 429) { // 429 Too Many Requests
+                        return response;
+                    }
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    // Exponential backoff
+                    await new Promise(resolve => setTimeout(resolve, Math.pow(2, i) * 1000));
+                }
+            }
+            throw new Error("Toutes les tentatives de connexion ont échoué.");
+        }
+
+        // Exécutez les fonctions lors du chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBrochettes();
+            renderTraditionalDishes();
+            renderRotiAuFour();
+            renderSideDishes();
+            renderDelivery();
+            renderOrderForm();
+        });
+    </script>
+
+</body>
+</html>
