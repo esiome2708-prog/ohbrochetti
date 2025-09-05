@@ -173,6 +173,20 @@
             </div>
         </section>
 
+        <!-- Section des soupes -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Soupes</h2>
+            <p class="text-center text-slate-500 mb-8">
+                Cliquez sur un plat pour voir les détails.
+            </p>
+            <div class="flex justify-center my-8">
+                
+            </div>
+            <div id="soupes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Les plats seront insérés ici par JavaScript -->
+            </div>
+        </section>
+
         <!-- Section des rôtis au four -->
         <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Rôtis au Four</h2>
@@ -201,15 +215,42 @@
             </div>
         </section>
 
+        <!-- Section des cakes -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Cakes Maison</h2>
+            <p class="text-center text-slate-500 mb-8">
+                Cliquez sur un plat pour voir les détails.
+            </p>
+            <div class="flex justify-center my-8">
+                
+            </div>
+            <div id="cakes-menu" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <!-- Les plats seront insérés ici par JavaScript -->
+            </div>
+        </section>
+
         <!-- Section de livraison -->
         <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Livraison</h2>
             <p class="text-center text-lg text-slate-600">
-                Nous livrons dans les zones suivantes.
+                Nous livrons sur un point de rendez-vous.
             </p>
             <div id="delivery-info" class="mt-6 max-w-lg mx-auto">
                 <ul class="space-y-4">
                     <!-- Les zones de livraison seront insérées ici par JavaScript -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section des points de rendez-vous -->
+        <section class="bg-white rounded-3xl shadow-xl p-6 md:p-10 my-10 border border-slate-200">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8">Points de Rendez-vous</h2>
+            <p class="text-center text-lg text-slate-600 mb-6">
+                Choisissez votre point de rendez-vous parmi la liste ci-dessous.
+            </p>
+            <div id="rendezvous-info" class="mt-6 max-w-lg mx-auto">
+                <ul class="space-y-4">
+                    <!-- Les points de rendez-vous seront insérés ici par JavaScript -->
                 </ul>
             </div>
         </section>
@@ -229,14 +270,17 @@
                     <label for="phone" class="block text-sm font-medium text-slate-700">Votre Numéro de Téléphone</label>
                     <input type="tel" id="phone" name="phone" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required>
                 </div>
-                <div>
-                    <label for="address" class="block text-sm font-medium text-slate-700">Votre Adresse de Livraison</label>
-                    <textarea id="address" name="address" rows="3" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border" required></textarea>
-                </div>
-
+                
                 <div class="mt-4">
                     <label for="delivery-zone" class="block text-sm font-medium text-slate-700">Zone de Livraison</label>
                     <select id="delivery-zone" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border">
+                        <!-- Options générées par JS -->
+                    </select>
+                </div>
+                
+                <div class="mt-4">
+                    <label for="rendezvous-point" class="block text-sm font-medium text-slate-700">Point de Rendez-vous</label>
+                    <select id="rendezvous-point" class="mt-1 block w-full rounded-md border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 p-2 border">
                         <!-- Options générées par JS -->
                     </select>
                 </div>
@@ -298,7 +342,7 @@
     <div id="chat-container" class="chat-container hidden">
         <div class="chat-header">
             <h3 class="text-lg font-bold text-slate-900">Assistant Menu ✨</h3>
-            <button id="close-chat" class="text-slate-500 hover:text-slate-800">
+            <button id="close-chat" class="text-slate-500 hover:text-slate-800" onclick="chatContainer.classList.add('hidden');">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -418,16 +462,6 @@
                     image: "https://placehold.co/400x300/e0f2f1/0f766e?text=Vary+anana"
                 },
                 {
-                    id: "soupes",
-                    name: "Soupes",
-                    cuisine: "Malgache",
-                    price: 8.00,
-                    description: "Légumes, chinoise, Paya (pieds de boeuf) ou Orientale (semoule et légumes).",
-                    ingredients: ["Ingrédients variés selon le type de soupe"],
-                    allergens: [],
-                    image: "https://placehold.co/400x300/ffedd5/9a3412?text=Soupes"
-                },
-                {
                     id: "romazave-boeuf",
                     name: "Romazave boeuf",
                     cuisine: "Malgache",
@@ -457,6 +491,48 @@
                     allergens: [],
                     image: "https://placehold.co/400x300/fce7f3/9d174d?text=Hena+Ritra"
                 },
+            ],
+            soups: [
+                {
+                    id: "soupe-legumes",
+                    name: "Soupe de légumes",
+                    cuisine: "Malgache",
+                    price: 8.00,
+                    description: "Une soupe de légumes fraîche et savoureuse.",
+                    ingredients: ["Légumes", "Bouillon"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/ffedd5/9a3412?text=Soupe+de+légumes"
+                },
+                {
+                    id: "soupe-chinoise",
+                    name: "Soupe chinoise",
+                    cuisine: "Malgache",
+                    price: 8.00,
+                    description: "Soupe chinoise aux vermicelles, légumes et poulet.",
+                    ingredients: ["Poulet", "Vermicelles", "Légumes"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/f0f9ff/0c4a6e?text=Soupe+chinoise"
+                },
+                {
+                    id: "soupe-paya",
+                    name: "Soupe Paya (pieds de boeuf)",
+                    cuisine: "Malgache",
+                    price: 8.00,
+                    description: "Soupe traditionnelle malgache à base de pieds de boeuf.",
+                    ingredients: ["Pieds de boeuf", "Légumes", "Épices"],
+                    allergens: [],
+                    image: "https://placehold.co/400x300/dcfce7/166534?text=Soupe+Paya"
+                },
+                {
+                    id: "soupe-orientale",
+                    name: "Soupe Orientale",
+                    cuisine: "Malgache",
+                    price: 8.00,
+                    description: "Soupe à la semoule et aux légumes, parfumée aux épices orientales.",
+                    ingredients: ["Semoule", "Légumes", "Épices"],
+                    allergens: ["Céréales contenant du gluten"],
+                    image: "https://placehold.co/400x300/eff6ff/1e40af?text=Soupe+Orientale"
+                }
             ],
             rotiAuFour: [
                 {
@@ -582,21 +658,50 @@
                     allergens: [],
                     image: "https://placehold.co/400x300/e9d5ff/6b21a8?text=Légumes+marines+farcis"
                 },
+            ],
+            cakes: [
+                {
+                    id: "cake-chocolat",
+                    name: "Cake au chocolat",
+                    cuisine: "Maison",
+                    price: 3.00,
+                    description: "Un délicieux cake moelleux au chocolat, parfait pour le dessert ou le goûter.",
+                    ingredients: ["Farine", "Sucre", "Oeufs", "Beurre", "Chocolat"],
+                    allergens: ["Céréales contenant du gluten", "Oeufs", "Lait"],
+                    image: "https://placehold.co/400x300/fbcfe8/be185d?text=Cake+au+chocolat"
+                },
+                 {
+                    id: "cake-pistache",
+                    name: "Cake à la pistache",
+                    cuisine: "Maison",
+                    price: 3.50,
+                    description: "Un cake à la pistache gourmand et moelleux.",
+                    ingredients: ["Farine", "Sucre", "Oeufs", "Beurre", "Pistache"],
+                    allergens: ["Céréales contenant du gluten", "Oeufs", "Lait", "Fruits à coque"],
+                    image: "https://placehold.co/400x300/d9f99d/4d7c0f?text=Cake+à+la+pistache"
+                }
             ]
         };
 
         const deliveryData = {
-            "Zone 1 (Saint-Denis)": 5.00,
-            "Zone 2 (Sainte-Clotilde, Le Chaudron)": 7.00,
-            "Zone 3 (Le Port, Saint-Paul)": 10.00,
-            "Hors zones": null
+            "Zone 1 (Saint-André à Saint-Benoît)": 2.50,
+            "Zone 2 (Sainte-Suzanne à Saint-Denis)": 2.50,
+            "Zone 3 (Possession, Le Port)": 4.00
+        };
+
+        const rendezvousPoints = {
+            "Zone 1 (Saint-André à Saint-Benoît)": ["Carrefour Saint-Benoit", "Leclerc Bras Panon", "Super U Saint-André", "Runmarket Saint-André"],
+            "Zone 2 (Sainte-Suzanne à Saint-Denis)": ["Carrefour Grand Est Sainte-Suzanne", "Leclerc La Réserve Sainte-Marie", "Runmarket Duparc Sainte-Marie", "Carrefour Grand Nord Saint-Denis", "Leclerc Butor Sainte Clotilde"],
+            "Zone 3 (Possession, Le Port)": ["Carrefour Cap Sacré Coeur"]
         };
         
         const allMenuItems = [
             ...menuData.brochettes,
             ...menuData.traditionalDishes,
+            ...menuData.soups,
             ...menuData.rotiAuFour,
-            ...menuData.sideDishes
+            ...menuData.sideDishes,
+            ...menuData.cakes
         ];
 
         let cart = {};
@@ -763,13 +868,13 @@
         function sendWhatsAppOrder() {
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
             const deliveryZone = document.getElementById('delivery-zone').value;
+            const rendezvousPoint = document.getElementById('rendezvous-point').value;
             const customNote = document.getElementById('custom-note').value;
             const deliveryDate = document.getElementById('delivery-date').value;
 
 
-            if (!name || !phone || !address || !deliveryDate || Object.keys(cart).length === 0) {
+            if (!name || !phone || !deliveryDate || !rendezvousPoint || Object.keys(cart).length === 0) {
                 const modal = document.createElement('div');
                 modal.className = "fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center";
                 modal.innerHTML = `
@@ -796,7 +901,7 @@
             }
 
             const deliveryCost = deliveryData[deliveryZone] !== null ? deliveryData[deliveryZone].toFixed(2) : 'N/A';
-            const message = encodeURIComponent(`Nouvelle commande :\n- Nom : ${name}\n- Téléphone : ${phone}\n- Adresse : ${address}\n- Zone de livraison : ${deliveryZone} (Frais de livraison: €${deliveryCost})\n- Date de livraison souhaitée : ${deliveryDate}\n\n- Commande :\n${orderText}\n- Coût total : €${totalCostText}\n\n- Heure de commande : ${new Date().toLocaleString('fr-FR')}`);
+            const message = encodeURIComponent(`Nouvelle commande :\n- Nom : ${name}\n- Téléphone : ${phone}\n- Zone de livraison : ${deliveryZone}\n- Point de rendez-vous : ${rendezvousPoint}\n- Frais de livraison: €${deliveryCost}\n- Date de livraison souhaitée : ${deliveryDate}\n\n- Commande :\n${orderText}\n- Coût total : €${totalCostText}\n\n- Heure de commande : ${new Date().toLocaleString('fr-FR')}`);
             
             const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${message}`;
             
@@ -822,6 +927,16 @@
                 container.appendChild(card);
             });
         }
+        
+        // Fonction pour générer le HTML des soupes
+        function renderSoups() {
+            const container = document.getElementById('soupes-menu');
+            container.innerHTML = '';
+            menuData.soups.forEach((dish, index) => {
+                const card = createMenuItemCard(dish, `soups-ingredients-${index}`);
+                container.appendChild(card);
+            });
+        }
 
         // Fonction pour générer le HTML des rôtis au four
         function renderRotiAuFour() {
@@ -842,6 +957,17 @@
                 container.appendChild(card);
             });
         }
+        
+        // Fonction pour générer le HTML des cakes
+        function renderCakes() {
+            const container = document.getElementById('cakes-menu');
+            container.innerHTML = '';
+            menuData.cakes.forEach((cake, index) => {
+                const card = createMenuItemCard(cake, `cake-ingredients-${index}`);
+                container.appendChild(card);
+            });
+        }
+
 
         function createMenuItemCard(dish, ingredientId) {
             const card = document.createElement('div');
@@ -860,12 +986,6 @@
             card.innerHTML = `
                 <div class="flex justify-between items-center">
                     <h3 class="text-xl md:text-2xl font-semibold text-slate-900">${dish.name}</h3>
-                    <button class="text-slate-500 hover:text-amber-600 transition-colors" onclick="event.stopPropagation(); speakMenuText('${dish.name}. ${dish.description.replace(/'/g, "\\'")}.');">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></path>
-                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-                        </svg>
-                    </button>
                 </div>
                 ${cuisineHtml}
                 <p class="text-2xl font-bold text-amber-600 mt-2">€${dish.price.toFixed(2)}</p>
@@ -910,6 +1030,28 @@
                 container.appendChild(listItem);
             }
         }
+        
+        // Fonction pour générer le HTML des points de rendez-vous
+        function renderRendezvousPoints() {
+            const container = document.getElementById('rendezvous-info');
+            container.innerHTML = '';
+            for (const zone in rendezvousPoints) {
+                const zoneTitle = document.createElement('h4');
+                zoneTitle.className = "font-semibold text-lg text-slate-800 mt-4 mb-2";
+                zoneTitle.textContent = zone;
+                container.appendChild(zoneTitle);
+                
+                const ul = document.createElement('ul');
+                ul.className = "space-y-2 pl-4 list-disc list-inside";
+                rendezvousPoints[zone].forEach(point => {
+                    const li = document.createElement('li');
+                    li.className = "text-slate-600";
+                    li.textContent = point;
+                    ul.appendChild(li);
+                });
+                container.appendChild(ul);
+            }
+        }
 
         // Fonction pour générer le menu déroulant des zones de livraison
         function renderDeliverySelect() {
@@ -922,6 +1064,27 @@
                 select.appendChild(option);
             }
         }
+        
+        // Fonction pour générer le menu déroulant des points de rendez-vous
+        function renderRendezvousSelect() {
+            const select = document.getElementById('rendezvous-point');
+            const deliveryZoneSelect = document.getElementById('delivery-zone');
+            
+            const selectedZone = deliveryZoneSelect.value;
+            const points = rendezvousPoints[selectedZone] || [];
+            
+            select.innerHTML = '';
+            points.forEach(point => {
+                const option = document.createElement('option');
+                option.value = point;
+                option.textContent = point;
+                select.appendChild(option);
+            });
+        }
+        
+        // Ajout d'un écouteur d'événement pour mettre à jour les points de rendez-vous lorsque la zone de livraison change
+        document.getElementById('delivery-zone').addEventListener('change', renderRendezvousSelect);
+
 
         function showAddModal(itemId) {
             const modal = document.getElementById('add-to-cart-modal');
@@ -978,99 +1141,6 @@
             };
         }
         
-        async function speakMenuText(text) {
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
-
-            const payload = {
-                contents: [{
-                    parts: [{ text: text }]
-                }],
-                generationConfig: {
-                    responseModalities: ["AUDIO"],
-                    speechConfig: {
-                        voiceConfig: {
-                            prebuiltVoiceConfig: { voiceName: "Puck" }
-                        }
-                    }
-                },
-                model: "gemini-2.5-flash-preview-tts"
-            };
-
-            const response = await fetchWithRetry(apiUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                console.error("Erreur de l'API TTS:", await response.text());
-                return;
-            }
-
-            const result = await response.json();
-            const part = result?.candidates?.[0]?.content?.parts?.[0];
-            const audioData = part?.inlineData?.data;
-            const mimeType = part?.inlineData?.mimeType;
-
-            if (audioData && mimeType && mimeType.startsWith("audio/")) {
-                const sampleRate = parseInt(mimeType.match(/rate=(\d+)/)[1], 10);
-                const pcmData = base64ToArrayBuffer(audioData);
-                const pcm16 = new Int16Array(pcmData);
-                const wavBlob = pcmToWav(pcm16, sampleRate);
-                const audioUrl = URL.createObjectURL(wavBlob);
-                const audio = new Audio(audioUrl);
-                audio.play();
-            } else {
-                console.error("Données audio invalides.");
-            }
-        }
-
-        function base64ToArrayBuffer(base64) {
-            const binaryString = atob(base64);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
-            return bytes.buffer;
-        }
-
-        function pcmToWav(pcmData, sampleRate) {
-            const buffer = new ArrayBuffer(44 + pcmData.length * 2);
-            const view = new DataView(buffer);
-
-            writeString(view, 0, 'RIFF');
-            view.setUint32(4, 36 + pcmData.length * 2, true);
-            writeString(view, 8, 'WAVE');
-
-            writeString(view, 12, 'fmt ');
-            view.setUint32(16, 16, true);
-            view.setUint16(20, 1, true);
-            view.setUint16(22, 1, true);
-            view.setUint32(24, sampleRate, true);
-            view.setUint32(28, sampleRate * 2, true);
-            view.setUint16(32, 2, true);
-            view.setUint16(34, 16, true);
-
-            writeString(view, 36, 'data');
-            view.setUint32(40, pcmData.length * 2, true);
-            
-            let offset = 44;
-            for (let i = 0; i < pcmData.length; i++) {
-                view.setInt16(offset, pcmData[i], true);
-                offset += 2;
-            }
-
-            return new Blob([view], { type: 'audio/wav' });
-        }
-
-        function writeString(view, offset, string) {
-            for (let i = 0; i < string.length; i++) {
-                view.setUint8(offset + i, string.charCodeAt(i));
-            }
-        }
-
         const chatBubble = document.getElementById('chat-bubble');
         const chatContainer = document.getElementById('chat-container');
         const closeChatButton = document.getElementById('close-chat');
@@ -1172,10 +1242,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderBrochettes();
             renderTraditionalDishes();
+            renderSoups();
             renderRotiAuFour();
             renderSideDishes();
+            renderCakes();
             renderDelivery();
+            renderRendezvousPoints();
             renderDeliverySelect();
+            renderRendezvousSelect();
             updateCartUI();
         });
     </script>
