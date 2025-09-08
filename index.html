@@ -253,6 +253,10 @@
                         <input type="tel" id="client-phone" placeholder="Numéro de téléphone *" required class="p-3 border rounded-lg w-full">
                     </div>
                     <div>
+                        <input type="text" id="client-address" placeholder="Adresse (Facultatif)" class="p-3 border rounded-lg w-full">
+                        <p class="text-xs text-gray-500 mt-1">L'adresse est requise pour la livraison. Si vous la laissez vide, veuillez l'indiquer lors de la conversation sur WhatsApp.</p>
+                    </div>
+                    <div>
                         <input type="checkbox" id="email-consent">
                         <label for="email-consent">J'accepte de recevoir des informations sur les nouveaux plats et les périodes de fermeture.</label>
                     </div>
@@ -539,6 +543,7 @@
             const clientName = document.getElementById('client-name').value;
             const clientEmail = document.getElementById('client-email').value;
             const clientPhone = document.getElementById('client-phone').value;
+            const clientAddress = document.getElementById('client-address').value;
             const deliveryZone = document.getElementById('delivery-zone').value;
             const pickupPoint = document.getElementById('pickup-point').value;
             const deliveryDate = document.getElementById('delivery-date').value;
@@ -548,7 +553,8 @@
             let orderSummary = `*Nouvelle Commande Oh Brochetti*\n\n`;
             orderSummary += `*Client*: ${clientName}\n`;
             orderSummary += `*Email*: ${clientEmail}\n`;
-            orderSummary += `*Téléphone*: ${clientPhone}\n\n`;
+            orderSummary += `*Téléphone*: ${clientPhone}\n`;
+            orderSummary += `*Adresse*: ${clientAddress || 'Non spécifiée'}\n\n`;
             orderSummary += `*Date de livraison souhaitée*: ${deliveryDate}\n`;
             orderSummary += `*Zone de livraison*: ${document.querySelector(`#delivery-zone option[value="${deliveryZone}"]`).textContent}\n`;
             orderSummary += `*Point de rendez-vous*: ${pickupPoint}\n\n`;
@@ -576,7 +582,6 @@
             orderSummary += `*Consentement email*: ${emailConsent ? 'Oui' : 'Non'}\n`;
             
             const encodedOrder = encodeURIComponent(orderSummary);
-            // Updated WhatsApp number
             const whatsappUrl = `https://api.whatsapp.com/send?phone=262693805535&text=${encodedOrder}`;
             
             window.open(whatsappUrl, '_blank');
