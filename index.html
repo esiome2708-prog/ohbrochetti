@@ -143,6 +143,7 @@
     <header class="text-center my-8">
         <h1 class="text-5xl md:text-6xl font-extrabold text-[#4a2a16]">Oh Brochetti</h1>
         <p class="mt-2 text-xl md:text-2xl text-[#a85a4a]">Commandez dés maintenant & régalez vous !</p>
+        <p class="mt-2 text-lg md:text-xl font-semibold text-gray-700">Contact: <a href="tel:+262693805535" class="text-blue-600 hover:underline">+262 693 80 55 35</a></p>
         <p class="mt-4 text-center text-lg font-medium text-gray-700 px-4 py-2 bg-gray-200 rounded-lg shadow-inner">
             <span class="font-bold">Information importante :</span> Nous n'avons pas de restaurant physique. Les plats sont préparés et livrés aux points de rendez-vous convenus.
         </p>
@@ -160,7 +161,7 @@
                     <h3>Accompagnements Maison</h3>
                 </button>
                 <button class="menu-category-btn" data-category="malgache">
-                    <h3>Plats Malgaches</h3>
+                    <h3>Plats malgaches</h3>
                 </button>
                 <button class="menu-category-btn" data-category="soupes">
                     <h3>Soupes</h3>
@@ -291,6 +292,11 @@
                         <label for="customization-note" class="block text-sm font-medium mb-1">Note de personnalisation</label>
                         <textarea id="customization-note" placeholder="Précisez toute demande spécifique..." rows="4" class="p-3 border rounded-lg w-full"></textarea>
                     </div>
+                    <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-lg my-4" role="alert">
+                        <p class="font-bold">Paiement à la livraison</p>
+                        <p>Le règlement se fera en espèces à la livraison. Merci de préparer l'appoint.</p>
+                    </div>
+
                     <button type="submit" class="w-full btn btn-primary mt-4">Confirmer et envoyer la commande</button>
                 </form>
             </div>
@@ -538,7 +544,7 @@
             const deliveryDate = document.getElementById('delivery-date').value;
             const customizationNote = document.getElementById('customization-note').value;
             const emailConsent = document.getElementById('email-consent').checked;
-            
+
             let orderSummary = `*Nouvelle Commande Oh Brochetti*\n\n`;
             orderSummary += `*Client*: ${clientName}\n`;
             orderSummary += `*Email*: ${clientEmail}\n`;
@@ -571,7 +577,7 @@
             
             const encodedOrder = encodeURIComponent(orderSummary);
             // Updated WhatsApp number
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=+262693805535&text=${encodedOrder}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=262693805535&text=${encodedOrder}`;
             
             window.open(whatsappUrl, '_blank');
             
@@ -579,7 +585,7 @@
             clearCart();
             showStatusMessage('Commande envoyée via WhatsApp !', 'bg-green-500');
         });
-        
+
         function clearCart() {
             cart = {};
             updateCartCount();
@@ -611,4 +617,3 @@
 
 </body>
 </html>
-
