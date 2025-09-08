@@ -156,14 +156,14 @@
                 <button class="menu-category-btn" data-category="brochettes">
                     <h3>Brochettes</h3>
                 </button>
+                <button class="menu-category-btn" data-category="accompagnements">
+                    <h3>Accompagnements Maison</h3>
+                </button>
                 <button class="menu-category-btn" data-category="malgache">
-                    <h3>Plats Malgache</h3>
+                    <h3>Plats Malgaches</h3>
                 </button>
                 <button class="menu-category-btn" data-category="soupes">
                     <h3>Soupes</h3>
-                </button>
-                <button class="menu-category-btn" data-category="accompagnements">
-                    <h3>Accompagnements Maison</h3>
                 </button>
                 <button class="menu-category-btn" data-category="rotis">
                     <h3>Rôtis au four</h3>
@@ -306,18 +306,6 @@
                 { id: 'brochette-boeuf', name: 'Brochette de bœuf (Halal)', price: 12.00, description: 'Portion de 250g. Morceaux de bœuf, marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Boeuf', ingredients: ['Bœuf', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
                 { id: 'brochette-poulet', name: 'Brochette de poulet (Halal)', price: 10.00, description: 'Portion de 250g. Tendres morceaux de poulet marinés. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet', ingredients: ['Poulet', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
             ],
-            malgache: [
-                { id: 'poulet-coco', name: 'Poulet au coco (Halal)', price: 9.50, description: 'Tendres morceaux de poulet mijotés dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Coco', ingredients: ['Poulet', 'lait de coco', 'gingembre', 'ail', 'oignon', 'curcuma', 'sel', 'poivre'], allergens: ['lait'] },
-                { id: 'vary-anana-nature', name: 'Vary anana (Brèdes) nature', price: 8.00, description: 'Plat traditionnel à base de riz et de brèdes (feuilles de légumes), parfait pour un repas végétarien.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana', ingredients: ['Riz', 'brèdes (feuilles de légumes)', 'tomates', 'oignon', 'ail', 'gingembre'], allergens: ['aucun'] },
-                { id: 'vary-anana-kimo', name: 'Vary anana (Brèdes) avec Kimo (Halal)', price: 9.50, description: 'Plat traditionnel à base de riz, brèdes et de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana+Kimo', ingredients: ['Riz', 'brèdes', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
-                { id: 'manioc-coco-nature', name: 'Manioc au coco nature', price: 8.50, description: 'Délicieux manioc cuit dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco', ingredients: ['Manioc', 'lait de coco', 'sel', 'poivre'], allergens: ['lait'] },
-                { id: 'manioc-coco-kimo', name: 'Manioc au coco avec Kimo (Halal)', price: 10.00, description: 'Manioc au lait de coco, accompagné de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco+Kimo', ingredients: ['Manioc', 'lait de coco', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['lait'] },
-            ],
-            soupes: [
-                { id: 'soupe-legumes', name: 'Soupe de légumes', price: 5.00, description: 'Soupe de légumes frais, un classique réconfortant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Légumes', ingredients: ['Carottes', 'pommes de terre', 'courgettes', 'haricots verts', 'oignon', 'ail', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'soupe-paya', name: 'Soupe Paya (pied de bœuf) (Halal)', price: 8.00, description: 'Soupe copieuse à base de pied de bœuf, parfaite pour se réchauffer.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Paya', ingredients: ['Pied de bœuf', 'légumes', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
-                { id: 'soupe-chinoise', name: 'Soupe chinoise', price: 7.00, description: 'Soupe délicate avec des nouilles, légumes et herbes aromatiques.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Chinoise', ingredients: ['Nouilles', 'poulet', 'légumes', 'champignons', 'gingembre', 'sauce soja'], allergens: ['gluten', 'soja'] },
-            ],
             accompagnements: [
                 { id: 'sabeda', name: 'Sabeda (Vary Sosoa)', price: 9.00, description: 'Soupe de riz simple, un plat de réconfort à base de riz et d\'eau, sans viande ni épices.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Sabeda', ingredients: ['Riz', 'eau'], allergens: ['aucun'] },
                 { id: 'rougail', name: 'Rougail', price: 2.50, description: 'Un accompagnement pimenté à base de légumes ou de fruits. Au choix : rougail tomates, concombre-carotte, papaye ou mangue. Veuillez préciser votre choix dans la note de personnalisation.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Rougail', ingredients: ['Varie selon le type', 'oignon', 'gingembre', 'citron', 'piment', 'sel', 'huile'], allergens: ['aucun'] },
@@ -331,6 +319,18 @@
                 { id: 'pommes-de-terre-rotie', name: 'Pommes de terre rôties', price: 3.50, description: 'Pommes de terre rôties au four, dorées et savoureuses.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Pommes+Terre+Rôties', ingredients: ['Pommes de terre', 'huile', 'ail', 'romarin', 'sel', 'poivre'], allergens: ['aucun'] },
                 { id: 'legumes-sautes', name: 'Assortiments de légumes sautés', price: 4.00, description: 'Un assortiment de légumes frais sautés, un accompagnement sain et délicieux.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Légumes+Sautés', ingredients: ['Légumes variés', 'huile', 'ail', 'gingembre', 'sauce soja'], allergens: ['soja'] },
                 { id: 'taboule', name: 'Taboulé', price: 3.50, description: 'Taboulé frais aux herbes, un accompagnement léger et rafraîchissant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Taboulé', ingredients: ['Semoule', 'tomates', 'concombre', 'menthe', 'persil', 'citron', 'huile d\'olive'], allergens: ['gluten'] },
+            ],
+            malgache: [
+                { id: 'poulet-coco', name: 'Poulet au coco (Halal)', price: 9.50, description: 'Tendres morceaux de poulet mijotés dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Coco', ingredients: ['Poulet', 'lait de coco', 'gingembre', 'ail', 'oignon', 'curcuma', 'sel', 'poivre'], allergens: ['lait'] },
+                { id: 'vary-anana-nature', name: 'Vary anana (Brèdes) nature', price: 8.00, description: 'Plat traditionnel à base de riz et de brèdes (feuilles de légumes), parfait pour un repas végétarien.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana', ingredients: ['Riz', 'brèdes (feuilles de légumes)', 'tomates', 'oignon', 'ail', 'gingembre'], allergens: ['aucun'] },
+                { id: 'vary-anana-kimo', name: 'Vary anana (Brèdes) avec Kimo (Halal)', price: 9.50, description: 'Plat traditionnel à base de riz, brèdes et de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana+Kimo', ingredients: ['Riz', 'brèdes', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
+                { id: 'manioc-coco-nature', name: 'Manioc au coco nature', price: 8.50, description: 'Délicieux manioc cuit dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco', ingredients: ['Manioc', 'lait de coco', 'sel', 'poivre'], allergens: ['lait'] },
+                { id: 'manioc-coco-kimo', name: 'Manioc au coco avec Kimo (Halal)', price: 10.00, description: 'Manioc au lait de coco, accompagné de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco+Kimo', ingredients: ['Manioc', 'lait de coco', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['lait'] },
+            ],
+            soupes: [
+                { id: 'soupe-legumes', name: 'Soupe de légumes', price: 5.00, description: 'Soupe de légumes frais, un classique réconfortant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Légumes', ingredients: ['Carottes', 'pommes de terre', 'courgettes', 'haricots verts', 'oignon', 'ail', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'soupe-paya', name: 'Soupe Paya (pied de bœuf) (Halal)', price: 8.00, description: 'Soupe copieuse à base de pied de bœuf, parfaite pour se réchauffer.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Paya', ingredients: ['Pied de bœuf', 'légumes', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
+                { id: 'soupe-chinoise', name: 'Soupe chinoise', price: 7.00, description: 'Soupe délicate avec des nouilles, légumes et herbes aromatiques.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Chinoise', ingredients: ['Nouilles', 'poulet', 'légumes', 'champignons', 'gingembre', 'sauce soja'], allergens: ['gluten', 'soja'] },
             ],
             rotis: [
                 { id: 'rotis-agneau', name: 'Gigot d\'agneau (Halal)', price: 15.00, description: 'Gigot d\'agneau mariné et rôti au four, tendre et savoureux.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Gigot+Agneau', ingredients: ['Gigot d\'agneau', 'épices', 'herbes de Provence', 'ail', 'oignon', 'huile'], allergens: ['aucun'] },
@@ -570,7 +570,8 @@
             orderSummary += `*Consentement email*: ${emailConsent ? 'Oui' : 'Non'}\n`;
             
             const encodedOrder = encodeURIComponent(orderSummary);
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=+262692000000&text=${encodedOrder}`;
+            // Updated WhatsApp number
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=+262692805535&text=${encodedOrder}`;
             
             window.open(whatsappUrl, '_blank');
             
@@ -610,4 +611,3 @@
 
 </body>
 </html>
-
