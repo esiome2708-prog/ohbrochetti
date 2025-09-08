@@ -119,6 +119,16 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+        .product-card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+            text-align: center;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="p-4 sm:p-8">
@@ -132,7 +142,10 @@
 
     <header class="text-center my-8">
         <h1 class="text-5xl md:text-6xl font-extrabold text-[#4a2a16]">Oh Brochetti</h1>
-        <p class="mt-2 text-xl md:text-2xl text-[#a85a4a]">Passez commande dés maintenant & régalez vous !</p>
+        <p class="mt-2 text-xl md:text-2xl text-[#a85a4a]">Commandez dés maintenant & régalez vous !</p>
+        <p class="mt-4 text-center text-lg font-medium text-gray-700 px-4 py-2 bg-gray-200 rounded-lg shadow-inner">
+            <span class="font-bold">Information importante :</span> Nous n'avons pas de restaurant physique. Les plats sont préparés et livrés aux points de rendez-vous convenus.
+        </p>
     </header>
 
     <main class="container mx-auto">
@@ -143,7 +156,7 @@
                 <button class="menu-category-btn" data-category="brochettes">
                     <h3>Brochettes</h3>
                 </button>
-                <button class="menu-category-btn" data-category="malgaches">
+                <button class="menu-category-btn" data-category="malgache">
                     <h3>Plats Malgaches</h3>
                 </button>
                 <button class="menu-category-btn" data-category="soupes">
@@ -238,9 +251,9 @@
                     <div>
                         <input type="tel" id="client-phone" placeholder="Numéro de téléphone *" required class="p-3 border rounded-lg w-full">
                     </div>
-                    <div class="flex items-start gap-2 text-sm text-gray-600">
-                         <input type="checkbox" id="email-consent" class="mt-1">
-                         <label for="email-consent">J'accepte de recevoir des informations sur les nouveaux plats et les périodes de fermeture.</label>
+                    <div>
+                        <input type="checkbox" id="email-consent">
+                        <label for="email-consent">J'accepte de recevoir des informations sur les nouveaux plats et les périodes de fermeture.</label>
                     </div>
                     <div>
                         <label for="delivery-zone" class="block text-sm font-medium mb-1">Zone de livraison *</label>
@@ -289,13 +302,12 @@
     <script>
         const products = {
             brochettes: [
-                { id: 'brochette-agneau', name: 'Brochette d\'agneau (gigot) (Halal)', price: 3.50, description: 'Minimum 250g, environ 12 tiges. Délicieux morceaux d\'agneau (gigot), marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Agneau', ingredients: ['Agneau', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'brochette-boeuf', name: 'Brochette de bœuf (Halal)', price: 3.00, description: 'Minimum 250g, environ 12 tiges. Morceaux de bœuf, marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Boeuf', ingredients: ['Bœuf', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'brochette-poulet', name: 'Brochette de poulet (Halal)', price: 2.50, description: 'Minimum 250g, environ 10 tiges. Tendres morceaux de poulet marinés. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet', ingredients: ['Poulet', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-agneau', name: 'Brochette d\'agneau (gigot) (Halal)', price: 12.00, description: 'Portion de 250g. Environ 12 tiges. Délicieux morceaux d\'agneau (gigot), marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Agneau', ingredients: ['Agneau', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-boeuf', name: 'Brochette de bœuf (Halal)', price: 12.00, description: 'Portion de 250g. Morceaux de bœuf, marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Boeuf', ingredients: ['Bœuf', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-poulet', name: 'Brochette de poulet (Halal)', price: 10.00, description: 'Portion de 250g. Tendres morceaux de poulet marinés. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet', ingredients: ['Poulet', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
             ],
-            malgaches: [
+            malgache: [
                 { id: 'poulet-coco', name: 'Poulet au coco (Halal)', price: 9.50, description: 'Tendres morceaux de poulet mijotés dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Coco', ingredients: ['Poulet', 'lait de coco', 'gingembre', 'ail', 'oignon', 'curcuma', 'sel', 'poivre'], allergens: ['lait'] },
-                { id: 'sabeda', name: 'Sabeda', price: 9.00, description: 'Plat malgache à base de riz gluant et de viande, cuisiné avec des épices.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Sabeda', ingredients: ['Riz gluant', 'viande', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
                 { id: 'vary-anana-nature', name: 'Vary anana (Brèdes) nature', price: 8.00, description: 'Plat traditionnel à base de riz et de brèdes (feuilles de légumes), parfait pour un repas végétarien.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana', ingredients: ['Riz', 'brèdes (feuilles de légumes)', 'tomates', 'oignon', 'ail', 'gingembre'], allergens: ['aucun'] },
                 { id: 'vary-anana-kimo', name: 'Vary anana (Brèdes) avec Kimo (Halal)', price: 9.50, description: 'Plat traditionnel à base de riz, brèdes et de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana+Kimo', ingredients: ['Riz', 'brèdes', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
                 { id: 'manioc-coco-nature', name: 'Manioc au coco nature', price: 8.50, description: 'Délicieux manioc cuit dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco', ingredients: ['Manioc', 'lait de coco', 'sel', 'poivre'], allergens: ['lait'] },
@@ -307,8 +319,8 @@
                 { id: 'soupe-chinoise', name: 'Soupe chinoise', price: 7.00, description: 'Soupe délicate avec des nouilles, légumes et herbes aromatiques.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Chinoise', ingredients: ['Nouilles', 'poulet', 'légumes', 'champignons', 'gingembre', 'sauce soja'], allergens: ['gluten', 'soja'] },
             ],
             accompagnements: [
-                { id: 'rougail-tomates', name: 'Rougail tomates', price: 2.00, description: 'Rougail de tomates citronné, sans vinaigre d\'alcool.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Rougail+Tomates', ingredients: ['Tomates', 'oignon', 'gingembre', 'citron', 'piment', 'sel', 'huile'], allergens: ['aucun'] },
-                { id: 'rougail-concombre-carotte', name: 'Rougail concombre carotte', price: 2.50, description: 'Rougail frais et croquant de concombre et carotte, citronné.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Rougail+Concombre', ingredients: ['Concombre', 'carotte', 'oignon', 'gingembre', 'citron', 'piment', 'sel', 'huile'], allergens: ['aucun'] },
+                { id: 'sabeda', name: 'Sabeda (Vary Sosoa)', price: 9.00, description: 'Soupe de riz simple, un plat de réconfort à base de riz et d\'eau, sans viande ni épices.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Sabeda', ingredients: ['Riz', 'eau'], allergens: ['aucun'] },
+                { id: 'rougail', name: 'Rougail', price: 2.50, description: 'Un accompagnement pimenté à base de légumes ou de fruits. Au choix : rougail tomates, concombre-carotte, papaye ou mangue. Veuillez préciser votre choix dans la note de personnalisation.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Rougail', ingredients: ['Varie selon le type', 'oignon', 'gingembre', 'citron', 'piment', 'sel', 'huile'], allergens: ['aucun'] },
                 { id: 'achard-legumes', name: 'Achard de légumes', price: 3.00, description: 'Légumes marinés dans une sauce aux épices, un accompagnement piquant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Achard+Légumes', ingredients: ['Légumes variés', 'chou', 'haricots verts', 'carottes', 'curcuma', 'vinaigre', 'épices'], allergens: ['aucun'] },
                 { id: 'riz-jaune-epices', name: 'Riz jaune aux épices', price: 3.00, description: 'Riz parfumé aux épices, idéal pour accompagner tous les plats.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Riz+Jaune', ingredients: ['Riz', 'curcuma', 'épices', 'oignon', 'ail'], allergens: ['aucun'] },
                 { id: 'manioc-bouilli', name: 'Manioc bouilli', price: 2.50, description: 'Manioc bouilli, à la texture tendre et délicate.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Bouilli', ingredients: ['Manioc', 'sel'], allergens: ['aucun'] },
@@ -354,7 +366,7 @@
             productsList.innerHTML = '';
             
             if (category === 'brochettes') {
-                categoryTitle.innerHTML = 'Brochettes <br><span class="text-sm font-normal text-red-600">IMPORTANT : Les brochettes sont livrées crues, à faire cuire chez vous. Nous n\'avons pas de restaurant physique. Toutes nos commandes sont à emporter ou en livraison.</span>';
+                categoryTitle.innerHTML = 'Brochettes <br><span class="text-sm font-normal text-gray-700">IMPORTANT : Les brochettes sont livrées crues, à faire cuire chez vous.</span>';
             } else {
                 categoryTitle.textContent = title;
             }
@@ -364,8 +376,8 @@
                 productCard.className = 'card p-4 flex flex-col items-center text-center';
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover rounded-xl mb-4">
-                    <div class="flex items-center justify-center min-h-[4rem]">
-                        <h3 class="text-2xl font-bold mb-1">${product.name}</h3>
+                    <div class="product-card-title">
+                        <h3>${product.name}</h3>
                     </div>
                     <p class="text-gray-600 text-sm mb-4 product-card-description">${product.description}</p>
                     <p class="text-xl font-bold text-[#a85a4a] mb-4">${product.price.toFixed(2)}€</p>
@@ -375,7 +387,7 @@
 
                 productCard.querySelector('button').addEventListener('click', () => showProductModal(product));
             });
-            menuSection.style.display = 'block';
+            menuSection.style.display = 'grid';
         }
 
         function showProductModal(product) {
@@ -598,4 +610,3 @@
 
 </body>
 </html>
-
