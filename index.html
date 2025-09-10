@@ -128,11 +128,6 @@
             align-items: center;
             justify-content: center;
         }
-        .imgur-embed-pub {
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
     </style>
 </head>
 <body>
@@ -198,11 +193,9 @@
 
         <section class="my-12 text-center p-6 bg-white rounded-xl shadow-lg">
             <h2 class="text-3xl font-semibold mb-6 text-[#4a2a16]">Notre galerie de plats</h2>
-            <div class="flex justify-center">
-                <blockquote class="imgur-embed-pub" lang="fr" data-id="a/oh-brochetti-gallerie-dimages-des-plats-SwfldMI">
-                    <a href="https://imgur.com/a/oh-brochetti-gallerie-dimages-des-plats-SwfldMI">Oh Brochetti - Gallerie d'images des plats</a>
-                </blockquote>
-            </div>
+            <a href="https://imgur.com/a/oh-brochetti-TqKhCFH" target="_blank" class="inline-block bg-[#ff7e5f] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-[#ff6a4a] transition-colors duration-200">
+                Voir la galerie sur Imgur
+            </a>
         </section>
 
         <section id="menu-section" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12" style="display: none;">
@@ -650,17 +643,6 @@
         const mm = String(minDate.getMonth() + 1).padStart(2, '0');
         const dd = String(minDate.getDate()).padStart(2, '0');
         document.getElementById('delivery-date').min = `${yyyy}-${mm}-${dd}`;
-        
-        // Fix pour l'intégration Imgur
-        window.addEventListener('load', () => {
-            if (window.imgurEmbed) {
-                window.imgurEmbed.createIframe();
-            }
-        });
     </script>
-    
-    <!-- Le script d'intégration Imgur -->
-    <script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
-
 </body>
 </html>
