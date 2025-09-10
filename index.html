@@ -199,8 +199,8 @@
         <section class="my-12 text-center p-6 bg-white rounded-xl shadow-lg">
             <h2 class="text-3xl font-semibold mb-6 text-[#4a2a16]">Notre galerie de plats</h2>
             <div class="flex justify-center">
-                <blockquote class="imgur-embed-pub" lang="fr" data-id="a/SwfldMI">
-                    <a href="//imgur.com/SwfldMI">Oh Brochetti - Gallerie d&#039;images des plats</a>
+                <blockquote class="imgur-embed-pub" lang="fr" data-id="a/oh-brochetti-gallerie-dimages-des-plats-SwfldMI">
+                    <a href="https://imgur.com/a/oh-brochetti-gallerie-dimages-des-plats-SwfldMI">Oh Brochetti - Gallerie d'images des plats</a>
                 </blockquote>
             </div>
         </section>
@@ -650,6 +650,13 @@
         const mm = String(minDate.getMonth() + 1).padStart(2, '0');
         const dd = String(minDate.getDate()).padStart(2, '0');
         document.getElementById('delivery-date').min = `${yyyy}-${mm}-${dd}`;
+        
+        // Fix pour l'intégration Imgur
+        window.addEventListener('load', () => {
+            if (window.imgurEmbed) {
+                window.imgurEmbed.createIframe();
+            }
+        });
     </script>
     
     <!-- Le script d'intégration Imgur -->
