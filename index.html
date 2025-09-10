@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Oh Brochetti</title>
+    <title>Oh Brochetti</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +13,6 @@
             font-family: 'Poppins', sans-serif;
             background-color: #fce7d8;
             color: #4a2a16;
-            transition: background-color 0.3s ease;
         }
         .container {
             max-width: 1200px;
@@ -131,7 +130,7 @@
         }
     </style>
 </head>
-<body class="p-4 sm:p-8">
+<body>
 
     <div class="fixed top-6 right-6 z-50">
         <button id="cart-icon" class="relative bg-white text-gray-800 p-4 rounded-full shadow-lg transition-transform transform hover:scale-110">
@@ -142,16 +141,33 @@
 
     <header class="text-center my-8">
         <h1 class="text-5xl md:text-6xl font-extrabold text-[#4a2a16]">Oh Brochetti</h1>
-        <p class="mt-2 text-xl md:text-2xl text-[#a85a4a]">Commandez dés maintenant & régalez vous !</p>
+        <p class="mt-2 text-xl md:text-2xl text-[#a85a4a]">Commandez dès maintenant & régalez-vous !</p>
         <p class="mt-2 text-lg md:text-xl font-semibold text-gray-700">Contact: <a href="tel:+262693805535" class="text-blue-600 hover:underline">+262 693 80 55 35</a></p>
-        <p class="mt-4 text-center text-lg font-medium text-gray-700 px-4 py-2 bg-gray-200 rounded-lg shadow-inner">
-            <span class="font-bold">Information importante :</span> Nous n'avons pas de restaurant physique. Les plats sont préparés et livrés aux points de rendez-vous convenus.
-        </p>
+        
+        <!-- Nouveau bloc unifié pour les conditions de commande et de livraison -->
+        <div class="mt-6 p-4 md:p-6 bg-orange-100 border-l-4 border-orange-500 rounded-lg shadow-md text-left">
+            <p class="font-bold text-xl text-orange-800">Conditions de commande et de livraison</p>
+            <p class="mt-2 text-orange-700">
+                Afin de garantir la qualité et la fraîcheur de nos plats, les commandes doivent être passées au minimum <strong class="text-red-600">48 heures à l'avance</strong>, du lundi au vendredi.
+            </p>
+            <p class="mt-2 text-orange-700">
+                Nous ne proposons pas de livraison à domicile. Les livraisons se font à des points de rendez-vous convenus lors de la commande.
+            </p>
+            <p class="mt-2 text-sm text-orange-600 italic">
+                Afin de maintenir notre service de qualité, nous vous informons que les commandes ne peuvent être traitées qu'à partir d'un certain volume.
+            </p>
+            <p class="mt-4 font-bold text-orange-800">
+                Vous organisez un événement ?
+            </p>
+            <p class="mt-2 text-orange-700">
+                Pour vos événements (invitations, goûters, anniversaires, rencontres entre amis ou repas de famille, pique-niques...), nous vous proposons de fournir les plats pour votre menu. Notre service se concentre exclusivement sur la préparation des plats, sans inclure la logistique sur place.
+            </p>
+        </div>
     </header>
 
     <main class="container mx-auto">
         <section class="text-center my-8 p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-semibold mb-4 text-[#4a2a16]">Notre Menu</h2>
+            <h2 class="text-3xl font-semibold mb-4 text-[#4a2a16]">Nos propositions</h2>
             <p class="text-lg font-medium text-green-600 mb-6">(Toutes nos viandes sont certifiées Halal)</p>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
                 <button class="menu-category-btn" data-category="brochettes">
@@ -312,44 +328,47 @@
     <script>
         const products = {
             brochettes: [
-                { id: 'brochette-agneau', name: 'Brochette d\'agneau (gigot) (Halal)', price: 12.00, description: 'Portion de 250g. Environ 12 tiges. Délicieux morceaux d\'agneau (gigot), marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Agneau', ingredients: ['Agneau', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'brochette-boeuf', name: 'Brochette de bœuf (Halal)', price: 12.00, description: 'Portion de 250g. Morceaux de bœuf, marinés et prêts à griller. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Boeuf', ingredients: ['Bœuf', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'brochette-poulet', name: 'Brochette de poulet (Halal)', price: 10.00, description: 'Portion de 250g. Tendres morceaux de poulet marinés. Vendues crues, à faire cuire chez vous.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet', ingredients: ['Poulet', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-agneau', name: 'Brochette d\'agneau (gigot)', price: 15.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Agneau', ingredients: ['Agneau', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-boeuf', name: 'Brochette de bœuf', price: 13.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Boeuf', ingredients: ['Bœuf', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-poulet', name: 'Brochette de poulet', price: 10.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet', ingredients: ['Poulet', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-canard', name: 'Brochette de magret de canard', price: 15.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Canard', ingredients: ['Canard', 'épices', 'sauce soja', 'miel', 'gingembre'], allergens: ['soja'] },
             ],
             accompagnements: [
-                { id: 'sabeda', name: 'Sabeda (Vary Sosoa)', price: 9.00, description: 'Soupe de riz simple, un plat de réconfort à base de riz et d\'eau, sans viande ni épices.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Sabeda', ingredients: ['Riz', 'eau'], allergens: ['aucun'] },
-                { id: 'rougail', name: 'Rougail', price: 2.50, description: 'Un accompagnement pimenté à base de légumes ou de fruits. Au choix : rougail tomates, concombre-carotte, papaye ou mangue. Veuillez préciser votre choix dans la note de personnalisation.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Rougail', ingredients: ['Varie selon le type', 'oignon', 'gingembre', 'citron', 'piment', 'sel', 'huile'], allergens: ['aucun'] },
-                { id: 'achard-legumes', name: 'Achard de légumes', price: 3.00, description: 'Légumes marinés dans une sauce aux épices, un accompagnement piquant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Achard+Légumes', ingredients: ['Légumes variés', 'chou', 'haricots verts', 'carottes', 'curcuma', 'vinaigre', 'épices'], allergens: ['aucun'] },
-                { id: 'riz-jaune-epices', name: 'Riz jaune aux épices', price: 3.00, description: 'Riz parfumé aux épices, idéal pour accompagner tous les plats.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Riz+Jaune', ingredients: ['Riz', 'curcuma', 'épices', 'oignon', 'ail'], allergens: ['aucun'] },
-                { id: 'manioc-bouilli', name: 'Manioc bouilli', price: 2.50, description: 'Manioc bouilli, à la texture tendre et délicate.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Bouilli', ingredients: ['Manioc', 'sel'], allergens: ['aucun'] },
+                { id: 'sabeda', name: 'Sabeda (Vary Sosoa)', price: 9.00, description: 'Soupe de riz.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Sabeda', ingredients: ['Riz', 'eau'], allergens: ['aucun'] },
+                { id: 'rougail', name: 'Rougail', price: 2.50, description: 'Préparation de légumes ou de fruits. Le type dépendra de la disponibilité des produits de saison.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Rougail', ingredients: ['Varie selon le type', 'oignon', 'gingembre', 'citron', 'piment', 'sel', 'huile'], allergens: ['aucun'] },
+                { id: 'achard-legumes', name: 'Achard de légumes', price: 3.00, description: 'Julienne de légumes sautés aux épices.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Achard+Légumes', ingredients: ['Légumes variés', 'chou', 'haricots verts', 'carottes', 'curcuma', 'vinaigre', 'épices'], allergens: ['aucun'] },
+                { id: 'riz-jaune-epices', name: 'Riz jaune aux épices', price: 3.00, description: 'Riz parfumé aux épices.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Riz+Jaune', ingredients: ['Riz', 'curcuma', 'épices', 'oignon', 'ail'], allergens: ['aucun'] },
+                { id: 'manioc-bouilli', name: 'Manioc bouilli', price: 2.50, description: 'Manioc bouilli, à la texture tendre.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Bouilli', ingredients: ['Manioc', 'sel'], allergens: ['aucun'] },
                 { id: 'manioc-frit', name: 'Manioc frit', price: 3.00, description: 'Manioc frit, pour un goût croustillant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Frit', ingredients: ['Manioc', 'huile', 'sel'], allergens: ['aucun'] },
-                { id: 'manioc-boulette', name: 'Manioc en boulette', price: 3.50, description: 'Manioc transformé en boulettes, croustillantes à l\'extérieur et moelleuses à l\'intérieur.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Boulette', ingredients: ['Manioc', 'farine de blé', 'œufs', 'oignon', 'épices'], allergens: ['gluten', 'œufs'] },
+                { id: 'manioc-boulette', name: 'Manioc en boulette', price: 3.50, description: 'Boulettes de manioc croustillantes à l\'extérieur et moelleuses à l\'intérieur.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Boulette', ingredients: ['Manioc', 'farine de blé', 'œufs', 'oignon', 'épices'], allergens: ['gluten', 'œufs'] },
                 { id: 'patates-douces-bouillies', name: 'Patates douces bouillies', price: 2.50, description: 'Patates douces bouillies, parfaites pour un accompagnement léger.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Patates+Douces', ingredients: ['Patate douce', 'sel'], allergens: ['aucun'] },
                 { id: 'patates-douces-frites', name: 'Patates douces frites', price: 3.00, description: 'Patates douces frites, pour un goût plus gourmand.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Patates+Douces+Frites', ingredients: ['Patate douce', 'huile', 'sel'], allergens: ['aucun'] },
                 { id: 'pommes-de-terre-rotie', name: 'Pommes de terre rôties', price: 3.50, description: 'Pommes de terre rôties au four, dorées et savoureuses.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Pommes+Terre+Rôties', ingredients: ['Pommes de terre', 'huile', 'ail', 'romarin', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'legumes-sautes', name: 'Assortiments de légumes sautés', price: 4.00, description: 'Un assortiment de légumes frais sautés, un accompagnement sain et délicieux.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Légumes+Sautés', ingredients: ['Légumes variés', 'huile', 'ail', 'gingembre', 'sauce soja'], allergens: ['soja'] },
+                { id: 'legumes-sautes', name: 'Assortiments de légumes sautés', price: 4.00, description: 'Un assortiment de légumes frais sautés.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Légumes+Sautés', ingredients: ['Légumes variés', 'huile', 'ail', 'gingembre', 'sauce soja'], allergens: ['soja'] },
                 { id: 'taboule', name: 'Taboulé', price: 3.50, description: 'Taboulé frais aux herbes, un accompagnement léger et rafraîchissant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Taboulé', ingredients: ['Semoule', 'tomates', 'concombre', 'menthe', 'persil', 'citron', 'huile d\'olive'], allergens: ['gluten'] },
             ],
             malgache: [
-                { id: 'poulet-coco', name: 'Poulet au coco (Halal)', price: 9.50, description: 'Tendres morceaux de poulet mijotés dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Coco', ingredients: ['Poulet', 'lait de coco', 'gingembre', 'ail', 'oignon', 'curcuma', 'sel', 'poivre'], allergens: ['lait'] },
-                { id: 'vary-anana-nature', name: 'Vary anana (Brèdes) nature', price: 8.00, description: 'Plat traditionnel à base de riz et de brèdes (feuilles de légumes), parfait pour un repas végétarien.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana', ingredients: ['Riz', 'brèdes (feuilles de légumes)', 'tomates', 'oignon', 'ail', 'gingembre'], allergens: ['aucun'] },
-                { id: 'vary-anana-kimo', name: 'Vary anana (Brèdes) avec Kimo (Halal)', price: 9.50, description: 'Plat traditionnel à base de riz, brèdes et de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana+Kimo', ingredients: ['Riz', 'brèdes', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
-                { id: 'manioc-coco-nature', name: 'Manioc au coco nature', price: 8.50, description: 'Délicieux manioc cuit dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco', ingredients: ['Manioc', 'lait de coco', 'sel', 'poivre'], allergens: ['lait'] },
-                { id: 'manioc-coco-kimo', name: 'Manioc au coco avec Kimo (Halal)', price: 10.00, description: 'Manioc au lait de coco, accompagné de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco+Kimo', ingredients: ['Manioc', 'lait de coco', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['lait'] },
+                { id: 'romazave-boeuf', name: 'Romazave au bœuf', price: 12.00, description: 'Ragoût de feuilles de brèdes et de bœuf. Servi avec du riz.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Romazave+Boeuf', ingredients: ['Bœuf', 'brèdes', 'oignon', 'gingembre', 'ail', 'tomates', 'huile'], allergens: ['aucun'] },
+                { id: 'romazave-poulet', name: 'Romazave au poulet', price: 10.00, description: 'Ragoût de feuilles de brèdes et de poulet. Servi avec du riz.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Romazave+Poulet', ingredients: ['Poulet', 'brèdes', 'oignon', 'gingembre', 'ail', 'tomates', 'huile'], allergens: ['aucun'] },
+                { id: 'poulet-coco', name: 'Poulet au coco', price: 9.50, description: 'Morceaux de poulet mijotés dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Coco', ingredients: ['Poulet', 'lait de coco', 'gingembre', 'ail', 'oignon', 'curcuma', 'sel', 'poivre'], allergens: ['lait'] },
+                { id: 'vary-anana-nature', name: 'Vary anana (Brèdes) nature', price: 8.00, description: 'Plat traditionnel à base de riz et de brèdes.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana', ingredients: ['Riz', 'brèdes (feuilles de légumes)', 'tomates', 'oignon', 'ail', 'gingembre'], allergens: ['aucun'] },
+                { id: 'vary-anana-kimo', name: 'Vary anana (Brèdes) avec Kimo', price: 9.50, description: 'Plat traditionnel à base de riz, brèdes et de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Vary+Anana+Kimo', ingredients: ['Riz', 'brèdes', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
+                { id: 'manioc-coco-nature', name: 'Manioc au coco nature', price: 8.50, description: 'Manioc cuit dans une sauce onctueuse au lait de coco.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco', ingredients: ['Manioc', 'lait de coco', 'sel', 'poivre'], allergens: ['lait'] },
+                { id: 'manioc-coco-kimo', name: 'Manioc au coco avec Kimo', price: 10.00, description: 'Manioc au lait de coco, accompagné de kimo (viande hachée épicée).', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Manioc+Coco+Kimo', ingredients: ['Manioc', 'lait de coco', 'kimo (viande hachée)', 'épices', 'herbes aromatiques'], allergens: ['lait'] },
             ],
             soupes: [
-                { id: 'soupe-legumes', name: 'Soupe de légumes', price: 5.00, description: 'Soupe de légumes frais, un classique réconfortant.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Légumes', ingredients: ['Carottes', 'pommes de terre', 'courgettes', 'haricots verts', 'oignon', 'ail', 'sel', 'poivre'], allergens: ['aucun'] },
-                { id: 'soupe-paya', name: 'Soupe Paya (pied de bœuf) (Halal)', price: 8.00, description: 'Soupe copieuse à base de pied de bœuf, parfaite pour se réchauffer.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Paya', ingredients: ['Pied de bœuf', 'légumes', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
-                { id: 'soupe-chinoise', name: 'Soupe chinoise', price: 7.00, description: 'Soupe délicate avec des nouilles, légumes et herbes aromatiques.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Chinoise', ingredients: ['Nouilles', 'poulet', 'légumes', 'champignons', 'gingembre', 'sauce soja'], allergens: ['gluten', 'soja'] },
+                { id: 'soupe-legumes', name: 'Soupe de légumes', price: 5.00, description: 'Soupe de légumes frais.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Légumes', ingredients: ['Carottes', 'pommes de terre', 'courgettes', 'haricots verts', 'oignon', 'ail', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'soupe-paya', name: 'Soupe Paya (pied de bœuf)', price: 8.00, description: 'Soupe à base de pied de bœuf.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Paya', ingredients: ['Pied de bœuf', 'légumes', 'épices', 'herbes aromatiques'], allergens: ['aucun'] },
+                { id: 'soupe-chinoise', name: 'Soupe chinoise', price: 7.00, description: 'Soupe avec des nouilles, légumes et herbes aromatiques.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Soupe+Chinoise', ingredients: ['Nouilles', 'poulet', 'légumes', 'champignons', 'gingembre', 'sauce soja'], allergens: ['gluten', 'soja'] },
             ],
             rotis: [
-                { id: 'rotis-agneau', name: 'Gigot d\'agneau (Halal)', price: 15.00, description: 'Gigot d\'agneau mariné et rôti au four, tendre et savoureux.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Gigot+Agneau', ingredients: ['Gigot d\'agneau', 'épices', 'herbes de Provence', 'ail', 'oignon', 'huile'], allergens: ['aucun'] },
-                { id: 'rotis-poulet', name: 'Rôtis de poulet (Halal)', price: 8.50, description: 'Poulet mariné puis rôti au four, tendre et savoureux.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Rôti', ingredients: ['Poulet', 'épices', 'citron', 'herbes aromatiques'], allergens: ['aucun'] },
+                { id: 'rotis-agneau', name: 'Gigot d\'agneau', price: 15.00, description: 'Gigot d\'agneau mariné et rôti au four.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Gigot+Agneau', ingredients: ['Gigot d\'agneau', 'épices', 'herbes de Provence', 'ail', 'oignon', 'huile'], allergens: ['aucun'] },
+                { id: 'rotis-poulet', name: 'Rôtis de poulet', price: 8.50, description: 'Poulet mariné et rôti au four.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Rôti', ingredients: ['Poulet', 'épices', 'citron', 'herbes aromatiques'], allergens: ['aucun'] },
             ],
             cakes: [
-                { id: 'cake-chocolat', name: 'Cake au chocolat', price: 2.00, description: 'Moelleux et intense, parfait pour les gourmands.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Chocolat', ingredients: ['Farine', 'œufs', 'sucre', 'chocolat noir', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
-                { id: 'cake-pomme-chocolat', name: 'Cake pomme chocolat blanc', price: 2.50, description: 'Délicieux cake aux pommes et au chocolat blanc, une douceur fruitée.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Pomme+Chocolat', ingredients: ['Farine', 'pommes', 'chocolat blanc', 'œufs', 'sucre', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
-                { id: 'cake-poire-chocolat', name: 'Cake poire chocolat', price: 2.50, description: 'Cake à la poire et au chocolat, une combinaison classique et savoureuse.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Poire+Chocolat', ingredients: ['Farine', 'poires', 'chocolat', 'œufs', 'sucre', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
+                { id: 'cake-chocolat', name: 'Cake au chocolat', price: 2.00, description: 'Moelleux au chocolat.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Chocolat', ingredients: ['Farine', 'œufs', 'sucre', 'chocolat noir', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
+                { id: 'cake-pomme-chocolat', name: 'Cake pomme chocolat blanc', price: 2.50, description: 'Cake aux pommes et au chocolat blanc.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Pomme+Chocolat', ingredients: ['Farine', 'pommes', 'chocolat blanc', 'œufs', 'sucre', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
+                { id: 'cake-poire-chocolat', name: 'Cake poire chocolat', price: 2.50, description: 'Cake à la poire et au chocolat.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Poire+Chocolat', ingredients: ['Farine', 'poires', 'chocolat', 'œufs', 'sucre', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
             ],
         };
         
@@ -376,7 +395,7 @@
             productsList.innerHTML = '';
             
             if (category === 'brochettes') {
-                categoryTitle.innerHTML = 'Brochettes <br><span class="text-sm font-normal text-gray-700">IMPORTANT : Les brochettes sont livrées crues, à faire cuire chez vous.</span>';
+                categoryTitle.innerHTML = 'Brochettes<br><span class="text-sm font-normal text-gray-700">Nos délicieuses préparations sont prêtes à être cuites à la perfection sur votre barbecue ou votre plancha.</span>';
             } else {
                 categoryTitle.textContent = title;
             }
