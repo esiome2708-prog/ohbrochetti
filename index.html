@@ -213,14 +213,7 @@
             </div>
         </section>
 
-        <section class="my-12 text-center p-6 bg-white rounded-xl shadow-lg">
-            <h2 class="text-3xl font-semibold mb-6 text-[#4a2a16]">Notre galerie de plats</h2>
-            <a href="https://imgur.com/a/oh-brochetti-gallerie-dimages-des-plats-SwfldMI" target="_blank" class="inline-block bg-[#ff7e5f] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-[#ff6a4a] transition-colors duration-200">
-                Voir la galerie sur Imgur
-            </a>
-        </section>
-
-        <section id="menu-section" class="my-12" style="display: none;">
+               <section id="menu-section" class="my-12" style="display: none;">
             <div class="sticky-header bg-fce7d8/90 backdrop-blur-sm pt-8 pb-4">
                 <h2 id="category-title" class="text-3xl md:text-4xl font-extrabold mb-4 text-[#4a2a16] text-center"></h2>
                 <p id="category-subtitle" class="text-lg text-gray-700 text-center"></p>
@@ -575,15 +568,6 @@
             }
             return null;
         }
-        
-        // This function will find a product by name
-        function findProductByName(name) {
-            for (const category in products) {
-                const product = products[category].find(p => p.name.toLowerCase() === name.toLowerCase());
-                if (product) return product;
-            }
-            return null;
-        }
 
         function updateCartCount() {
             const totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
@@ -761,7 +745,7 @@
         function closeEventPlannerModal() {
             eventPlannerModal.classList.add('hidden');
         }
-        
+
         const generatePlannerMenu = async () => {
             const eventType = document.getElementById('event-type-input').value;
             const adultCount = parseInt(document.getElementById('adult-count-input').value, 10);
@@ -780,7 +764,7 @@
             plannerLoader.classList.remove('hidden');
             generateBtnText.textContent = 'Génération en cours...';
             regenerateBtn.classList.add('hidden');
-            menuSuggestions.innerHTML = `<div class="flex justify-center items-center py-8"><div class="loader"></div></div>`;
+            menuSuggestions.innerHTML = `<div class="flex justify-center items-center"><div class="loader"></div></div>`;
 
             let menuConstraint = '';
             if (menuType === 'brochettes') {
@@ -797,7 +781,7 @@
                                     ${menuConstraint}
                                     Le client organise un événement de type "${eventType}" pour ${adultCount} adultes et ${childCount} enfants.
                                     Proposez un menu personnalisé en sélectionnant des plats de la liste.
-                                    Pour chaque plat, indiquez une quantité estimée pour ce groupe de personnes, le nom du plat, sa description et l'ID du produit correspondant dans la liste fournie. Si le plat est composé de plusieurs éléments, comme un gâteau de 8 personnes, cela représente une seule quantité. Si c'est un plat en portion individuelle ou pour une personne, cela représente une quantité de 1.
+                                    Pour chaque plat, indiquez une quantité estimée pour ce groupe de personnes, le nom du plat et sa description.
                                     Fournissez la réponse au format JSON suivant :
                                     {
                                       "suggestions": [
@@ -808,7 +792,6 @@
                                             {
                                               "name": "Nom du plat",
                                               "quantity": "Quantité estimée (Ex: 15 tiges, 3 portions, 1 gâteau)",
-                                              "id": "ID du produit correspondant dans la liste",
                                               "description": "Description du plat"
                                             }
                                           ]
@@ -840,34 +823,16 @@
                 if (parsedJson && parsedJson.suggestions) {
                     menuSuggestions.innerHTML = '';
                     parsedJson.suggestions.forEach(suggestion => {
-                        let menuHtml = '';
-                        let totalCost = 0;
-                        suggestion.menu.forEach(item => {
-                            const product = findProductById(item.id);
-                            let itemPrice = product ? product.price : 0;
-                            // Estimate quantity
-                            let estimatedQuantity = 1;
-                            if (item.quantity.toLowerCase().includes('tiges')) {
-                                estimatedQuantity = parseInt(item.quantity.toLowerCase().replace(/tiges/g, '').trim(), 10) || 1;
-                            } else if (item.quantity.toLowerCase().includes('portions')) {
-                                estimatedQuantity = parseInt(item.quantity.toLowerCase().replace(/portions/g, '').trim(), 10) || 1;
-                            } else if (item.quantity.toLowerCase().includes('gâteau')) {
-                                estimatedQuantity = parseInt(item.quantity.toLowerCase().replace(/gâteau/g, '').trim(), 10) || 1;
-                                if (item.name.toLowerCase().includes('cake')) {
-                                    itemPrice = product.price * 8; // Assuming 8 portions for a cake
-                                }
-                            }
-                            totalCost += itemPrice * estimatedQuantity;
-                            menuHtml += `<li><strong>${item.name}</strong> (${item.quantity}): ${item.description} - Coût estimé: ${(itemPrice * estimatedQuantity).toFixed(2)}€</li>`;
-                        });
-                        
                         const suggestionDiv = document.createElement('div');
                         suggestionDiv.className = 'p-4 bg-white rounded-lg shadow-md mb-4';
+                        let menuHtml = '';
+                        suggestion.menu.forEach(item => {
+                            menuHtml += `<li><strong>${item.name}</strong> (${item.quantity}): ${item.description}</li>`;
+                        });
                         suggestionDiv.innerHTML = `
                             <h4 class="font-bold text-xl text-[#a85a4a] mb-2">${suggestion.title}</h4>
                             <p class="text-sm text-gray-700 mb-4">${suggestion.description}</p>
                             <ul class="list-disc list-inside space-y-2 text-gray-800">${menuHtml}</ul>
-                            <p class="font-bold text-lg mt-4 text-right">Coût total estimé: ${totalCost.toFixed(2)}€</p>
                         `;
                         menuSuggestions.appendChild(suggestionDiv);
                     });
