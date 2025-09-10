@@ -128,11 +128,31 @@
             align-items: center;
             justify-content: center;
         }
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ff7e5f;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-
-    <div class="fixed top-6 right-6 z-50">
+    <!-- Cart & Event Planner Buttons -->
+    <div class="fixed top-6 right-6 z-50 flex flex-col gap-4">
+        <button id="event-planner-icon" class="relative bg-white text-gray-800 p-4 rounded-full shadow-lg transition-transform transform hover:scale-110">
+            <svg class="w-6 h-6 text-pink-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+        </button>
         <button id="cart-icon" class="relative bg-white text-gray-800 p-4 rounded-full shadow-lg transition-transform transform hover:scale-110">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">0</span>
@@ -144,7 +164,7 @@
         <p class="mt-2 text-xl md:text-2xl text-[#a85a4a]">Commandez dès maintenant & régalez-vous !</p>
         <p class="mt-2 text-lg md:text-xl font-semibold text-gray-700">Contact: <a href="tel:+262693805535" class="text-blue-600 hover:underline">+262 693 80 55 35</a></p>
         
-        <!-- Nouveau bloc unifié pour les conditions de commande et de livraison -->
+        <!-- Bloc pour les conditions de commande et de livraison -->
         <div class="mt-6 p-4 md:p-6 bg-orange-100 border-l-4 border-orange-500 rounded-lg shadow-md text-left">
             <p class="font-bold text-xl text-orange-800">Conditions de commande et de livraison</p>
             <p class="mt-2 text-orange-700">
@@ -162,6 +182,8 @@
             <p class="mt-2 text-orange-700">
                 Pour vos événements (invitations, goûters, anniversaires, rencontres entre amis ou repas de famille, pique-niques...), nous vous proposons de fournir les plats de notre menu. Notre service se concentre exclusivement sur la préparation des plats, sans inclure la logistique sur place.
             </p>
+            <!-- New Gemini API Event Planner button -->
+            <button id="open-event-planner" class="btn btn-secondary mt-4">Planifier votre événement ✨</button>
         </div>
     </header>
 
@@ -193,25 +215,33 @@
 
         <section class="my-12 text-center p-6 bg-white rounded-xl shadow-lg">
             <h2 class="text-3xl font-semibold mb-6 text-[#4a2a16]">Notre galerie de plats</h2>
-            <a href="https://imgur.com/a/oh-brochetti-TqKhCFH" target="_blank" class="inline-block bg-[#ff7e5f] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-[#ff6a4a] transition-colors duration-200">
+            <a href="https://imgur.com/a/oh-brochetti-gallerie-dimages-des-plats-SwfldMI" target="_blank" class="inline-block bg-[#ff7e5f] text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:bg-[#ff6a4a] transition-colors duration-200">
                 Voir la galerie sur Imgur
             </a>
         </section>
 
-        <section id="menu-section" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12" style="display: none;">
-            <div id="category-title" class="md:col-span-2 lg:col-span-3 text-3xl font-bold mb-4 text-[#4a2a16]"></div>
+        <section id="menu-section" class="my-12" style="display: none;">
+            <div class="sticky-header bg-fce7d8/90 backdrop-blur-sm pt-8 pb-4">
+                <h2 id="category-title" class="text-3xl md:text-4xl font-extrabold mb-4 text-[#4a2a16] text-center"></h2>
+                <p id="category-subtitle" class="text-lg text-gray-700 text-center"></p>
+            </div>
             
-            <div id="products-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:col-span-2 lg:col-span-3"></div>
+            <div id="products-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6"></div>
         </section>
     </main>
     
+    <!-- Product Modal -->
     <div id="product-modal" class="fixed inset-0 z-50 overflow-y-auto hidden modal">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="modal-content bg-white p-6 rounded-3xl shadow-xl w-full max-w-lg relative">
                 <button onclick="closeProductModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
                 <img id="product-image" src="" alt="Product image" class="rounded-t-2xl mb-4 w-full h-48 object-cover">
                 <h3 id="product-name" class="text-2xl font-bold text-[#4a2a16] mb-2"></h3>
-                <p id="product-description" class="text-gray-600 mb-4"></p>
+                <p id="product-description" class="text-gray-600 mb-2"></p>
+                <button id="tts-button" class="text-gray-500 hover:text-blue-500 transition-colors duration-200 text-sm">
+                    <svg class="w-5 h-5 inline-block mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9.383 3.033A1 1 0 0110 3v14a1 1 0 01-1.745.698L5 14H3a1 1 0 01-1-1v-2a1 1 0 011-1h2L9.383 3.033zM16.32 9.07a1 1 0 011.36-.26c.45.245.596.84.28 1.304l-.066.11a.87.87 0 00-.03.042c-.22.378-.29.843-.223 1.314.07.47.33.905.733 1.258a.5.5 0 01-.65.75c-.75-.655-1.124-1.63-1.07-2.67.05-1.04.48-1.996 1.25-2.78z" clip-rule="evenodd"></path></svg>
+                    Écouter la description
+                </button>
                 <p id="product-price" class="text-xl font-bold text-[#a85a4a] mb-4"></p>
                 
                 <div class="mt-4">
@@ -233,6 +263,7 @@
         </div>
     </div>
 
+    <!-- Cart Modal -->
     <div id="cart-modal" class="fixed inset-0 z-50 overflow-y-auto hidden modal">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="modal-content bg-white p-6 rounded-3xl shadow-xl w-full max-w-3xl">
@@ -255,6 +286,7 @@
         </div>
     </div>
     
+    <!-- Order Form Modal -->
     <div id="order-form-modal" class="fixed inset-0 z-50 overflow-y-auto hidden modal">
         <div class="flex items-center justify-center min-h-screen p-4">
             <div class="modal-content bg-white p-6 rounded-3xl shadow-xl w-full max-w-3xl">
@@ -329,12 +361,60 @@
         </div>
     </div>
     
+    <!-- Event Planner Modal -->
+    <div id="event-planner-modal" class="fixed inset-0 z-50 overflow-y-auto hidden modal">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="modal-content bg-white p-6 rounded-3xl shadow-xl w-full max-w-lg relative">
+                <button onclick="closeEventPlannerModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl font-bold">&times;</button>
+                <h2 class="text-3xl font-bold text-[#4a2a16] mb-4 text-center">Planificateur d'Événements</h2>
+                <p class="text-gray-600 text-center mb-4">Laissez l'IA de Gemini vous aider à choisir un menu parfait pour votre occasion.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label for="event-type-input" class="block text-sm font-medium mb-1">Type d'événement</label>
+                        <input type="text" id="event-type-input" placeholder="Ex: Anniversaire, Pique-nique, Fête de bureau" class="p-3 border rounded-lg w-full">
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="w-1/2">
+                            <label for="adult-count-input" class="block text-sm font-medium mb-1">Nombre d'adultes</label>
+                            <input type="number" id="adult-count-input" min="0" value="10" class="p-3 border rounded-lg w-full">
+                        </div>
+                        <div class="w-1/2">
+                            <label for="child-count-input" class="block text-sm font-medium mb-1">Nombre d'enfants</label>
+                            <input type="number" id="child-count-input" min="0" value="0" class="p-3 border rounded-lg w-full">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="menu-type-input" class="block text-sm font-medium mb-1">Type de menu</label>
+                        <select id="menu-type-input" class="p-3 border rounded-lg w-full">
+                            <option value="mixte">Mixte (recommandé)</option>
+                            <option value="brochettes">Menu à base de Brochettes</option>
+                            <option value="plats">Menu à base de Plats (hors brochettes)</option>
+                        </select>
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:justify-center gap-4">
+                        <button id="generate-menu-btn" class="w-full btn btn-primary flex items-center justify-center">
+                            <span id="generate-menu-text">Générer un menu ✨</span>
+                            <div id="planner-loader" class="loader ml-4 hidden"></div>
+                        </button>
+                        <button id="regenerate-menu-btn" class="w-full btn btn-secondary hidden">
+                            Générer une autre option
+                        </button>
+                    </div>
+                </div>
+                <div id="menu-suggestions" class="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <p class="text-center text-gray-500 italic">Votre menu personnalisé s'affichera ici.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Status Message -->
     <div id="status-message" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg hidden"></div>
     
     <script>
         const products = {
             brochettes: [
-                { id: 'brochette-agneau', name: 'Brochette d\'agneau (gigot)', price: 15.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Agneau', ingredients: ['Agneau', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
+                { id: 'brochette-agneau', name: 'Gigot d\'agneau', price: 15.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Agneau', ingredients: ['Agneau', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
                 { id: 'brochette-boeuf', name: 'Brochette de bœuf', price: 13.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Boeuf', ingredients: ['Bœuf', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
                 { id: 'brochette-poulet', name: 'Brochette de poulet', price: 10.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet', ingredients: ['Poulet', 'épices', 'huile', 'sel', 'poivre'], allergens: ['aucun'] },
                 { id: 'brochette-canard', name: 'Brochette de magret de canard', price: 15.50, description: 'Comprend une portion de rougail et une portion de piment. Portion de 250g. Environ 12 tiges.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Canard', ingredients: ['Canard', 'épices', 'sauce soja', 'miel', 'gingembre'], allergens: ['soja'] },
@@ -369,7 +449,7 @@
             ],
             rotis: [
                 { id: 'rotis-agneau', name: 'Gigot d\'agneau', price: 15.00, description: 'Gigot d\'agneau mariné et rôti au four.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Gigot+Agneau', ingredients: ['Gigot d\'agneau', 'épices', 'herbes de Provence', 'ail', 'oignon', 'huile'], allergens: ['aucun'] },
-                { id: 'rotis-poulet', name: 'Rôtis de poulet', price: 8.50, description: 'Poulet mariné et rôti au four.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Rôti', ingredients: ['Poulet', 'épices', 'citron', 'herbes aromatiques'], allergens: ['aucun'] },
+                { id: 'rotis-poulet', name: 'Poulet rôti', price: 8.50, description: 'Poulet mariné et rôti au four.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Poulet+Rôti', ingredients: ['Poulet', 'épices', 'citron', 'herbes aromatiques'], allergens: ['aucun'] },
             ],
             cakes: [
                 { id: 'cake-chocolat', name: 'Cake au chocolat', price: 2.00, description: 'Moelleux au chocolat.', image: 'https://placehold.co/400x300/e5d8c3/4a2a16?text=Cake+Chocolat', ingredients: ['Farine', 'œufs', 'sucre', 'chocolat noir', 'beurre', 'levure'], allergens: ['gluten', 'œufs', 'lait'] },
@@ -385,6 +465,9 @@
         const cartTotal = document.getElementById('cart-total');
         const orderFormModal = document.getElementById('order-form-modal');
         const productModal = document.getElementById('product-modal');
+        const eventPlannerModal = document.getElementById('event-planner-modal');
+
+        let currentPlannerPrompt = "";
         
         document.querySelectorAll('.menu-category-btn').forEach(button => {
             button.addEventListener('click', () => {
@@ -397,13 +480,14 @@
         function displayProducts(category, title) {
             const productsList = document.getElementById('products-list');
             const categoryTitle = document.getElementById('category-title');
+            const categorySubtitle = document.getElementById('category-subtitle');
             const menuSection = document.getElementById('menu-section');
             productsList.innerHTML = '';
             
+            categoryTitle.textContent = title;
+            categorySubtitle.textContent = '';
             if (category === 'brochettes') {
-                categoryTitle.innerHTML = 'Brochettes<br><span class="text-sm font-normal text-gray-700">Nos délicieuses préparations sont prêtes à être cuites à la perfection sur votre barbecue ou votre plancha.</span>';
-            } else {
-                categoryTitle.textContent = title;
+                categorySubtitle.textContent = 'Nos délicieuses préparations sont prêtes à être cuites à la perfection sur votre barbecue ou votre plancha.';
             }
 
             products[category].forEach(product => {
@@ -422,7 +506,7 @@
 
                 productCard.querySelector('button').addEventListener('click', () => showProductModal(product));
             });
-            menuSection.style.display = 'grid';
+            menuSection.style.display = 'block';
         }
 
         function showProductModal(product) {
@@ -463,25 +547,39 @@
         }
 
         function addToCartFromModal() {
-            const productId = productModal.dataset.productId;
-            const quantity = parseInt(document.getElementById('quantity-input').value);
-            const product = findProductById(productId);
+            try {
+                const productId = productModal.dataset.productId;
+                const quantity = parseInt(document.getElementById('quantity-input').value);
+                const product = findProductById(productId);
 
-            if (product) {
-                if (cart[productId]) {
-                    cart[productId].quantity += quantity;
-                } else {
-                    cart[productId] = { ...product, quantity: quantity };
+                if (product) {
+                    if (cart[productId]) {
+                        cart[productId].quantity += quantity;
+                    } else {
+                        cart[productId] = { ...product, quantity: quantity };
+                    }
+                    updateCartCount();
+                    closeProductModal();
+                    showStatusMessage(`${quantity}x ${product.name} ajouté(s) au panier !`, 'bg-green-500');
                 }
-                updateCartCount();
-                closeProductModal();
-                showStatusMessage(`${quantity}x ${product.name} ajouté(s) au panier !`, 'bg-green-500');
+            } catch (error) {
+                console.error("Error adding to cart:", error);
+                showStatusMessage('Une erreur est survenue lors de l\'ajout au panier.', 'bg-red-500');
             }
         }
 
         function findProductById(id) {
             for (const category in products) {
                 const product = products[category].find(p => p.id === id);
+                if (product) return product;
+            }
+            return null;
+        }
+        
+        // This function will find a product by name
+        function findProductByName(name) {
+            for (const category in products) {
+                const product = products[category].find(p => p.name.toLowerCase() === name.toLowerCase());
                 if (product) return product;
             }
             return null;
@@ -555,7 +653,7 @@
                 return;
             }
             closeCartModal();
-            orderFormModal.classList.remove('hidden');
+            order-form-modal.classList.remove('hidden');
         }
 
         function closeOrderFormModal() {
@@ -565,55 +663,60 @@
         document.getElementById('order-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const clientName = document.getElementById('client-name').value;
-            const clientEmail = document.getElementById('client-email').value;
-            const clientPhone = document.getElementById('client-phone').value;
-            const clientAddress = document.getElementById('client-address').value;
-            const deliveryZone = document.getElementById('delivery-zone').value;
-            const pickupPoint = document.getElementById('pickup-point').value;
-            const deliveryDate = document.getElementById('delivery-date').value;
-            const customizationNote = document.getElementById('customization-note').value;
-            const emailConsent = document.getElementById('email-consent').checked;
+            try {
+                const clientName = document.getElementById('client-name').value;
+                const clientEmail = document.getElementById('client-email').value;
+                const clientPhone = document.getElementById('client-phone').value;
+                const clientAddress = document.getElementById('client-address').value;
+                const deliveryZone = document.getElementById('delivery-zone').value;
+                const pickupPoint = document.getElementById('pickup-point').value;
+                const deliveryDate = document.getElementById('delivery-date').value;
+                const customizationNote = document.getElementById('customization-note').value;
+                const emailConsent = document.getElementById('email-consent').checked;
 
-            let orderSummary = `*Nouvelle Commande Oh Brochetti*\n\n`;
-            orderSummary += `*Client*: ${clientName}\n`;
-            orderSummary += `*Email*: ${clientEmail}\n`;
-            orderSummary += `*Téléphone*: ${clientPhone}\n`;
-            orderSummary += `*Adresse*: ${clientAddress || 'Non spécifiée'}\n\n`;
-            orderSummary += `*Date de livraison souhaitée*: ${deliveryDate}\n`;
-            orderSummary += `*Zone de livraison*: ${document.querySelector(`#delivery-zone option[value="${deliveryZone}"]`).textContent}\n`;
-            orderSummary += `*Point de rendez-vous*: ${pickupPoint}\n\n`;
-            orderSummary += `*Détails de la commande*:\n`;
-            let total = 0;
-            for (const productId in cart) {
-                const item = cart[productId];
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                orderSummary += `- ${item.name} x${item.quantity} (${itemTotal.toFixed(2)}€)\n`;
+                let orderSummary = `*Nouvelle Commande Oh Brochetti*\n\n`;
+                orderSummary += `*Client*: ${clientName}\n`;
+                orderSummary += `*Email*: ${clientEmail}\n`;
+                orderSummary += `*Téléphone*: ${clientPhone}\n`;
+                orderSummary += `*Adresse*: ${clientAddress || 'Non spécifiée'}\n\n`;
+                orderSummary += `*Date de livraison souhaitée*: ${deliveryDate}\n`;
+                orderSummary += `*Zone de livraison*: ${document.querySelector(`#delivery-zone option[value="${deliveryZone}"]`).textContent}\n`;
+                orderSummary += `*Point de rendez-vous*: ${pickupPoint}\n\n`;
+                orderSummary += `*Détails de la commande*:\n`;
+                let total = 0;
+                for (const productId in cart) {
+                    const item = cart[productId];
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    orderSummary += `- ${item.name} x${item.quantity} (${itemTotal.toFixed(2)}€)\n`;
+                }
+                orderSummary += `\n*Sous-total*: ${total.toFixed(2)}€\n`;
+                let deliveryFee = 0;
+                if (deliveryZone === 'zone1' || deliveryZone === 'zone2') {
+                    deliveryFee = 2.50;
+                } else if (deliveryZone === 'zone3') {
+                    deliveryFee = 4.00;
+                }
+                orderSummary += `*Frais de livraison*: ${deliveryFee.toFixed(2)}€\n`;
+                orderSummary += `*TOTAL FINAL*: ${(total + deliveryFee).toFixed(2)}€\n\n`;
+                
+                if (customizationNote) {
+                    orderSummary += `*Note de personnalisation*: ${customizationNote}\n\n`;
+                }
+                orderSummary += `*Consentement email*: ${emailConsent ? 'Oui' : 'Non'}\n`;
+                
+                const encodedOrder = encodeURIComponent(orderSummary);
+                const whatsappUrl = `https://api.whatsapp.com/send?phone=262693805535&text=${encodedOrder}`;
+                
+                window.open(whatsappUrl, '_blank');
+                
+                closeOrderFormModal();
+                clearCart();
+                showStatusMessage('Commande envoyée via WhatsApp !', 'bg-green-500');
+            } catch (error) {
+                console.error("Error submitting order:", error);
+                showStatusMessage('Une erreur est survenue lors de l\'envoi de la commande. Veuillez vérifier votre navigateur.', 'bg-red-500');
             }
-            orderSummary += `\n*Sous-total*: ${total.toFixed(2)}€\n`;
-            let deliveryFee = 0;
-            if (deliveryZone === 'zone1' || deliveryZone === 'zone2') {
-                deliveryFee = 2.50;
-            } else if (deliveryZone === 'zone3') {
-                deliveryFee = 4.00;
-            }
-            orderSummary += `*Frais de livraison*: ${deliveryFee.toFixed(2)}€\n`;
-            orderSummary += `*TOTAL FINAL*: ${(total + deliveryFee).toFixed(2)}€\n\n`;
-            
-            if (customizationNote) {
-                orderSummary += `*Note de personnalisation*: ${customizationNote}\n\n`;
-            }
-            orderSummary += `*Consentement email*: ${emailConsent ? 'Oui' : 'Non'}\n`;
-            
-            const encodedOrder = encodeURIComponent(orderSummary);
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=262693805535&text=${encodedOrder}`;
-            
-            window.open(whatsappUrl, '_blank');
-            
-            closeOrderFormModal();
-            clearCart();
-            showStatusMessage('Commande envoyée via WhatsApp !', 'bg-green-500');
         });
 
         function clearCart() {
@@ -643,6 +746,262 @@
         const mm = String(minDate.getMonth() + 1).padStart(2, '0');
         const dd = String(minDate.getDate()).padStart(2, '0');
         document.getElementById('delivery-date').min = `${yyyy}-${mm}-${dd}`;
+        
+        // --- New Gemini API Features ---
+        
+        // Event Planner
+        document.getElementById('open-event-planner').addEventListener('click', () => {
+            eventPlannerModal.classList.remove('hidden');
+        });
+
+        document.getElementById('event-planner-icon').addEventListener('click', () => {
+            eventPlannerModal.classList.remove('hidden');
+        });
+
+        function closeEventPlannerModal() {
+            eventPlannerModal.classList.add('hidden');
+        }
+        
+        const generatePlannerMenu = async () => {
+            const eventType = document.getElementById('event-type-input').value;
+            const adultCount = parseInt(document.getElementById('adult-count-input').value, 10);
+            const childCount = parseInt(document.getElementById('child-count-input').value, 10);
+            const menuType = document.getElementById('menu-type-input').value;
+            const menuSuggestions = document.getElementById('menu-suggestions');
+            const plannerLoader = document.getElementById('planner-loader');
+            const generateBtnText = document.getElementById('generate-menu-text');
+            const regenerateBtn = document.getElementById('regenerate-menu-btn');
+
+            if (!eventType || isNaN(adultCount) || isNaN(childCount) || (adultCount + childCount) === 0) {
+                showStatusMessage("Veuillez remplir les champs du planificateur.", 'bg-red-500');
+                return;
+            }
+
+            plannerLoader.classList.remove('hidden');
+            generateBtnText.textContent = 'Génération en cours...';
+            regenerateBtn.classList.add('hidden');
+            menuSuggestions.innerHTML = `<div class="flex justify-center items-center py-8"><div class="loader"></div></div>`;
+
+            let menuConstraint = '';
+            if (menuType === 'brochettes') {
+                menuConstraint = 'Le menu doit être principalement composé de brochettes, avec quelques accompagnements.';
+            } else if (menuType === 'plats') {
+                menuConstraint = 'Le menu doit être composé de plats malgaches, de soupes, et de rôtis. N\'incluez pas de brochettes dans ce menu.';
+            } else {
+                menuConstraint = 'Le menu doit être équilibré, en incluant des brochettes, des accompagnements et des desserts si possible.';
+            }
+
+            const fullProductList = JSON.stringify(products);
+            const userPrompt = `A partir de cette liste de produits JSON : ${fullProductList},
+                                    vous êtes un organisateur de menus pour événements.
+                                    ${menuConstraint}
+                                    Le client organise un événement de type "${eventType}" pour ${adultCount} adultes et ${childCount} enfants.
+                                    Proposez un menu personnalisé en sélectionnant des plats de la liste.
+                                    Pour chaque plat, indiquez une quantité estimée pour ce groupe de personnes, le nom du plat, sa description et l'ID du produit correspondant dans la liste fournie. Si le plat est composé de plusieurs éléments, comme un gâteau de 8 personnes, cela représente une seule quantité. Si c'est un plat en portion individuelle ou pour une personne, cela représente une quantité de 1.
+                                    Fournissez la réponse au format JSON suivant :
+                                    {
+                                      "suggestions": [
+                                        {
+                                          "title": "Titre de la suggestion de menu",
+                                          "description": "Courte explication du menu",
+                                          "menu": [
+                                            {
+                                              "name": "Nom du plat",
+                                              "quantity": "Quantité estimée (Ex: 15 tiges, 3 portions, 1 gâteau)",
+                                              "id": "ID du produit correspondant dans la liste",
+                                              "description": "Description du plat"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }`;
+
+            currentPlannerPrompt = userPrompt; // Save the prompt for regeneration
+            const payload = {
+                contents: [{ parts: [{ text: userPrompt }] }],
+                generationConfig: {
+                    responseMimeType: "application/json"
+                }
+            };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            try {
+                let response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const jsonText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                const parsedJson = JSON.parse(jsonText);
+
+                if (parsedJson && parsedJson.suggestions) {
+                    menuSuggestions.innerHTML = '';
+                    parsedJson.suggestions.forEach(suggestion => {
+                        let menuHtml = '';
+                        let totalCost = 0;
+                        suggestion.menu.forEach(item => {
+                            const product = findProductById(item.id);
+                            let itemPrice = product ? product.price : 0;
+                            // Estimate quantity
+                            let estimatedQuantity = 1;
+                            if (item.quantity.toLowerCase().includes('tiges')) {
+                                estimatedQuantity = parseInt(item.quantity.toLowerCase().replace(/tiges/g, '').trim(), 10) || 1;
+                            } else if (item.quantity.toLowerCase().includes('portions')) {
+                                estimatedQuantity = parseInt(item.quantity.toLowerCase().replace(/portions/g, '').trim(), 10) || 1;
+                            } else if (item.quantity.toLowerCase().includes('gâteau')) {
+                                estimatedQuantity = parseInt(item.quantity.toLowerCase().replace(/gâteau/g, '').trim(), 10) || 1;
+                                if (item.name.toLowerCase().includes('cake')) {
+                                    itemPrice = product.price * 8; // Assuming 8 portions for a cake
+                                }
+                            }
+                            totalCost += itemPrice * estimatedQuantity;
+                            menuHtml += `<li><strong>${item.name}</strong> (${item.quantity}): ${item.description} - Coût estimé: ${(itemPrice * estimatedQuantity).toFixed(2)}€</li>`;
+                        });
+                        
+                        const suggestionDiv = document.createElement('div');
+                        suggestionDiv.className = 'p-4 bg-white rounded-lg shadow-md mb-4';
+                        suggestionDiv.innerHTML = `
+                            <h4 class="font-bold text-xl text-[#a85a4a] mb-2">${suggestion.title}</h4>
+                            <p class="text-sm text-gray-700 mb-4">${suggestion.description}</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-800">${menuHtml}</ul>
+                            <p class="font-bold text-lg mt-4 text-right">Coût total estimé: ${totalCost.toFixed(2)}€</p>
+                        `;
+                        menuSuggestions.appendChild(suggestionDiv);
+                    });
+                    regenerateBtn.classList.remove('hidden');
+                } else {
+                    menuSuggestions.innerHTML = '<p class="text-center text-red-500">Désolé, je n\'ai pas pu générer de suggestion de menu pour le moment.</p>';
+                }
+
+            } catch (error) {
+                console.error('Erreur lors de la génération du menu:', error);
+                menuSuggestions.innerHTML = '<p class="text-center text-red-500">Une erreur est survenue. Veuillez réessayer.</p>';
+            } finally {
+                plannerLoader.classList.add('hidden');
+                generateBtnText.textContent = 'Générer un menu ✨';
+            }
+        };
+
+        document.getElementById('generate-menu-btn').addEventListener('click', generatePlannerMenu);
+        document.getElementById('regenerate-menu-btn').addEventListener('click', async () => {
+             if (currentPlannerPrompt) {
+                 // Reuse the same logic, but clear previous suggestions
+                 document.getElementById('menu-suggestions').innerHTML = '';
+                 generatePlannerMenu();
+             }
+        });
+
+        // Text-to-Speech
+        document.getElementById('tts-button').addEventListener('click', async () => {
+            const descriptionText = document.getElementById('product-description').textContent;
+            const ttsButton = document.getElementById('tts-button');
+            const originalText = ttsButton.innerHTML;
+
+            ttsButton.disabled = true;
+            ttsButton.innerHTML = `<svg class="w-5 h-5 inline-block animate-pulse mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-7-8a7 7 0 1114 0 7 7 0 01-14 0z" clip-rule="evenodd"></path></svg> Lecture...`;
+
+            try {
+                const payload = {
+                    contents: [{ parts: [{ text: descriptionText }] }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Iapetus" }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 16000;
+                    
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+                    audio.onended = () => {
+                        ttsButton.disabled = false;
+                        ttsButton.innerHTML = originalText;
+                        URL.revokeObjectURL(audioUrl);
+                    };
+                } else {
+                    console.error('Erreur: Données audio manquantes dans la réponse.');
+                    showStatusMessage('Erreur lors de la lecture audio.', 'bg-red-500');
+                }
+            } catch (error) {
+                console.error('Erreur lors de l\'appel à l\'API TTS:', error);
+                showStatusMessage('Impossible de lire la description.', 'bg-red-500');
+            } finally {
+                ttsButton.disabled = false;
+                ttsButton.innerHTML = originalText;
+            }
+        });
+        
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcm16.length * 2);
+            const view = new DataView(buffer);
+            
+            // WAV header
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + pcm16.length * 2, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true); // PCM format
+            view.setUint16(22, 1, true); // Single channel
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, pcm16.length * 2, true);
+            
+            // Write PCM data
+            for (let i = 0; i < pcm16.length; i++) {
+                view.setInt16(44 + i * 2, pcm16[i], true);
+            }
+            
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
     </script>
 </body>
 </html>
