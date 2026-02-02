@@ -49,6 +49,7 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            width: 100%;
         }
 
         .product-card:hover {
@@ -95,6 +96,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .service-card {
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .service-card.active {
+            border-color: var(--brand-orange);
+            background-color: #fff5f2;
+        }
+
         .loader {
             border: 3px solid rgba(255,255,255,0.2);
             border-top: 3px solid white;
@@ -113,11 +123,11 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2 flex-shrink-0">
                 <span class="text-2xl">🍢</span>
-                <span class="text-lg sm:text-xl md:text-2xl font-[900] brand-text font-display leading-none uppercase">OH BROCHETTI</span>
+                <span class="text-xl md:text-2xl font-[900] brand-text font-display leading-none uppercase">OH BROCHETTI</span>
             </div>
             <div class="flex items-center gap-2 sm:gap-4 flex-shrink-0">
                 <button id="event-planner-icon" class="p-2.5 bg-pink-50 text-pink-500 rounded-xl transition-transform active:scale-90 flex-icon-fix">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                 </button>
                 <button id="cart-icon-nav" class="relative p-2.5 bg-orange-50 text-[#4a2a16] rounded-xl transition-transform active:scale-90 flex-icon-fix">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -129,16 +139,22 @@
 
     <!-- HERO SECTION -->
     <header class="container mx-auto px-4 pt-4 pb-8">
-        <div class="relative overflow-hidden rounded-[2.5rem] hero-banner p-8 md:p-24 text-white shadow-xl">
-            <div class="relative z-10 max-w-3xl text-center md:text-left">
-                <h1 class="text-3xl sm:text-5xl md:text-7xl font-[950] mb-6 leading-tight tracking-tight uppercase">
+        <div class="relative overflow-hidden rounded-[2.5rem] hero-banner p-10 md:p-24 text-white shadow-xl text-center md:text-left">
+            <div class="relative z-10 max-w-4xl mx-auto md:mx-0">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-[950] mb-4 leading-tight tracking-tight uppercase">
                     <span class="text-amber-400">OH</span> BROCHETTI
                 </h1>
-                <p class="text-base md:text-2xl opacity-90 mb-10 leading-relaxed font-light max-w-xl mx-auto md:mx-0">
-                    L'excellence de la grillade traditionnelle malgache et créole, livrée avec passion.
+                
+                <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-8">
+                    <span class="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">🍢 Brochettes : Prêtes à cuire</span>
+                    <span class="bg-white/10 backdrop-blur-md px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border border-white/20">🍲 Plats : Prêts à servir</span>
+                </div>
+
+                <p class="text-lg md:text-2xl opacity-90 mb-10 leading-relaxed font-light max-w-2xl">
+                    L'excellence de la grillade livrée chez vous. Nous n'avons pas d'établissement physique : nos brochettes sont marinées pour vos grillades, et nos plats sont cuisinés avec soin pour vos événements.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a href="#menu-start" class="btn-premium text-center text-base">Voir la Carte</a>
+                    <a href="#menu-start" class="btn-premium text-center text-base">Découvrir la Carte</a>
                     <button id="open-event-planner" class="bg-white/10 backdrop-blur-md text-white px-8 py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2 border border-white/20">
                         <span>Planificateur IA</span>
                         <span class="text-xl">✨</span>
@@ -192,58 +208,91 @@
     </main>
 
     <!-- ÉLÉMENT DE STATUT -->
-    <div id="status-message" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] px-10 py-5 rounded-[2.5rem] text-white font-bold shadow-xl transition-all opacity-0 pointer-events-none translate-y-10"></div>
+    <div id="status-message" class="fixed top-10 left-1/2 -translate-x-1/2 z-[200] px-10 py-5 rounded-[2.5rem] text-white font-bold shadow-xl transition-all opacity-0 pointer-events-none translate-y-[-10px]"></div>
 
     <!-- MODALE PANIER -->
     <div id="cart-modal" class="modal fixed inset-0 z-[120] hidden flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
-                <h2 class="text-2xl font-black text-left">Ma Commande</h2>
+                <h2 class="text-2xl font-black text-left uppercase tracking-tight">Ma Commande</h2>
                 <button onclick="closeCartModal()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm text-gray-400">&times;</button>
             </div>
             
             <div class="p-8 overflow-y-auto flex-grow custom-scrollbar space-y-6">
-                <!-- Articles -->
                 <div id="cart-content" class="space-y-4"></div>
 
+                <!-- Prestation à domicile -->
+                <div class="pt-4">
+                    <div id="home-prestation-card" class="service-card p-5 bg-gray-50 rounded-2xl border-2 border-gray-100 cursor-pointer" onclick="toggleHomePrestation()">
+                        <div class="flex items-center gap-4">
+                            <div class="flex-icon-fix w-6 h-6 rounded bg-white border-2 border-orange-200 flex items-center justify-center">
+                                <div id="prestation-check" class="w-3 h-3 bg-orange-500 rounded-sm hidden"></div>
+                            </div>
+                            <div class="flex-grow">
+                                <p class="font-bold text-sm text-[#4a2a16]">Option Prestation de cuisson</p>
+                                <p class="text-[10px] text-gray-500 font-medium uppercase tracking-widest">Tarif : 50€ / heure</p>
+                            </div>
+                            <span class="text-xl">👨‍🍳</span>
+                        </div>
+                        <div id="prestation-info" class="mt-4 text-[11px] text-orange-600 font-medium leading-relaxed hidden">
+                            <p>Nous venons cuisiner chez vous (sous réserve de disponibilité). Nous reviendrons vers vous pour confirmer selon votre commande.</p>
+                            <p class="mt-2 opacity-70 italic font-bold uppercase tracking-tighter">* Est. cuisson : 1h30 pour 100 brochettes (+1h matériel).</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Formulaire Livraison -->
-                <div class="border-t pt-6 mt-6 space-y-4 text-left">
+                <div class="border-t pt-6 space-y-4 text-left">
                     <h3 class="font-black text-lg">Informations Livraison</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" id="cust-name" placeholder="Votre Nom" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-medium">
-                        <input type="tel" id="cust-phone" placeholder="Téléphone" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-medium">
+                        <input type="text" id="cust-name" placeholder="Votre Nom" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-medium text-sm">
+                        <input type="tel" id="cust-phone" placeholder="Téléphone" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-medium text-sm">
                     </div>
                     
                     <div class="space-y-1">
                         <label class="text-[10px] font-black uppercase text-gray-400 ml-1">Zone de Livraison</label>
-                        <select id="delivery-zone" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-bold" onchange="updateCartTotalWithDelivery()">
-                            <!-- Injecté par JS -->
+                        <select id="delivery-zone" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-bold text-sm" onchange="updateCartTotalWithDelivery()">
                         </select>
                     </div>
 
                     <div class="space-y-1">
                         <label class="text-[10px] font-black uppercase text-gray-400 ml-1">Point de Rendez-vous</label>
-                        <select id="rendezvous-point" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-medium">
-                            <!-- Injecté par JS -->
+                        <select id="rendezvous-point" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-medium text-sm">
                         </select>
                     </div>
 
                     <div class="space-y-1">
                         <label class="text-[10px] font-black uppercase text-gray-400 ml-1">Date souhaitée (Min. +48h)</label>
-                        <input type="date" id="delivery-date" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-bold">
-                        <p class="text-[9px] text-orange-500 font-bold mt-1 px-1 uppercase tracking-wider">⚠️ Délai de marinade obligatoire de 48h.</p>
+                        <input type="date" id="delivery-date" class="w-full p-4 bg-gray-100 rounded-xl border-none focus:ring-2 ring-orange-200 outline-none font-bold text-sm">
+                        <p class="text-[9px] text-orange-500 font-bold mt-1 px-1 uppercase tracking-wider">⚠️ Délai marinade : 48h minimum.</p>
                     </div>
                 </div>
             </div>
 
             <div class="p-8 border-t border-gray-100 bg-gray-50/50 space-y-4">
                 <div class="flex justify-between items-center">
-                    <span class="font-bold text-gray-400 uppercase text-xs">Total Estimé</span>
+                    <span class="font-bold text-gray-400 uppercase text-xs">Total (hors prestation)</span>
                     <span id="cart-total-price" class="text-3xl font-[900] text-orange-600">0.00€</span>
                 </div>
-                <button onclick="sendWhatsAppOrder()" class="w-full bg-green-600 text-white py-5 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all">
-                    Finaliser sur WhatsApp
-                </button>
+                
+                <div class="space-y-3">
+                    <button onclick="copyOrderSummary()" class="w-full bg-[#4a2a16] text-white py-5 rounded-2xl font-bold flex items-center justify-center gap-3 shadow-lg active:scale-95 transition-all text-sm uppercase">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        Copier ma commande
+                    </button>
+                    
+                    <div class="p-5 bg-orange-50 border border-orange-200 rounded-2xl text-center shadow-md">
+                        <p class="text-[10px] text-orange-400 uppercase font-black tracking-widest mb-2">Finalisation</p>
+                        <p class="text-sm font-bold text-[#4a2a16] leading-snug">
+                            Envoyez le texte copié au <br>
+                            <span class="text-2xl font-[950] text-orange-600 tracking-tight block my-1">0693 90 55 35</span>
+                            <span class="inline-flex items-center gap-2 px-3 py-1 bg-green-100 text-green-700 rounded-full text-[10px] font-black uppercase tracking-tighter mt-2 shadow-sm">
+                                WhatsApp de préférence
+                            </span>
+                            <span class="block text-[10px] text-gray-400 font-medium uppercase mt-2 italic">(ou SMS à défaut)</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -253,8 +302,8 @@
         <div class="bg-white w-full max-w-xl rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
             <div class="p-8 border-b border-gray-100 flex justify-between items-center bg-orange-50/30 text-left">
                 <div>
-                    <h2 class="text-xl font-black uppercase">Planificateur IA</h2>
-                    <p class="text-[10px] text-orange-400 uppercase tracking-widest font-black">Proportions sur-mesure</p>
+                    <h2 class="text-xl font-black uppercase tracking-tight">Planificateur IA</h2>
+                    <p class="text-[10px] text-orange-400 uppercase tracking-widest font-black">Algorithme Gemini 2.5</p>
                 </div>
                 <button onclick="closeEventPlannerModal()" class="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm text-gray-400">&times;</button>
             </div>
@@ -263,13 +312,13 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-1">
                         <label class="text-[10px] font-bold uppercase text-gray-400 ml-1">Événement</label>
-                        <input type="text" id="event-type-input" placeholder="Anniversaire..." class="w-full p-4 bg-gray-100 border-none rounded-xl focus:ring-2 ring-orange-200 outline-none">
+                        <input type="text" id="event-type-input" placeholder="Mariage, Goûter..." class="w-full p-4 bg-gray-100 border-none rounded-xl focus:ring-2 ring-orange-200 outline-none text-sm">
                     </div>
                     <div class="space-y-1">
-                        <label class="text-[10px] font-bold uppercase text-gray-400 ml-1">Style</label>
-                        <select id="menu-type-input" class="w-full p-4 bg-gray-100 border-none rounded-xl outline-none">
+                        <label class="text-[10px] font-bold uppercase text-gray-400 ml-1">Menu</label>
+                        <select id="menu-type-input" class="w-full p-4 bg-gray-100 border-none rounded-xl outline-none text-sm">
                             <option value="mixte">Équilibré</option>
-                            <option value="brochettes">Grillades</option>
+                            <option value="brochettes">Spécial Grillades</option>
                             <option value="plats">Plats Cuisinés</option>
                         </select>
                     </div>
@@ -277,16 +326,16 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="space-y-1">
                         <label class="text-[10px] font-bold uppercase text-gray-400 ml-1">Adultes</label>
-                        <input type="number" id="adult-count-input" value="10" min="1" class="w-full p-4 bg-gray-100 border-none rounded-xl">
+                        <input type="number" id="adult-count-input" value="10" min="1" class="w-full p-4 bg-gray-100 border-none rounded-xl text-sm">
                     </div>
                     <div class="space-y-1">
                         <label class="text-[10px] font-bold uppercase text-gray-400 ml-1">Enfants</label>
-                        <input type="number" id="child-count-input" value="0" min="0" class="w-full p-4 bg-gray-100 border-none rounded-xl">
+                        <input type="number" id="child-count-input" value="0" min="0" class="w-full p-4 bg-gray-100 border-none rounded-xl text-sm">
                     </div>
                 </div>
                 
-                <button id="generate-menu-btn" class="w-full bg-[#4a2a16] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
-                    <span id="gen-btn-label">Générer mon Menu</span>
+                <button id="generate-menu-btn" class="w-full bg-[#4a2a16] text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all text-sm uppercase">
+                    <span id="gen-btn-label">Calculer mon Menu</span>
                     <div id="gen-loader" class="loader !border-t-transparent hidden"></div>
                 </button>
 
@@ -297,28 +346,28 @@
 
     <!-- MODALE PRODUIT -->
     <div id="product-modal" class="fixed inset-0 z-[120] hidden flex items-center justify-center p-4 modal">
-        <div class="bg-white w-full max-w-md rounded-[3rem] shadow-2xl overflow-hidden relative">
-            <button onclick="closeProductModal()" class="absolute top-6 right-6 z-10 w-10 h-10 bg-white/90 backdrop-blur-md rounded-full shadow flex items-center justify-center text-xl">&times;</button>
-            <div class="h-64 relative">
+        <div class="bg-white w-full max-w-md rounded-[2rem] md:rounded-[3rem] shadow-2xl overflow-hidden relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white/90 backdrop-blur-md rounded-full shadow flex items-center justify-center text-xl">&times;</button>
+            <div class="h-48 sm:h-64 relative">
                 <img id="p-img" class="w-full h-full object-cover" src="" alt="">
                 <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent"></div>
             </div>
-            <div class="p-8 -mt-10 relative z-10 text-left">
-                <h3 id="p-name" class="text-3xl font-black mb-2 tracking-tight leading-tight">Nom du Plat</h3>
-                <button id="tts-btn" class="flex items-center gap-2 text-orange-500 text-[10px] font-black uppercase mb-6 tracking-widest">
-                    <div class="w-6 h-6 bg-orange-50 rounded-lg flex items-center justify-center">▶</div>
+            <div class="p-6 md:p-8 -mt-6 relative z-10 text-left">
+                <h3 id="p-name" class="text-2xl md:text-3xl font-black mb-1 tracking-tight leading-tight uppercase">Nom du Plat</h3>
+                <button id="tts-btn" class="flex items-center gap-2 text-orange-500 text-[9px] font-black uppercase mb-4 tracking-widest">
+                    <div class="w-5 h-5 bg-orange-50 rounded-lg flex items-center justify-center">▶</div>
                     Écoute gourmande
                 </button>
-                <div id="p-desc" class="text-gray-500 text-sm leading-relaxed mb-8">Description détaillée.</div>
+                <div id="p-desc" class="text-gray-500 text-xs md:text-sm leading-relaxed mb-6">Description détaillée.</div>
                 <div class="flex items-center justify-between gap-4">
-                    <div class="flex items-center bg-gray-100 rounded-2xl p-1.5 flex-icon-fix">
+                    <div class="flex items-center bg-gray-100 rounded-xl p-1 flex-icon-fix">
                         <button onclick="adjQty(-1)" class="w-10 h-10 font-bold text-xl flex items-center justify-center flex-icon-fix">−</button>
-                        <input type="number" id="p-qty" value="1" min="1" class="w-10 bg-transparent text-center font-black text-lg outline-none border-none">
+                        <input type="number" id="p-qty" value="1" min="1" class="w-10 bg-transparent text-center font-black text-lg outline-none border-none" readonly>
                         <button onclick="adjQty(1)" class="w-10 h-10 font-bold text-xl flex items-center justify-center flex-icon-fix">+</button>
                     </div>
-                    <span id="p-price" class="text-3xl font-black text-orange-600">0.00€</span>
+                    <span id="p-price" class="text-2xl md:text-3xl font-black text-orange-600">0.00€</span>
                 </div>
-                <button onclick="addCurrentToCart()" class="w-full bg-[#4a2a16] text-white py-5 rounded-2xl font-bold mt-8 shadow-lg active:scale-95 transition-transform">
+                <button onclick="addCurrentToCart()" class="w-full bg-[#4a2a16] text-white py-4 rounded-xl font-bold mt-6 shadow-lg active:scale-95 transition-transform text-sm uppercase">
                     Ajouter au Panier
                 </button>
             </div>
@@ -328,26 +377,26 @@
     <script type="module">
         const products = {
             brochettes: [
-                { id: 'b1', name: 'Gigot d\'agneau', price: 15.5, description: 'Tendre agneau mariné aux herbes fraîches. <strong>Portion de 250g, env. 12 tiges.</strong>', ingredients: ['Agneau'], icon: '🍖', unit: 'Portion (250g)' },
-                { id: 'b2', name: 'Brochette de bœuf', price: 13.5, description: 'Bœuf premium sélectionné et mariné 24h. <strong>Portion de 250g, env. 12 tiges.</strong>', ingredients: ['Bœuf'], icon: '🥩', unit: 'Portion (250g)' },
-                { id: 'b3', name: 'Brochette de poulet', price: 10.5, description: 'Poulet fermier mariné au curcuma. <strong>Portion de 250g, env. 10 tiges.</strong>', ingredients: ['Poulet'], icon: '🍗', unit: 'Portion (250g)' }
+                { id: 'b1', name: 'Gigot d\'agneau', price: 15.5, description: 'Tendre agneau mariné. <strong>Concept : Mariné et prêt à cuire par vos soins. Portion de 250g, env. 12 tiges.</strong>', ingredients: ['Agneau'], icon: '🍖', unit: 'Portion (250g)' },
+                { id: 'b2', name: 'Brochette de bœuf', price: 13.5, description: 'Bœuf premium mariné 24h. <strong>Concept : Mariné et prêt à cuire par vos soins. Portion de 250g, env. 12 tiges.</strong>', ingredients: ['Bœuf'], icon: '🥩', unit: 'Portion (250g)' },
+                { id: 'b3', name: 'Brochette de poulet', price: 10.5, description: 'Poulet fermier mariné au curcuma. <strong>Concept : Mariné et prêt à cuire par vos soins. Portion de 250g, env. 10 tiges.</strong>', ingredients: ['Poulet'], icon: '🍗', unit: 'Portion (250g)' }
             ],
             accompagnements: [
-                { id: 'a1', name: 'Riz jaune parfumé', price: 3.0, description: 'Riz long grain parfumé au safran de l\'île.', ingredients: ['Riz'], icon: '🍚', unit: 'Barquette (250g)' },
-                { id: 'a2', name: 'Achard de légumes', price: 3.0, description: 'Légumes croquants finement émincés.', ingredients: ['Légumes'], icon: '🥗', unit: 'Barquette (200g)' }
+                { id: 'a1', name: 'Riz jaune parfumé', price: 3.0, description: 'Riz long grain parfumé au safran. <strong>Cuisiné et prêt à servir.</strong>', ingredients: ['Riz'], icon: '🍚', unit: 'Barquette (250g)' },
+                { id: 'a2', name: 'Achard de légumes', price: 3.0, description: 'Légumes croquants finement émincés. <strong>Cuisiné et prêt à servir.</strong>', ingredients: ['Légumes'], icon: '🥗', unit: 'Barquette (200g)' }
             ],
             malgache: [
-                { id: 'm1', name: 'Romazave au bœuf', price: 12.0, description: 'Le bouillon national malgache riche en brèdes mafane.', ingredients: ['Boeuf'], icon: '🍲', unit: 'Plat complet' },
-                { id: 'm2', name: 'Poulet au coco', price: 9.5, description: 'Poulet mijoté dans un lait de coco onctueux.', ingredients: ['Poulet'], icon: '🥥', unit: 'Plat complet' }
+                { id: 'm1', name: 'Romazave au bœuf', price: 12.0, description: 'Le bouillon national malgache. <strong>Cuisiné et prêt à servir.</strong>', ingredients: ['Boeuf'], icon: '🍲', unit: 'Plat complet' },
+                { id: 'm2', name: 'Poulet au coco', price: 9.5, description: 'Poulet mijoté onctueux. <strong>Cuisiné et prêt à servir.</strong>', ingredients: ['Poulet'], icon: '🥥', unit: 'Plat complet' }
             ],
             soupes: [
-                { id: 's1', name: 'Soupe chinoise', price: 7.0, description: 'Bouillon maison traditionnel avec nouilles fraîches.', ingredients: ['Nouilles'], icon: '🥣', unit: 'Bol (400ml)' }
+                { id: 's1', name: 'Soupe chinoise', price: 7.0, description: 'Bouillon maison nouilles et poulet. <strong>Cuisiné et prêt à servir.</strong>', ingredients: ['Nouilles'], icon: '🥣', unit: 'Bol (400ml)' }
             ],
             rotis: [
-                { id: 'r1', name: 'Poulet rôti entier', price: 18.0, description: 'Poulet fermier rôti lentement, peau croustillante.', ingredients: ['Poulet'], icon: '🔥', unit: 'Entier (4-5 pers)' }
+                { id: 'r1', name: 'Poulet rôti entier', price: 18.0, description: 'Poulet fermier rôti à la broche. <strong>Cuisiné et prêt à servir.</strong>', ingredients: ['Poulet'], icon: '🔥', unit: 'Entier (4-5 pers)' }
             ],
             cakes: [
-                { id: 'c1', name: 'Cake au chocolat', price: 2.0, description: 'Le moelleux incontournable préparé chaque jour.', ingredients: ['Chocolat'], icon: '🍰', unit: 'Individuel' }
+                { id: 'c1', name: 'Cake au chocolat', price: 2.0, description: 'Le moelleux incontournable préparé chaque jour.', ingredients: ['Chocolat'], icon: '🍰', unit: 'Part' }
             ]
         };
 
@@ -365,22 +414,23 @@
         };
 
         let cart = {};
-        let currentPid = null;
+        let currentProduct = null;
+        let homePrestationEnabled = false;
+        
         const apiKey = "";
         const API_MODEL = "gemini-2.5-flash-preview-09-2025";
         const TTS_MODEL = "gemini-2.5-flash-preview-tts";
 
-        // GESTION MESSAGES
         const showStatus = (msg, type = 'success') => {
             const el = document.getElementById('status-message');
             if (!el) return;
             el.textContent = msg;
-            el.className = `fixed bottom-10 left-1/2 -translate-x-1/2 z-[200] px-10 py-5 rounded-[2.5rem] text-white font-bold shadow-xl transition-all ${type === 'success' ? 'bg-emerald-600' : 'bg-red-600'}`;
+            el.className = `fixed top-10 left-1/2 -translate-x-1/2 z-[200] px-10 py-5 rounded-[2.5rem] text-white font-bold shadow-xl transition-all ${type === 'success' ? 'bg-emerald-600' : 'bg-red-600'}`;
             el.style.opacity = '1';
-            el.style.transform = 'translate(-50%, -40px)';
+            el.style.transform = 'translate(-50%, 0)';
             setTimeout(() => {
                 el.style.opacity = '0';
-                el.style.transform = 'translate(-50%, 0)';
+                el.style.transform = 'translate(-50%, -10px)';
             }, 3000);
         };
 
@@ -394,7 +444,7 @@
                 await new Promise(res => setTimeout(res, delay));
                 delay *= 2;
             }
-            throw new Error("L'IA ne répond pas. Vérifiez votre connexion.");
+            throw new Error("Connexion interrompue.");
         };
 
         const initDatePicker = () => {
@@ -402,12 +452,8 @@
             if (!dateInput) return;
             const today = new Date();
             today.setDate(today.getDate() + 2);
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            const minDate = `${yyyy}-${mm}-${dd}`;
-            dateInput.min = minDate;
-            dateInput.value = minDate;
+            dateInput.min = today.toISOString().split('T')[0];
+            dateInput.value = dateInput.min;
         };
 
         const renderCategory = (cat) => {
@@ -415,22 +461,26 @@
             const section = document.getElementById('menu-section');
             if (!list || !section) return;
             list.innerHTML = '';
-            const categoryColors = { brochettes: 'bg-orange-50', accompagnements: 'bg-yellow-50', malgache: 'bg-emerald-50', soupes: 'bg-blue-50', rotis: 'bg-red-50', cakes: 'bg-pink-50' };
+            const colors = { brochettes: 'bg-orange-50', accompagnements: 'bg-yellow-50', malgache: 'bg-emerald-50', soupes: 'bg-blue-50', rotis: 'bg-red-50', cakes: 'bg-pink-50' };
+            const labels = { brochettes: "Prêt à cuire", default: "Prêt à servir" };
+            
             products[cat].forEach((p, idx) => {
+                const label = cat === 'brochettes' ? labels.brochettes : labels.default;
                 const card = document.createElement('div');
                 card.className = `product-card p-6 cursor-pointer fade-in-up`;
                 card.style.animationDelay = `${idx * 0.1}s`;
                 card.onclick = () => openProduct(p);
                 card.innerHTML = `
                     <div class="relative overflow-hidden rounded-[2rem] mb-6 aspect-video bg-gray-50 border border-gray-100 flex-icon-fix">
-                        <img src="https://placehold.co/800x600/${categoryColors[cat].replace('bg-', '')}/4a2a16?text=${encodeURIComponent(p.name)}" class="w-full h-full object-cover">
+                        <img src="https://placehold.co/800x600/${colors[cat].replace('bg-', '')}/4a2a16?text=${encodeURIComponent(p.name)}" class="w-full h-full object-cover">
                         <div class="absolute bottom-4 right-4 bg-white/95 backdrop-blur-md w-12 h-12 rounded-xl flex-icon-fix flex items-center justify-center text-3xl shadow-lg">${p.icon}</div>
+                        <div class="absolute top-4 left-4 bg-orange-500 text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-lg">${label}</div>
                     </div>
-                    <h3 class="text-xl font-black mb-1 tracking-tight leading-tight text-left">${p.name}</h3>
+                    <h3 class="text-xl font-black mb-1 tracking-tight leading-tight text-left uppercase">${p.name}</h3>
                     <p class="text-gray-400 text-[10px] uppercase font-black tracking-widest mb-6 text-left">${p.unit || 'Standard'}</p>
                     <div class="mt-auto flex justify-between items-center border-t border-gray-50 pt-4">
                         <span class="text-2xl font-black text-orange-600">${p.price.toFixed(2)}€</span>
-                        <div class="bg-[#4a2a16] text-white py-2.5 px-6 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-md">Choisir</div>
+                        <div class="bg-[#4a2a16] text-white py-2.5 px-6 rounded-xl font-bold text-[10px] uppercase tracking-widest shadow-md">Détails</div>
                     </div>
                 `;
                 list.appendChild(card);
@@ -440,7 +490,7 @@
         };
 
         const openProduct = (p) => {
-            currentPid = p.id;
+            currentProduct = p;
             document.getElementById('p-name').textContent = p.name;
             document.getElementById('p-desc').innerHTML = p.description;
             document.getElementById('p-price').textContent = p.price.toFixed(2) + '€';
@@ -455,31 +505,36 @@
         
         window.adjQty = (v) => {
             const el = document.getElementById('p-qty');
-            el.value = Math.max(1, parseInt(el.value) + v);
-            const p = Object.values(products).flat().find(p => p.id === currentPid);
-            if (p) document.getElementById('p-price').textContent = (p.price * el.value).toFixed(2) + '€';
+            const newQty = Math.max(1, parseInt(el.value) + v);
+            el.value = newQty;
+            if (currentProduct) document.getElementById('p-price').textContent = (currentProduct.price * newQty).toFixed(2) + '€';
         };
 
         window.addCurrentToCart = () => {
+            if (!currentProduct) return;
             const qty = parseInt(document.getElementById('p-qty').value);
-            const p = Object.values(products).flat().find(p => p.id === currentPid);
-            if (!cart[currentPid]) cart[currentPid] = { ...p, qty: 0 };
-            cart[currentPid].qty += qty;
+            if (!cart[currentProduct.id]) cart[currentProduct.id] = { ...currentProduct, qty: 0 };
+            cart[currentProduct.id].qty += qty;
             updateCartBadge();
             closeProductModal();
             showStatus(`Ajouté au panier (+${qty})`);
         };
 
         const updateCartBadge = () => {
-            const total = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cart-count-badge').textContent = total;
+            document.getElementById('cart-count-badge').textContent = Object.values(cart).reduce((sum, item) => sum + item.qty, 0);
+        };
+
+        window.toggleHomePrestation = () => {
+            homePrestationEnabled = !homePrestationEnabled;
+            document.getElementById('home-prestation-card').classList.toggle('active', homePrestationEnabled);
+            document.getElementById('prestation-check').classList.toggle('hidden', !homePrestationEnabled);
+            document.getElementById('prestation-info').classList.toggle('hidden', !homePrestationEnabled);
         };
 
         window.showCartModal = () => {
             const container = document.getElementById('cart-content');
             const zoneSelect = document.getElementById('delivery-zone');
             if (!container) return;
-            
             if (zoneSelect.options.length <= 1) {
                 zoneSelect.innerHTML = '';
                 for (const zone in deliveryData) {
@@ -490,24 +545,15 @@
                 }
                 updateRendezvousSelect();
             }
-
             container.innerHTML = '';
             const cartItems = Object.values(cart);
             if (cartItems.length === 0) {
-                container.innerHTML = '<p class="text-center text-gray-400 py-10 font-medium">Votre panier est vide...</p>';
+                container.innerHTML = '<p class="text-center text-gray-400 py-10 font-medium italic">Votre panier est vide...</p>';
             } else {
                 cartItems.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'flex items-center gap-4 bg-gray-50 p-4 rounded-2xl border border-gray-100 flex-icon-fix';
-                    div.innerHTML = `
-                        <div class="text-2xl w-12 h-12 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">${item.icon}</div>
-                        <div class="flex-grow">
-                            <div class="font-bold text-sm leading-tight text-left">${item.name}</div>
-                            <div class="text-[10px] text-gray-400 font-black uppercase text-left">Qté: ${item.qty}</div>
-                        </div>
-                        <div class="font-black text-orange-600">${(item.price * item.qty).toFixed(2)}€</div>
-                        <button onclick="removeFromCart('${item.id}')" class="text-red-400 p-2 flex-icon-fix text-xl">&times;</button>
-                    `;
+                    div.innerHTML = `<div class="text-2xl w-12 h-12 bg-white rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm">${item.icon}</div><div class="flex-grow text-left"><div class="font-bold text-sm leading-tight">${item.name}</div><div class="text-[10px] text-gray-400 font-black uppercase">Qté: ${item.qty}</div></div><div class="font-black text-orange-600">${(item.price * item.qty).toFixed(2)}€</div><button onclick="removeFromCart('${item.id}')" class="text-red-400 p-2 flex-icon-fix text-xl">&times;</button>`;
                     container.appendChild(div);
                 });
             }
@@ -516,34 +562,27 @@
         };
 
         window.updateRendezvousSelect = () => {
-            const zoneSelect = document.getElementById('delivery-zone');
+            const selectedZone = document.getElementById('delivery-zone').value;
             const rdvSelect = document.getElementById('rendezvous-point');
-            const selectedZone = zoneSelect.value;
             const points = rendezvousPoints[selectedZone] || ["Sélectionnez d'abord une zone"];
             rdvSelect.innerHTML = '';
             points.forEach(p => {
                 const opt = document.createElement('option');
-                opt.value = p;
-                opt.textContent = p;
+                opt.value = p; opt.textContent = p;
                 rdvSelect.appendChild(opt);
             });
         };
 
         window.updateCartTotalWithDelivery = () => {
             const zone = document.getElementById('delivery-zone').value;
-            const deliveryCost = deliveryData[zone] || 0;
             const itemsTotal = Object.values(cart).reduce((sum, item) => sum + (item.price * item.qty), 0);
-            document.getElementById('cart-total-price').textContent = (itemsTotal + deliveryCost).toFixed(2) + '€';
+            document.getElementById('cart-total-price').textContent = (itemsTotal + (deliveryData[zone] || 0)).toFixed(2) + '€';
             updateRendezvousSelect();
         };
 
-        window.removeFromCart = (id) => {
-            delete cart[id];
-            updateCartBadge();
-            showCartModal();
-        };
+        window.removeFromCart = (id) => { delete cart[id]; updateCartBadge(); showCartModal(); };
 
-        window.sendWhatsAppOrder = () => {
+        window.copyOrderSummary = () => {
             const name = document.getElementById('cust-name').value;
             const phone = document.getElementById('cust-phone').value;
             const zone = document.getElementById('delivery-zone').value;
@@ -551,106 +590,60 @@
             const date = document.getElementById('delivery-date').value;
             const cartItems = Object.values(cart);
 
-            if (cartItems.length === 0) return showStatus("Votre panier est vide !", "error");
-            if (!name || !phone || !date || zone === "Sélectionnez une zone") {
-                return showStatus("Merci de remplir toutes les informations", "error");
-            }
+            if (cartItems.length === 0) return showStatus("Panier vide", "error");
+            if (!name || !phone || !date || zone === "Sélectionnez une zone") return showStatus("Formulaire incomplet", "error");
 
-            let text = `*COMMANDE OH BROCHETTI*\n\n`;
-            text += `👤 *Client :* ${name}\n`;
-            text += `📞 *Tél :* ${phone}\n`;
-            text += `📍 *Zone :* ${zone}\n`;
-            text += `🏪 *RDV :* ${rdv}\n`;
-            text += `📅 *Date :* ${date}\n\n`;
-            text += `*ARTICLES :*\n`;
+            let text = `*COMMANDE OH BROCHETTI*\n`;
+            text += `👤 Client : ${name}\n`;
+            text += `📞 Tél : ${phone}\n`;
+            text += `📍 Zone : ${zone}\n`;
+            text += `🏪 RDV : ${rdv}\n`;
+            text += `📅 Date : ${date}\n`;
+            text += `👨‍🍳 Prestation à domicile : ${homePrestationEnabled ? "DEMANDÉE (50€/h)" : "NON"}\n\n`;
             
+            text += `*ARTICLES :*\n`;
             let total = 0;
             cartItems.forEach(i => {
                 text += `• ${i.qty}x ${i.name} (${(i.price * i.qty).toFixed(2)}€)\n`;
                 total += i.price * i.qty;
             });
-            
-            const deliveryFee = deliveryData[zone] || 0;
-            text += `\n🚚 *Livraison :* ${deliveryFee.toFixed(2)}€`;
-            text += `\n💰 *TOTAL : ${(total + deliveryFee).toFixed(2)}€*`;
-            
-            const url = `https://wa.me/262693805535?text=${encodeURIComponent(text)}`;
-            
-            // Correction Mobile: Utiliser location.href pour s'assurer que le lien WhatsApp s'ouvre
-            window.location.href = url;
+            const fee = deliveryData[zone] || 0;
+            text += `\n🚚 Livraison : ${fee.toFixed(2)}€\n💰 TOTAL : ${(total + fee).toFixed(2)}€\n\n`;
+            text += `*CONCEPT : Brochettes marinées prêtes à cuire. Plats cuisinés prêts à servir.*`;
+
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showStatus("Commande copiée !");
+            } catch (err) { showStatus("Erreur de copie", "error"); }
+            document.body.removeChild(textarea);
         };
 
         const generateMenu = async () => {
-            const eventTypeInput = document.getElementById('event-type-input');
-            const adultsInput = document.getElementById('adult-count-input');
-            const childrenInput = document.getElementById('child-count-input');
-            const menuTypeInput = document.getElementById('menu-type-input');
-            const resultsDiv = document.getElementById('planner-results');
-
-            if (!eventTypeInput || !eventTypeInput.value) return showStatus("Précisez l'événement !", "error");
-
+            const ev = document.getElementById('event-type-input');
+            const ad = document.getElementById('adult-count-input');
+            const ch = document.getElementById('child-count-input');
+            const ty = document.getElementById('menu-type-input');
+            const res = document.getElementById('planner-results');
+            if (!ev || !ev.value) return showStatus("Précisez l'événement !", "error");
             document.getElementById('gen-loader').classList.remove('hidden');
-            document.getElementById('gen-btn-label').textContent = 'Analyse IA...';
-            resultsDiv.innerHTML = '<div class="flex flex-col items-center py-12 text-left"><div class="loader !border-orange-500 !w-12 !h-12 border-4 mb-4"></div><p class="text-xs text-gray-400 font-black uppercase">Le Chef IA compose votre menu...</p></div>';
-
-            const systemPrompt = "Vous êtes un Chef expert en événementiel pour le service traiteur Oh Brochetti. Votre mission est de suggérer un menu parfait basé uniquement sur le catalogue fourni. RÈGLES DE CALCUL : BROCHETTES: 7-10 par personne. PLATS: 1 par adulte, 0.5 par enfant.";
-            const userQuery = `Génère un menu pour : ${eventTypeInput.value} (${adultsInput.value} adultes, ${childrenInput.value} enfants). Option : ${menuTypeInput.value}. Catalogue: ${JSON.stringify(products)}. Réponds UNIQUEMENT en JSON.`;
-
-            const payload = {
-                contents: [{ parts: [{ text: userQuery }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] },
-                generationConfig: { responseMimeType: "application/json" }
-            };
-
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${API_MODEL}:generateContent?key=${apiKey}`;
-
+            res.innerHTML = '<div class="flex flex-col items-center py-12"><div class="loader !border-orange-500 !w-12 !h-12 border-4 mb-4"></div><p class="text-xs text-gray-400 font-black uppercase">Le Chef IA compose...</p></div>';
+            
+            const sys = "Chef Oh Brochetti. Notre concept : brochettes marinées prêtes à cuire, plats cuisinés prêts à servir. BROCHETTES: 7-10 par pers. PLATS: 1 portion adulte, 0.5 enfant. Réponds en JSON.";
+            const q = `Menu JSON : ${ev.value} (${ad.value} ad, ${ch.value} enf). Style: ${ty.value}. Catalogue: ${JSON.stringify(products)}.`;
+            
             try {
-                const response = await fetchWithExponentialBackoff(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                const response = await fetchWithExponentialBackoff(`https://generativelanguage.googleapis.com/v1beta/models/${API_MODEL}:generateContent?key=${apiKey}`, {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: q }] }], systemInstruction: { parts: [{ text: sys }] }, generationConfig: { responseMimeType: "application/json" } })
                 });
-
                 const data = await response.json();
-                const menuText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                
-                if (!menuText) throw new Error("Format invalide");
-                const menu = JSON.parse(menuText);
-
-                resultsDiv.innerHTML = `
-                    <div class="bg-orange-50/50 p-6 rounded-[2rem] border border-orange-100 fade-in-up mt-6 text-left">
-                        <h3 class="text-xl font-black text-orange-900 mb-2 uppercase">${menu.title}</h3>
-                        <p class="text-[10px] text-gray-500 leading-relaxed italic mb-6 border-l-2 border-orange-200 pl-3">"${menu.explanation}"</p>
-                        <div class="space-y-3 mb-8">
-                            ${menu.items.map(i => `
-                                <div class="flex items-start gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-50 flex-icon-fix">
-                                    <div class="w-12 h-12 bg-orange-50 rounded-xl flex-icon-fix flex items-center justify-center text-2xl">${i.icon}</div>
-                                    <div class="flex-grow pt-0.5">
-                                        <div class="font-black text-xs uppercase tracking-tight">${i.name}</div>
-                                        <div class="flex items-center gap-2 mt-1">
-                                            <span class="text-[10px] font-black text-orange-500">${i.qty}</span>
-                                            <span class="text-[9px] text-gray-300 font-bold uppercase">${i.unit_info}</span>
-                                        </div>
-                                    </div>
-                                    <div class="pt-0.5 text-xs font-black text-gray-300">${i.price.toFixed(2)}€</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                        <div class="flex justify-between items-center p-6 bg-[#4a2a16] rounded-[2rem] text-white">
-                            <div class="text-left">
-                                <span class="text-[9px] font-black opacity-40 uppercase block">Total Estimé</span>
-                                <span class="text-3xl font-black">${menu.total.toFixed(2)}€</span>
-                            </div>
-                            <button onclick="showStatus('Module en cours d\\'ajout...')" class="bg-white text-[#4a2a16] px-5 py-2.5 rounded-xl font-black text-[10px] uppercase">Tout Importer</button>
-                        </div>
-                    </div>
-                `;
-            } catch (e) {
-                resultsDiv.innerHTML = `<p class="text-red-500 text-center py-6 font-black uppercase text-xs">Erreur de l'IA. Veuillez réessayer.</p>`;
-            } finally {
-                document.getElementById('gen-loader').classList.add('hidden');
-                document.getElementById('gen-btn-label').textContent = 'Générer mon Menu';
-            }
+                const menu = JSON.parse(data.candidates?.[0]?.content?.parts?.[0]?.text.replace(/```json/g, "").replace(/```/g, "").trim());
+                res.innerHTML = `<div class="bg-orange-50/50 p-6 rounded-[2rem] border border-orange-100 fade-in-up mt-6 text-left"><h3 class="text-xl font-black text-orange-900 mb-2 uppercase">${menu.title}</h3><p class="text-[10px] text-gray-500 leading-relaxed italic mb-6 border-l-2 border-orange-200 pl-3">"${menu.explanation}"</p><div class="space-y-3 mb-8">${menu.items.map(i => `<div class="flex items-start gap-4 bg-white p-4 rounded-2xl shadow-sm border border-gray-50 flex-icon-fix"><div class="w-12 h-12 bg-orange-50 rounded-xl flex-icon-fix flex items-center justify-center text-2xl">${i.icon}</div><div class="flex-grow pt-0.5"><div class="font-black text-xs uppercase leading-tight">${i.name}</div><div class="flex items-center gap-2 mt-1"><span class="text-[10px] font-black text-orange-500">${i.qty}</span><span class="text-[9px] text-gray-300 font-bold uppercase tracking-tighter">${i.unit_info}</span></div></div><div class="pt-0.5 text-xs font-black text-gray-300">${i.price.toFixed(2)}€</div></div>`).join('')}</div><div class="flex justify-between items-center p-6 bg-[#4a2a16] rounded-[2rem] text-white"><div><span class="text-[9px] font-black opacity-40 uppercase block">Total Estimé</span><span class="text-3xl font-black">${menu.total.toFixed(2)}€</span></div><button onclick="showStatus('Module en cours...')" class="bg-white text-[#4a2a16] px-5 py-2.5 rounded-xl font-black text-[10px] uppercase">Tout Importer</button></div></div>`;
+            } catch (e) { res.innerHTML = `<p class="text-red-500 text-center py-6 font-black uppercase text-xs">Erreur IA.</p>`; } finally { document.getElementById('gen-loader').classList.add('hidden'); }
         };
 
         const playTTS = async () => {
@@ -662,12 +655,8 @@
             btn.innerHTML = '<div class="loader !border-orange-500 !w-4 !h-4 mr-2 inline-block"></div>...';
             try {
                 const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${TTS_MODEL}:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{ parts: [{ text: "Narration : " + desc }] }],
-                        generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } } } }
-                    })
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: "Narration gourmande : " + desc }] }], generationConfig: { responseModalities: ["AUDIO"], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Puck" } } } } })
                 });
                 const data = await response.json();
                 const audio = new Audio(URL.createObjectURL(new Blob([new Uint8Array(atob(data.candidates[0].content.parts[0].inlineData.data).split("").map(c => c.charCodeAt(0)))], { type: "audio/wav" })));
@@ -676,7 +665,6 @@
             } catch (e) { btn.innerHTML = original; } finally { btn.disabled = false; }
         };
 
-        // INIT
         document.addEventListener('DOMContentLoaded', () => {
             initDatePicker();
             document.querySelectorAll('.menu-category-btn').forEach(b => b.onclick = () => renderCategory(b.dataset.category));
@@ -687,11 +675,7 @@
             document.getElementById('tts-btn').onclick = playTTS;
         });
 
-        window.onclick = (e) => {
-            if (e.target.classList.contains('modal')) { 
-                closeEventPlannerModal(); closeProductModal(); closeCartModal(); 
-            }
-        };
+        window.onclick = (e) => { if (e.target.classList.contains('modal')) { closeEventPlannerModal(); closeProductModal(); closeCartModal(); } };
     </script>
 </body>
 </html>
