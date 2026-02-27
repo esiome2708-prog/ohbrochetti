@@ -991,7 +991,7 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
     <button class="pm-close" onclick="closeProd()">×</button>
 
     <div class="pm-thumb" id="pm-thumb">
-      <span id="pm-icon" style="position:relative;z-index:1;filter:drop-shadow(0 6px 18px rgba(0,0,0,.2))"></span>
+      <span id="pm-icon" style="position:relative;z-index:1;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))"></span>
     </div>
 
     <div class="pm-body">
@@ -1030,25 +1030,25 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
 // ═══ DONNÉES ═══════════════════════════════════════════════════════════════
 var PRODUCTS = {
   brochettes: [
-    { id:'b1', name:"Gigot d'agneau",      price:15.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🍖', bg:'linear-gradient(145deg,#4a1a08,#8b3a14)', halal:true, desc:"Tendre agneau mariné aux épices créoles de La Réunion. Prêt à cuire sur votre barbecue." },
-    { id:'b2', name:'Brochette de bœuf',   price:13.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🥩', bg:'linear-gradient(145deg,#3d1a10,#7a3018)', halal:true, desc:"Bœuf premium mariné 24h dans nos aromates maison. Saveur intense et fondante." },
-    { id:'b3', name:'Brochette de poulet', price:10.5, unit:'Portion (250g · ~10 tiges)', cat:'Brochettes',     icon:'🍗', bg:'linear-gradient(145deg,#6b3a08,#b86a14)', halal:true, desc:"Poulet fermier mariné aux herbes fraîches et épices douces. Fondant et parfumé." }
+    { id:'b1', name:"Gigot d'agneau",      price:15.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🍖', img:'images/produits/gigot-agneau.jpg',      bg:'linear-gradient(145deg,#4a1a08,#8b3a14)', halal:true, desc:"Tendre agneau mariné aux épices créoles de La Réunion. Prêt à cuire sur votre barbecue." },
+    { id:'b2', name:'Brochette de bœuf',   price:13.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🥩', img:'images/produits/brochette-boeuf.jpg',   bg:'linear-gradient(145deg,#3d1a10,#7a3018)', halal:true, desc:"Bœuf premium mariné 24h dans nos aromates maison. Saveur intense et fondante." },
+    { id:'b3', name:'Brochette de poulet', price:10.5, unit:'Portion (250g · ~10 tiges)', cat:'Brochettes',     icon:'🍗', img:'images/produits/brochette-poulet.jpg',  bg:'linear-gradient(145deg,#6b3a08,#b86a14)', halal:true, desc:"Poulet fermier mariné aux herbes fraîches et épices douces. Fondant et parfumé." }
   ],
   accompagnements: [
-    { id:'a1', name:'Riz jaune parfumé',   price:3.0,  unit:'Barquette 250g',             cat:'Accompagnements',icon:'🍚', bg:'linear-gradient(145deg,#8d6a00,#d4a000)', desc:"Riz au safran et épices douces, accompagnement idéal pour vos grillades." },
-    { id:'a2', name:'Achard de légumes',   price:3.0,  unit:'Barquette 200g',             cat:'Accompagnements',icon:'🥗', bg:'linear-gradient(145deg,#2d5a1b,#4a8a2e)', desc:"Légumes croquants marinés à l'ancienne. Recette traditionnelle réunionnaise." }
+    { id:'a1', name:'Riz jaune parfumé',   price:3.0,  unit:'Barquette 250g',             cat:'Accompagnements',icon:'🍚', img:'images/produits/riz-jaune.jpg',          bg:'linear-gradient(145deg,#8d6a00,#d4a000)', desc:"Riz au safran et épices douces, accompagnement idéal pour vos grillades." },
+    { id:'a2', name:'Achard de légumes',   price:3.0,  unit:'Barquette 200g',             cat:'Accompagnements',icon:'🥗', img:'images/produits/achard-legumes.jpg',     bg:'linear-gradient(145deg,#2d5a1b,#4a8a2e)', desc:"Légumes croquants marinés à l'ancienne. Recette traditionnelle réunionnaise." }
   ],
   malgache: [
-    { id:'m1', name:'Romazave au bœuf',    price:12.0, unit:'Plat complet',               cat:'Spécialités',    icon:'🍲', bg:'linear-gradient(145deg,#1a4a1a,#2d7a2d)', halal:true, desc:"Bouillon national malgache aux brèdes, plat complet et réconfortant." }
+    { id:'m1', name:'Romazave au bœuf',    price:12.0, unit:'Plat complet',               cat:'Spécialités',    icon:'🍲', img:'images/produits/romazave-boeuf.jpg',     bg:'linear-gradient(145deg,#1a4a1a,#2d7a2d)', halal:true, desc:"Bouillon national malgache aux brèdes, plat complet et réconfortant." }
   ],
   soupes: [
-    { id:'s1', name:'Soupe chinoise',      price:7.0,  unit:'Bol 400ml',                  cat:'Soupes',         icon:'🥣', bg:'linear-gradient(145deg,#1a3a8b,#2a5acc)', desc:"Bouillon maison parfumé, nouilles et légumes frais. Réconfortante et équilibrée." }
+    { id:'s1', name:'Soupe chinoise',      price:7.0,  unit:'Bol 400ml',                  cat:'Soupes',         icon:'🥣', img:'images/produits/soupe-chinoise.jpg',     bg:'linear-gradient(145deg,#1a3a8b,#2a5acc)', desc:"Bouillon maison parfumé, nouilles et légumes frais. Réconfortante et équilibrée." }
   ],
   rotis: [
-    { id:'r1', name:'Poulet rôti entier',  price:18.0, unit:'Entier (4-5 personnes)',      cat:'Rôtis',          icon:'🍗', bg:'linear-gradient(145deg,#6b1a08,#c0300f)', halal:true, desc:"Poulet fermier rôti à la perfection, doré et juteux. Idéal pour partager." }
+    { id:'r1', name:'Poulet rôti entier',  price:18.0, unit:'Entier (4-5 personnes)',      cat:'Rôtis',          icon:'🍗', img:'images/produits/poulet-roti.jpg',        bg:'linear-gradient(145deg,#6b1a08,#c0300f)', halal:true, desc:"Poulet fermier rôti à la perfection, doré et juteux. Idéal pour partager." }
   ],
   cakes: [
-    { id:'c1', name:'Cake au chocolat',    price:2.0,  unit:'Par part',                   cat:'Desserts',       icon:'🍰', bg:'linear-gradient(145deg,#3a1a5a,#6b2fa0)', desc:"Gâteau moelleux fait maison, fondant et généreux. La touche sucrée finale." }
+    { id:'c1', name:'Cake au chocolat',    price:2.0,  unit:'Par part',                   cat:'Desserts',       icon:'🍰', img:'images/produits/cake-chocolat.jpg',      bg:'linear-gradient(145deg,#3a1a5a,#6b2fa0)', desc:"Gâteau moelleux fait maison, fondant et généreux. La touche sucrée finale." }
   ]
 };
 
@@ -1126,9 +1126,16 @@ function renderCat(cat) {
     card.setAttribute('data-pid', p.id);
     card.setAttribute('data-pcat', cat);
 
+    var thumbContent = p.img
+      ? '<img src="' + p.img + '" alt="' + p.name + '" '
+          + 'style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1" '
+          + 'onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">'
+          + '<span class="pcard-icon" style="display:none">' + p.icon + '</span>'
+      : '<span class="pcard-icon">' + p.icon + '</span>';
+
     card.innerHTML =
       '<div class="pcard-thumb" style="background:' + p.bg + '">' +
-        '<span class="pcard-icon">' + p.icon + '</span>' +
+        thumbContent +
         '<span class="pcard-price">' + p.price.toFixed(2) + '€</span>' +
         '<span class="pcard-tag">' + p.cat + '</span>' +
         (p.halal ? '<span style="position:absolute;top:12px;right:12px;z-index:2;background:#16a34a;color:white;font-size:.52rem;font-weight:900;text-transform:uppercase;letter-spacing:.08em;padding:4px 9px;border-radius:50px">HALAL</span>' : '') +
@@ -1162,12 +1169,27 @@ function renderCat(cat) {
 function openProd(p) {
   cur  = p;
   qCur = 1;
+
+  // Vignette : photo si disponible, sinon emoji
+  var thumb = qs('pm-thumb');
+  thumb.style.background = p.bg;
+  var existingImg = thumb.querySelector('img.pm-photo');
+  if (existingImg) existingImg.remove();
+  if (p.img) {
+    var img = document.createElement('img');
+    img.className = 'pm-photo';
+    img.src = p.img;
+    img.alt = p.name;
+    img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;border-radius:0';
+    img.onerror = function(){ this.remove(); };
+    thumb.insertBefore(img, thumb.firstChild);
+  }
+
   qs('pm-icon').textContent = p.icon;
   qs('pm-name').textContent = p.name;
   qs('pm-unit').textContent = p.unit;
   qs('pm-desc').textContent = p.desc;
   qs('pm-tag').textContent  = p.cat;
-  qs('pm-thumb').style.background = p.bg;
   qs('pm-qty').textContent  = '1';
   qs('pm-price').textContent = p.price.toFixed(2) + '€';
   var hb = qs('pm-halal');
