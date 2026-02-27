@@ -618,8 +618,8 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
 
     <div class="hero-content fade-up">
       <div class="hero-chips">
-        <span class="chip">🍢 Brochettes · Prêtes à cuire</span>
-        <span class="chip">🍲 Plats · Prêts à servir</span>
+        <span class="chip">🍢 Brochettes · Marinées · Crues à cuire</span>
+        <span class="chip">🍲 Plats cuisinés · Prêts à réchauffer</span>
         <span class="chip" style="background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.35);color:rgba(134,239,172,.9)">✓ Halal</span>
       </div>
 
@@ -629,7 +629,7 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         <span class="accent">Grillades d'Exception</span>
       </h1>
 
-      <p class="hero-subtitle">Livraison sur vos points de rendez-vous à <strong>La Réunion</strong> · Commande minimum 48h à l'avance</p>
+      <p class="hero-subtitle">Commandez en ligne, récupérez à votre point de rendez-vous à <strong>La Réunion</strong>.<br>Pas de restaurant physique · Commande minimum 48h à l'avance</p>
       <p class="hero-tagline">🌊 Saveurs malgaches · indiennes · chinoises · réunionnaises</p>
 
       <div class="hero-btns">
@@ -655,19 +655,19 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
       <div class="usp-ico" style="background:#fff3ea">
         <svg width="22" height="22" fill="none" stroke="var(--or)" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
       </div>
-      <div class="usp-label">Fait maison</div>
+      <div class="usp-label">Fait maison · Recettes authentiques</div>
     </div>
     <div class="usp-card">
       <div class="usp-ico" style="background:#fff8e7">
         <svg width="22" height="22" fill="none" stroke="var(--am)" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
       </div>
-      <div class="usp-label">Délai commande 48h</div>
+      <div class="usp-label">Commande 48h à l'avance · Sans restaurant</div>
     </div>
     <div class="usp-card">
       <div class="usp-ico" style="background:#edf7ee">
         <svg width="22" height="22" fill="none" stroke="#22c55e" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
       </div>
-      <div class="usp-label">Points de livraison définis</div>
+      <div class="usp-label">Retrait sur vos points de rendez-vous</div>
     </div>
   </div>
 
@@ -1134,25 +1134,25 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
 // ═══ DONNÉES ═══════════════════════════════════════════════════════════════
 var PRODUCTS = {
   brochettes: [
-    { id:'b1', name:"Brochette de gigot d'agneau",      price:15.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🍖', img:'images/produits/gigot-agneau.jpg',      bg:'linear-gradient(145deg,#4a1a08,#8b3a14)', halal:true, desc:"Tendre agneau mariné aux épices créoles de La Réunion. Prêt à cuire sur votre barbecue." },
-    { id:'b2', name:'Brochette de bœuf',   price:13.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🥩', img:'images/produits/brochette-boeuf.jpg',   bg:'linear-gradient(145deg,#3d1a10,#7a3018)', halal:true, desc:"Bœuf premium mariné 24h dans nos aromates maison. Saveur intense et fondante." },
-    { id:'b3', name:'Brochette de poulet', price:10.5, unit:'Portion (250g · ~10 tiges)', cat:'Brochettes',     icon:'🍗', img:'images/produits/brochette-poulet.jpg',  bg:'linear-gradient(145deg,#6b3a08,#b86a14)', halal:true, desc:"Poulet fermier mariné aux herbes fraîches et épices douces. Fondant et parfumé." }
+    { id:'b1', name:"Brochette de gigot d'agneau",      price:15.5, unit:'Portion crue · 250g · ~12 tiges', cat:'Brochettes',     icon:'🍖', img:'images/produits/gigot-agneau.jpg',      bg:'linear-gradient(145deg,#4a1a08,#8b3a14)', halal:true, desc:"Agneau mariné 24h aux épices créoles. Livré cru, mariné et prêt à griller sur votre barbecue. Il ne reste plus qu'à allumer les braises !" },
+    { id:'b2', name:'Brochette de bœuf',   price:13.5, unit:'Portion crue · 250g · ~12 tiges', cat:'Brochettes',     icon:'🥩', img:'images/produits/brochette-boeuf.jpg',   bg:'linear-gradient(145deg,#3d1a10,#7a3018)', halal:true, desc:"Bœuf mariné 24h dans nos aromates maison. Livré cru et prêt à cuire — directement sur le grill, saveur intense et fondante garantie." },
+    { id:'b3', name:'Brochette de poulet', price:10.5, unit:'Portion crue · 250g · ~10 tiges', cat:'Brochettes',     icon:'🍗', img:'images/produits/brochette-poulet.jpg',  bg:'linear-gradient(145deg,#6b3a08,#b86a14)', halal:true, desc:"Poulet fermier mariné aux herbes fraîches et épices douces. Livré cru, mariné, prêt à passer sur le barbecue ou à la poêle." }
   ],
   accompagnements: [
-    { id:'a1', name:'Riz jaune parfumé',   price:3.0,  unit:'Barquette 250g',             cat:'Accompagnements',icon:'🍚', img:'images/produits/riz-jaune.jpg',          bg:'linear-gradient(145deg,#8d6a00,#d4a000)', desc:"Riz au safran et épices douces, accompagnement idéal pour vos grillades." },
-    { id:'a2', name:'Achard de légumes',   price:3.0,  unit:'Barquette 200g',             cat:'Accompagnements',icon:'🥗', img:'images/produits/achard-legumes.jpg',     bg:'linear-gradient(145deg,#2d5a1b,#4a8a2e)', desc:"Légumes croquants marinés à l'ancienne. Recette traditionnelle réunionnaise." }
+    { id:'a1', name:'Riz jaune parfumé',   price:3.0,  unit:'Barquette 250g · Cuisiné · À réchauffer', cat:'Accompagnements',icon:'🍚', img:'images/produits/riz-jaune.jpg',          bg:'linear-gradient(145deg,#8d6a00,#d4a000)', desc:"Riz cuisiné au safran et épices douces. Déjà prêt — réchauffez 2 min au micro-ondes et servez avec vos brochettes." },
+    { id:'a2', name:'Achard de légumes',   price:3.0,  unit:'Barquette 200g · Prêt à déguster', cat:'Accompagnements',icon:'🥗', img:'images/produits/achard-legumes.jpg',     bg:'linear-gradient(145deg,#2d5a1b,#4a8a2e)', desc:"Légumes croquants marinés à l'ancienne. Prêt à consommer directement, sans réchauffage. Recette traditionnelle réunionnaise." }
   ],
   malgache: [
-    { id:'m1', name:'Romazave au bœuf',    price:12.0, unit:'Plat complet',               cat:'Spécialités',    icon:'🍲', img:'images/produits/romazave-boeuf.jpg',     bg:'linear-gradient(145deg,#1a4a1a,#2d7a2d)', halal:true, desc:"Bouillon national malgache aux brèdes, plat complet et réconfortant." }
+    { id:'m1', name:'Romazave au bœuf',    price:12.0, unit:'Plat cuisiné · À réchauffer', cat:'Spécialités',    icon:'🍲', img:'images/produits/romazave-boeuf.jpg',     bg:'linear-gradient(145deg,#1a4a1a,#2d7a2d)', halal:true, desc:"Plat national malgache mijoté aux brèdes et bœuf fondant. Déjà cuisiné — réchauffez et dégustez. Réconfortant et généreux." }
   ],
   soupes: [
-    { id:'s1', name:'Soupe chinoise',      price:7.0,  unit:'Bol 400ml',                  cat:'Soupes',         icon:'🥣', img:'images/produits/soupe-chinoise.jpg',     bg:'linear-gradient(145deg,#1a3a8b,#2a5acc)', desc:"Bouillon maison parfumé, nouilles et légumes frais. Réconfortante et équilibrée." }
+    { id:'s1', name:'Soupe chinoise',      price:7.0,  unit:'Bol 400ml · Cuisiné · À réchauffer', cat:'Soupes',         icon:'🥣', img:'images/produits/soupe-chinoise.jpg',     bg:'linear-gradient(145deg,#1a3a8b,#2a5acc)', desc:"Bouillon maison parfumé, nouilles et légumes. Déjà cuisiné — réchauffez doucement à la casserole ou micro-ondes et servez bien chaud." }
   ],
   rotis: [
-    { id:'r1', name:'Poulet rôti entier',  price:18.0, unit:'Entier (4-5 personnes)',      cat:'Rôtis',          icon:'🍗', img:'images/produits/poulet-roti.jpg',        bg:'linear-gradient(145deg,#6b1a08,#c0300f)', halal:true, desc:"Poulet fermier rôti à la perfection, doré et juteux. Idéal pour partager." }
+    { id:'r1', name:'Poulet rôti entier',  price:18.0, unit:'Entier · 4-5 pers · Cuit · À réchauffer', cat:'Rôtis',          icon:'🍗', img:'images/produits/poulet-roti.jpg',        bg:'linear-gradient(145deg,#6b1a08,#c0300f)', halal:true, desc:"Poulet fermier rôti à la perfection, doré et juteux. Déjà cuit — passez-le au four 15 min pour retrouver tout son croustillant. Idéal pour partager." }
   ],
   cakes: [
-    { id:'c1', name:'Cake au chocolat',    price:2.0,  unit:'Par part',                   cat:'Desserts',       icon:'🍰', img:'images/produits/cake-chocolat.jpg',      bg:'linear-gradient(145deg,#3a1a5a,#6b2fa0)', desc:"Gâteau moelleux fait maison, fondant et généreux. La touche sucrée finale." }
+    { id:'c1', name:'Cake au chocolat',    price:2.0,  unit:'Part individuelle · Prêt à déguster', cat:'Desserts',       icon:'🍰', img:'images/produits/cake-chocolat.jpg',      bg:'linear-gradient(145deg,#3a1a5a,#6b2fa0)', desc:"Gâteau moelleux fait maison, fondant et généreux. Prêt à déguster — peut se réchauffer quelques secondes au micro-ondes pour encore plus de gourmandise." }
   ]
 };
 
