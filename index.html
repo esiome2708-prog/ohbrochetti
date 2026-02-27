@@ -1010,8 +1010,12 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Date souhaitée (minimum +48h)</label>
-          <input type="date" id="f-date" class="form-input">
+          <label class="form-label">Date souhaitée</label>
+          <input type="date" id="f-date" class="form-input" onchange="validateDatePicker(this)">
+          <div id="date-hint" style="margin-top:6px;font-size:.72rem;line-height:1.5;color:rgba(61,31,13,.5);font-weight:500">
+            ⏰ Délai minimum 48h · 📅 Week-end : commande avant vendredi 12h
+          </div>
+          <div id="date-error" style="display:none;margin-top:6px;font-size:.72rem;font-weight:700;color:#dc2626;background:#fef2f2;padding:6px 10px;border-radius:8px"></div>
         </div>
       </div>
     </div>
@@ -1393,7 +1397,7 @@ function onZone() {
 // ═══ COMMANDE ══════════════════════════════════════════════════════════════
 function buildMsg() {
   var name  = qs('f-name').value.trim();
-  var phone = qs('f-phone').value.trim();
+  var phone = qs('f-phone').value.trim().replace(/\s+/g, '');
   var zone  = qs('f-zone').value;
   var rdv   = qs('f-rdv').value;
   var date  = qs('f-date').value;
@@ -1432,7 +1436,108 @@ function copyOrder() {
   }
 }
 
-// ═══ INIT ══════════════════════════════════════════════════════════════════
+// ═══ DATE PICKER ═══════════════════════════════════════════════════════════
+function weekendOrdersClosed(now) {
+  var day  = now.getDay();   // 0=Dim, 1=Lun…5=Ven, 6=Sam
+  var hour = now.getHours();
+  var min  = now.getMinutes();
+  // Fermé : vendredi après 12h00, samedi, dimanche
+  if (day === 5 && (hour > 12 || (hour === 12 && min > 0))) return true;
+  if (day === 6) return true;
+  if (day === 0) return true;
+  return false;
+}
+
+function toLocalDateStr(date) {
+  // Retourne YYYY-MM-DD en heure locale (évite décalage UTC)
+  var y = date.getFullYear();
+  var m = String(date.getMonth() + 1).padStart(2,'0');
+  var d = String(date.getDate()).padStart(2,'0');
+  return y + '-' + m + '-' + d;
+}
+
+function setupDatePicker() {
+  var input = qs('f-date');
+  var now   = new Date();
+
+  // Base minimum : maintenant + 48h
+  var minDate = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+
+  // Si les commandes week-end sont fermées, on saute samedi et dimanche
+  if (weekendOrdersClosed(now)) {
+    var d = minDate.getDay();
+    if (d === 6) minDate.setDate(minDate.getDate() + 2); // Sam → Lun
+    if (d === 0) minDate.setDate(minDate.getDate() + 1); // Dim → Lun
+  }
+
+  input.min = toLocalDateStr(minDate);
+
+  // Message contextuel selon le jour/heure actuel
+  var hint = qs('date-hint');
+  var now2 = new Date();
+  var day2 = now2.getDay();
+  var h2   = now2.getHours();
+  if (weekendOrdersClosed(now2)) {
+    hint.innerHTML = '⚠️ Commandes week-end <strong>closes</strong> · Prochain créneau : <strong>lundi</strong> au plus tôt';
+    hint.style.color = '#b45309';
+  } else if (day2 === 4) { // Jeudi
+    hint.innerHTML = '⏰ Délai 48h · 📅 Pour un week-end, commandez <strong>avant vendredi 12h</strong>';
+  } else {
+    hint.innerHTML = '⏰ Délai minimum 48h · 📅 Week-end : commande avant <strong>vendredi 12h</strong>';
+  }
+}
+
+function validateDatePicker(input) {
+  var errEl = qs('date-error');
+  errEl.style.display = 'none';
+  errEl.textContent   = '';
+  if (!input.value) return;
+
+  var parts    = input.value.split('-');
+  var selected = new Date(+parts[0], +parts[1] - 1, +parts[2], 12, 0, 0);
+  var now      = new Date();
+  var selDay   = selected.getDay(); // 0=Dim, 6=Sam
+
+  // Vérifier le minimum 48h d'abord
+  var minDate = new Date(now.getTime() + 48 * 60 * 60 * 1000);
+  if (selected < minDate) {
+    errEl.style.display = 'block';
+    errEl.textContent   = '⚠️ Délai minimum de 48h requis pour préparer votre commande.';
+    input.value = '';
+    return;
+  }
+
+  // Si week-end sélectionné → sauter automatiquement au lundi suivant
+  if (selDay === 6) { // Samedi → Lundi +2
+    selected.setDate(selected.getDate() + 2);
+    input.value = toLocalDateStr(selected);
+    errEl.style.display = 'block';
+    errEl.style.color = '#b45309';
+    errEl.style.background = '#fffbeb';
+    errEl.textContent = '📅 Samedi non disponible — date avancée au lundi ' + selected.toLocaleDateString('fr-FR', {day:'numeric', month:'long'});
+    return;
+  }
+  if (selDay === 0) { // Dimanche → Lundi +1
+    selected.setDate(selected.getDate() + 1);
+    input.value = toLocalDateStr(selected);
+    errEl.style.display = 'block';
+    errEl.style.color = '#b45309';
+    errEl.style.background = '#fffbeb';
+    errEl.textContent = '📅 Dimanche non disponible — date avancée au lundi ' + selected.toLocaleDateString('fr-FR', {day:'numeric', month:'long'});
+    return;
+  }
+
+  // Vérifier si c'est un week-end demandé alors que commandes closes
+  if (weekendOrdersClosed(now)) {
+    errEl.style.display = 'block';
+    errEl.style.color = '#b45309';
+    errEl.style.background = '#fffbeb';
+    errEl.textContent = '⚠️ Commandes week-end closes après vendredi 12h. Date ajustée au lundi.';
+    // La date a déjà été avancée par setupDatePicker, on valide
+  }
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
   // Pills catégorie
   document.querySelectorAll('.cat-pill').forEach(function(pill) {
@@ -1445,10 +1550,8 @@ document.addEventListener('DOMContentLoaded', function() {
   qs('cart-btn').addEventListener('click', showCart);
   qs('mob-cart-btn').addEventListener('click', showCart);
 
-  // Date min +48h
-  var d = new Date();
-  d.setDate(d.getDate() + 2);
-  qs('f-date').min = d.toISOString().split('T')[0];
+  // ── Date picker : 48h min + week-end fermé après vendredi 12h ──
+  setupDatePicker();
 
   // Echap pour fermer
   document.addEventListener('keydown', function(e) {
