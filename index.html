@@ -716,7 +716,7 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
 
     <div class="ori-quote">
       <div class="orb" style="width:200px;height:200px;background:var(--am);top:-40px;right:-30px;opacity:.12"></div>
-      <p>"Quatre cultures, une seule flamme —<br><span class="gold">la fierté de l'Océan Indien dans chaque brochette."</span></p>
+      <p>"Quatre cultures, une seule flamme —<br><span class="gold">la fierté de l'Océan Indien dans chacun de nos plats."</span></p>
     </div>
   </section>
 
@@ -747,11 +747,11 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         Brochettes
       </button>
 
-      <button class="cat-pill" data-cat="accompagnements">
-        <div class="cat-ico" style="background:#edfbf0">
-          <svg width="24" height="24" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+      <button class="cat-pill" data-cat="rotis">
+        <div class="cat-ico" style="background:#fde8e8">
+          <svg width="24" height="24" fill="none" stroke="#c0300f" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3c1.5 3 2.5 6 2.5 9s-1 6-2.5 9M3 12c3-1.5 6-2.5 9-2.5s6 1 9 2.5"/></svg>
         </div>
-        Accompagnements
+        Rôtis
       </button>
 
       <button class="cat-pill" data-cat="malgache">
@@ -761,18 +761,18 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         Spécialités
       </button>
 
+      <button class="cat-pill" data-cat="accompagnements">
+        <div class="cat-ico" style="background:#edfbf0">
+          <svg width="24" height="24" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        Accompagnements
+      </button>
+
       <button class="cat-pill" data-cat="soupes">
         <div class="cat-ico" style="background:#e8f0ff">
           <svg width="24" height="24" fill="none" stroke="#3b6fe8" stroke-width="2" viewBox="0 0 24 24"><path d="M3 11h18v2a9 9 0 01-18 0v-2z"/><path d="M12 3v8M8 5.5S9 7 12 7s4-1.5 4-1.5"/></svg>
         </div>
         Soupes
-      </button>
-
-      <button class="cat-pill" data-cat="rotis">
-        <div class="cat-ico" style="background:#fde8e8">
-          <svg width="24" height="24" fill="none" stroke="#c0300f" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3c1.5 3 2.5 6 2.5 9s-1 6-2.5 9M3 12c3-1.5 6-2.5 9-2.5s6 1 9 2.5"/></svg>
-        </div>
-        Rôtis
       </button>
 
       <button class="cat-pill" data-cat="cakes">
@@ -797,12 +797,11 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
         Galerie
       </span>
-      <h2 class="sec-title">Nos Réalisations</h2>
-      <p class="sec-sub">Des photos authentiques de nos préparations, prises par nos clients</p>
+      <h2 class="sec-title">Nos autres Réalisations</h2>
     </div>
 
     <!-- Carte lien Google Photos -->
-    <a href="https://photos.google.com/share/OH_BROCHETTI" target="_blank" rel="noopener"
+    <a href="https://photos.app.goo.gl/Cdnnw9tocfwAzhUm9" target="_blank" rel="noopener"
        style="display:flex;align-items:center;justify-content:space-between;gap:20px;
               background:white;border-radius:24px;padding:28px 28px;text-decoration:none;
               box-shadow:0 4px 24px rgba(61,31,13,.08);border:1.5px solid rgba(61,31,13,.06);
@@ -1031,7 +1030,7 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
 // ═══ DONNÉES ═══════════════════════════════════════════════════════════════
 var PRODUCTS = {
   brochettes: [
-    { id:'b1', name:"Gigot d'agneau",      price:15.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🍖', img:'images/produits/gigot-agneau.jpg',      bg:'linear-gradient(145deg,#4a1a08,#8b3a14)', halal:true, desc:"Tendre agneau mariné aux épices créoles de La Réunion. Prêt à cuire sur votre barbecue." },
+    { id:'b1', name:"Brochette de gigot d'agneau",      price:15.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🍖', img:'images/produits/gigot-agneau.jpg',      bg:'linear-gradient(145deg,#4a1a08,#8b3a14)', halal:true, desc:"Tendre agneau mariné aux épices créoles de La Réunion. Prêt à cuire sur votre barbecue." },
     { id:'b2', name:'Brochette de bœuf',   price:13.5, unit:'Portion (250g · ~12 tiges)', cat:'Brochettes',     icon:'🥩', img:'images/produits/brochette-boeuf.jpg',   bg:'linear-gradient(145deg,#3d1a10,#7a3018)', halal:true, desc:"Bœuf premium mariné 24h dans nos aromates maison. Saveur intense et fondante." },
     { id:'b3', name:'Brochette de poulet', price:10.5, unit:'Portion (250g · ~10 tiges)', cat:'Brochettes',     icon:'🍗', img:'images/produits/brochette-poulet.jpg',  bg:'linear-gradient(145deg,#6b3a08,#b86a14)', halal:true, desc:"Poulet fermier mariné aux herbes fraîches et épices douces. Fondant et parfumé." }
   ],
