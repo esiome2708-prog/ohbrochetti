@@ -1027,20 +1027,28 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         <span class="total-val" id="cart-total">0.00€</span>
       </div>
 
-      <!-- Zone récapitulatif -->
-      <div id="recap-box" style="display:none;margin-bottom:14px">
-        <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(61,31,13,.4);margin-bottom:8px">
-          Votre récapitulatif à copier-coller
+      <!-- Checkbox prestation domicile -->
+      <div id="presta-domicile-wrap"
+           onclick="togglePrestaDom()"
+           style="display:flex;align-items:center;gap:12px;padding:13px 16px;
+                  border-radius:14px;background:#fff8f4;border:2px solid rgba(232,100,42,.15);
+                  cursor:pointer;margin-bottom:14px;transition:border-color .2s"
+           onmouseover="this.style.borderColor='rgba(232,100,42,.4)'"
+           onmouseout="this.style.borderColor=prestaDom?'var(--or)':'rgba(232,100,42,.15)'">
+        <div id="presta-dom-check"
+             style="width:22px;height:22px;border-radius:7px;border:2.5px solid rgba(61,31,13,.2);
+                    background:white;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+                    transition:all .2s">
+          <svg id="presta-dom-tick" style="display:none" width="13" height="13" fill="none" stroke="white" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
         </div>
-        <div id="recap-text"
-          style="background:#f9f4ee;border:1.5px solid rgba(61,31,13,.1);border-radius:14px;
-                 padding:14px;font-size:.8rem;line-height:1.7;color:var(--br);
-                 font-family:monospace;white-space:pre-wrap;word-break:break-word;
-                 max-height:200px;overflow-y:auto"></div>
+        <div>
+          <div style="font-weight:800;font-size:.8rem;color:var(--br);line-height:1.2">Je souhaite être recontacté(e)</div>
+          <div style="font-size:.7rem;color:rgba(61,31,13,.5);margin-top:2px">pour une prestation de cuisson à domicile</div>
+        </div>
       </div>
 
-      <!-- Bouton Copier principal -->
-      <button id="copy-btn" onclick="copyRecap()"
+      <!-- Bouton Partager principal -->
+      <button id="share-btn" onclick="shareRecap()"
         style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
                padding:15px;border-radius:16px;
                background:linear-gradient(135deg,var(--br),#6b2a08);
@@ -1048,15 +1056,15 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
                letter-spacing:.05em;border:none;margin-bottom:10px;
                box-shadow:0 6px 20px rgba(61,31,13,.3)">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
         </svg>
-        <span id="copy-btn-label">Copier le récapitulatif</span>
+        <span id="share-btn-label">Partager le récapitulatif</span>
       </button>
 
-      <p style="font-size:.72rem;color:rgba(61,31,13,.4);line-height:1.55;margin-bottom:14px;text-align:center">
-        Collez ensuite le récapitulatif dans votre<br>
-        <strong style="color:var(--br)">WhatsApp</strong> ou <strong style="color:var(--br)">SMS</strong> et envoyez-le au
-        <strong style="color:var(--or)">0693 80 55 35</strong>
+      <p style="font-size:.7rem;color:rgba(61,31,13,.4);line-height:1.55;margin-bottom:14px;text-align:center">
+        WhatsApp · SMS · Messenger · Email…<br>
+        Envoyez au <strong style="color:var(--or)">0693 80 55 35</strong>
       </p>
 
       <!-- Séparateur -->
@@ -1433,52 +1441,70 @@ function buildMsg() {
     t += '- ' + i.qty + 'x ' + i.name + ' : ' + (i.price * i.qty).toFixed(2) + 'EUR\n';
   });
   t += '\n*TOTAL : ' + cartTotal(true).toFixed(2) + 'EUR*';
-  t += '\n\n(Prestation cuisson a domicile disponible sur devis)';
+  if (prestaDom) t += '\n\n>>> DEMANDE PRESTATION DOMICILE : Oui, merci de me recontacter pour un devis.';
   return t;
 }
 
-function copyRecap() {
-  var t = buildMsg();
-  if (!t) return showToast('Formulaire incomplet ou panier vide', false);
+// ═══ PRESTATION DOMICILE ═══════════════════════════════════════════════════
+var prestaDom = false;
 
-  // Afficher le récapitulatif dans la zone dédiée
-  qs('recap-text').textContent = t;
-  qs('recap-box').style.display = 'block';
-
-  // Copier dans le presse-papier
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(t).then(function() {
-      qs('copy-btn-label').textContent = '✓ Copié !';
-      qs('copy-btn').style.background  = 'linear-gradient(135deg,#16a34a,#22c55e)';
-      setTimeout(function() {
-        qs('copy-btn-label').textContent = 'Copier le récapitulatif';
-        qs('copy-btn').style.background  = 'linear-gradient(135deg,var(--br),#6b2a08)';
-      }, 3000);
-    }).catch(function() { fallbackCopy(t); });
+function togglePrestaDom() {
+  prestaDom = !prestaDom;
+  var check = qs('presta-dom-check');
+  var tick  = qs('presta-dom-tick');
+  var wrap  = qs('presta-domicile-wrap');
+  if (prestaDom) {
+    check.style.background   = 'var(--or)';
+    check.style.borderColor  = 'var(--or)';
+    tick.style.display       = 'block';
+    wrap.style.borderColor   = 'var(--or)';
   } else {
-    fallbackCopy(t);
+    check.style.background   = 'white';
+    check.style.borderColor  = 'rgba(61,31,13,.2)';
+    tick.style.display       = 'none';
+    wrap.style.borderColor   = 'rgba(232,100,42,.15)';
   }
 }
 
-function fallbackCopy(t) {
-  // Fallback pour les navigateurs sans clipboard API
-  var ta = document.createElement('textarea');
-  ta.value = t;
-  ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
-  document.body.appendChild(ta);
-  ta.focus(); ta.select();
-  try {
-    document.execCommand('copy');
-    qs('copy-btn-label').textContent = '✓ Copié !';
-    qs('copy-btn').style.background  = 'linear-gradient(135deg,#16a34a,#22c55e)';
-    setTimeout(function() {
-      qs('copy-btn-label').textContent = 'Copier le récapitulatif';
-      qs('copy-btn').style.background  = 'linear-gradient(135deg,var(--br),#6b2a08)';
-    }, 3000);
-  } catch(e) {
-    showToast('Sélectionnez le texte ci-dessus et copiez manuellement', false);
+// ═══ PARTAGE RECAP ══════════════════════════════════════════════════════════
+function shareRecap() {
+  var t = buildMsg();
+  if (!t) return showToast('Formulaire incomplet ou panier vide', false);
+
+  if (navigator.share) {
+    navigator.share({
+      title: 'Commande OH BROCHETTI',
+      text: t
+    }).catch(function() {}); // L'utilisateur a annulé — pas d'erreur
+  } else {
+    // Fallback desktop : copier dans le presse-papier
+    var lbl = qs('share-btn-label');
+    var btn = qs('share-btn');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(function() {
+        lbl.textContent      = '✓ Copié dans le presse-papier !';
+        btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
+        setTimeout(function() {
+          lbl.textContent      = 'Partager le récapitulatif';
+          btn.style.background = 'linear-gradient(135deg,var(--br),#6b2a08)';
+        }, 3000);
+      });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = t;
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+      document.body.appendChild(ta);
+      ta.focus(); ta.select();
+      try { document.execCommand('copy'); } catch(e) {}
+      document.body.removeChild(ta);
+      lbl.textContent      = '✓ Copié !';
+      btn.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)';
+      setTimeout(function() {
+        lbl.textContent      = 'Partager le récapitulatif';
+        btn.style.background = 'linear-gradient(135deg,var(--br),#6b2a08)';
+      }, 3000);
+    }
   }
-  document.body.removeChild(ta);
 }
 
 function copyOrder() {
