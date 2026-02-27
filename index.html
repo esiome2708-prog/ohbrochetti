@@ -1027,16 +1027,37 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         <span class="total-val" id="cart-total">0.00€</span>
       </div>
 
-      <!-- Instruction -->
-      <p style="font-size:.75rem;color:rgba(61,31,13,.45);font-weight:400;line-height:1.55;margin-bottom:14px;text-align:center">
-        Transmettez-nous votre récapitulatif par WhatsApp<br>ou appelez-nous directement pour finaliser.
-      </p>
+      <!-- Zone récapitulatif -->
+      <div id="recap-box" style="display:none;margin-bottom:14px">
+        <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:rgba(61,31,13,.4);margin-bottom:8px">
+          Votre récapitulatif à copier-coller
+        </div>
+        <div id="recap-text"
+          style="background:#f9f4ee;border:1.5px solid rgba(61,31,13,.1);border-radius:14px;
+                 padding:14px;font-size:.8rem;line-height:1.7;color:var(--br);
+                 font-family:monospace;white-space:pre-wrap;word-break:break-word;
+                 max-height:200px;overflow-y:auto"></div>
+      </div>
 
-      <!-- Bouton WhatsApp principal -->
-      <button class="btn-wa" onclick="sendWA()" style="margin-bottom:10px">
-        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Envoyer ma commande sur WhatsApp
+      <!-- Bouton Copier principal -->
+      <button id="copy-btn" onclick="copyRecap()"
+        style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+               padding:15px;border-radius:16px;
+               background:linear-gradient(135deg,var(--br),#6b2a08);
+               color:white;font-weight:900;font-size:.9rem;text-transform:uppercase;
+               letter-spacing:.05em;border:none;margin-bottom:10px;
+               box-shadow:0 6px 20px rgba(61,31,13,.3)">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+        </svg>
+        <span id="copy-btn-label">Copier le récapitulatif</span>
       </button>
+
+      <p style="font-size:.72rem;color:rgba(61,31,13,.4);line-height:1.55;margin-bottom:14px;text-align:center">
+        Collez ensuite le récapitulatif dans votre<br>
+        <strong style="color:var(--br)">WhatsApp</strong> ou <strong style="color:var(--br)">SMS</strong> et envoyez-le au
+        <strong style="color:var(--or)">0693 80 55 35</strong>
+      </p>
 
       <!-- Séparateur -->
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
@@ -1045,18 +1066,16 @@ footer { background: var(--br); padding: 36px 20px; text-align: center; }
         <div style="flex:1;height:1px;background:rgba(61,31,13,.08)"></div>
       </div>
 
-      <!-- Bouton Appel téléphonique -->
-      <a href="tel:+262693905535"
-         style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
-                padding:14px;border-radius:16px;background:white;
-                border:2px solid rgba(61,31,13,.1);color:var(--br);font-weight:800;
-                font-size:.85rem;text-decoration:none;text-transform:uppercase;letter-spacing:.05em;
-                transition:all .2s"
-         onmouseover="this.style.borderColor='var(--br)'" onmouseout="this.style.borderColor='rgba(61,31,13,.1)'">
-        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <!-- Appel -->
+      <a href="tel:+262693805535"
+        style="width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+               padding:13px;border-radius:14px;background:white;
+               border:2px solid rgba(61,31,13,.1);color:var(--br);font-weight:800;
+               font-size:.82rem;text-decoration:none;text-transform:uppercase;letter-spacing:.05em">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
           <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.4 11.5a19.79 19.79 0 01-3.07-8.67A2 2 0 012.32 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.37a16 16 0 006.72 6.72l1.73-1.73a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
         </svg>
-        Appeler le 0693 90 55 35
+        Appeler le 0693 80 55 35
       </a>
     </div>
   </div>
@@ -1403,25 +1422,63 @@ function buildMsg() {
   var date  = qs('f-date').value;
   if (!name || !phone || !date || !zone || Object.keys(cart).length === 0) return null;
 
-  var t = '*COMMANDE OH BROCHETTI* 🍢\n\n';
-  t += '👤 *Nom :* ' + name + '\n';
-  t += '📞 *Tél :* ' + phone + '\n';
-  t += '📍 *Zone :* ' + zone + '\n';
-  t += '🏪 *RDV :* ' + rdv + '\n';
-  t += '📅 *Date :* ' + date + '\n';
-  t += '*── ARTICLES ──*\n';
+  var t = '*COMMANDE OH BROCHETTI*\n\n';
+  t += '*Nom :* ' + name + '\n';
+  t += '*Tel :* ' + phone + '\n';
+  t += '*Zone :* ' + zone + '\n';
+  t += '*RDV :* ' + rdv + '\n';
+  t += '*Date :* ' + date + '\n';
+  t += '\n*--- ARTICLES ---*\n';
   Object.values(cart).forEach(function(i) {
-    t += '• ' + i.qty + 'x ' + i.name + ' → ' + (i.price * i.qty).toFixed(2) + '€\n';
+    t += '- ' + i.qty + 'x ' + i.name + ' : ' + (i.price * i.qty).toFixed(2) + 'EUR\n';
   });
-  t += '\n💰 *TOTAL : ' + cartTotal(true).toFixed(2) + '€*';
-  t += '\n\n_(Prestation cuisson à domicile disponible sur devis — nous contacter séparément)_';
+  t += '\n*TOTAL : ' + cartTotal(true).toFixed(2) + 'EUR*';
+  t += '\n\n(Prestation cuisson a domicile disponible sur devis)';
   return t;
 }
 
-function sendWA() {
+function copyRecap() {
   var t = buildMsg();
   if (!t) return showToast('Formulaire incomplet ou panier vide', false);
-  window.open('https://wa.me/262693905535?text=' + encodeURIComponent(t), '_blank');
+
+  // Afficher le récapitulatif dans la zone dédiée
+  qs('recap-text').textContent = t;
+  qs('recap-box').style.display = 'block';
+
+  // Copier dans le presse-papier
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(function() {
+      qs('copy-btn-label').textContent = '✓ Copié !';
+      qs('copy-btn').style.background  = 'linear-gradient(135deg,#16a34a,#22c55e)';
+      setTimeout(function() {
+        qs('copy-btn-label').textContent = 'Copier le récapitulatif';
+        qs('copy-btn').style.background  = 'linear-gradient(135deg,var(--br),#6b2a08)';
+      }, 3000);
+    }).catch(function() { fallbackCopy(t); });
+  } else {
+    fallbackCopy(t);
+  }
+}
+
+function fallbackCopy(t) {
+  // Fallback pour les navigateurs sans clipboard API
+  var ta = document.createElement('textarea');
+  ta.value = t;
+  ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try {
+    document.execCommand('copy');
+    qs('copy-btn-label').textContent = '✓ Copié !';
+    qs('copy-btn').style.background  = 'linear-gradient(135deg,#16a34a,#22c55e)';
+    setTimeout(function() {
+      qs('copy-btn-label').textContent = 'Copier le récapitulatif';
+      qs('copy-btn').style.background  = 'linear-gradient(135deg,var(--br),#6b2a08)';
+    }, 3000);
+  } catch(e) {
+    showToast('Sélectionnez le texte ci-dessus et copiez manuellement', false);
+  }
+  document.body.removeChild(ta);
 }
 
 function copyOrder() {
